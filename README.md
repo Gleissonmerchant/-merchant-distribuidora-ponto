@@ -2,146 +2,112 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Merchant Distribuidora • Ponto</title>
 
 <style>
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
-  margin:0;
-  font-family:Arial, sans-serif;
-  background:linear-gradient(135deg,#eef2f7,#dfe6ee);
-  min-height:100vh;
-  padding:18px;
-  color:#18212b;
+margin:0;
+font-family:Arial,sans-serif;
+background:linear-gradient(135deg,#eef2f7,#dfe6ee);
+min-height:100vh;
+padding:22px;
+color:#18212b
 }
 
-.wrap{
-  max-width:520px;
-  margin:auto;
-}
+.wrap{max-width:480px;margin:auto}
 
 .brand{
-  background:#111827;
-  color:white;
-  border-radius:22px 22px 0 0;
-  padding:25px 22px;
+background:#111827;
+color:#fff;
+border-radius:22px 22px 0 0;
+padding:25px 24px
 }
 
-.brand h1{
-  margin:0;
-  font-size:25px;
-}
-
-.brand p{
-  margin:6px 0 0;
-  color:#cbd5e1;
-}
+.brand h1{margin:0;font-size:25px}
+.brand p{margin:6px 0 0;color:#cbd5e1}
 
 .card{
-  background:white;
-  padding:20px;
-  border-radius:0 0 22px 22px;
-  box-shadow:0 18px 50px #0002;
+background:#fff;
+padding:24px;
+border-radius:0 0 22px 22px;
+box-shadow:0 18px 50px #0002
 }
 
 label{
-  display:block;
-  font-weight:bold;
-  margin-bottom:7px;
+display:block;
+font-weight:700;
+margin:0 0 7px
 }
 
 .field{
-  width:100%;
-  padding:14px;
-  border:1px solid #d7dde5;
-  border-radius:12px;
-  font-size:16px;
-  margin-bottom:14px;
+width:100%;
+padding:14px;
+border:1px solid #d7dde5;
+border-radius:12px;
+font-size:16px;
+margin-bottom:18px
 }
 
 button{
-  width:100%;
-  padding:15px;
-  border:0;
-  border-radius:12px;
-  color:white;
-  font-size:16px;
-  font-weight:bold;
-  margin:6px 0;
-  cursor:pointer;
+width:100%;
+padding:15px;
+border:0;
+border-radius:12px;
+color:#fff;
+font-size:16px;
+font-weight:800;
+margin:6px 0;
+cursor:pointer
 }
 
-.in{
-  background:#198754;
-}
-
-.out{
-  background:#dc3545;
-}
-
-.history{
-  background:#2563eb;
-}
-
-.clear{
-  background:#6b7280;
-}
+.in{background:#198754}
+.out{background:#dc3545}
+.admin{background:#111827}
 
 .status{
-  margin-top:16px;
-  padding:15px;
-  background:#f6f8fa;
-  border-radius:12px;
-  white-space:pre-wrap;
-  font-size:14px;
-  line-height:1.5;
+margin-top:18px;
+padding:15px;
+background:#f6f8fa;
+border-radius:12px;
+white-space:pre-wrap;
+font-size:14px
 }
 
-.summary{
-  margin-top:16px;
-  padding:18px;
-  background:#eef6ff;
-  border-radius:14px;
+.hours{
+margin-top:18px;
+padding:18px;
+background:#111827;
+color:white;
+border-radius:15px;
+text-align:center
 }
 
-.summary h2{
-  margin:0 0 10px;
-  font-size:18px;
+.hours small{
+display:block;
+color:#cbd5e1;
+margin-bottom:6px
 }
 
-.total{
-  font-size:25px;
-  font-weight:bold;
+.hours strong{
+font-size:28px
 }
 
-.history-box{
-  margin-top:16px;
-}
-
-.day{
-  background:#f8fafc;
-  border:1px solid #e2e8f0;
-  border-radius:12px;
-  padding:14px;
-  margin-bottom:10px;
-}
-
-.day strong{
-  display:block;
-  margin-bottom:5px;
+.adminbox{
+display:none;
+margin-top:18px;
+padding:18px;
+background:#f3f4f6;
+border-radius:15px
 }
 
 .note{
-  font-size:12px;
-  color:#687386;
-  text-align:center;
-  margin-top:15px;
-  line-height:1.4;
+font-size:12px;
+color:#687386;
+text-align:center;
+margin-top:16px
 }
 </style>
 </head>
@@ -150,652 +116,286 @@ button{
 
 <div class="wrap">
 
-  <div class="brand">
-    <h1>Merchant Distribuidora</h1>
-    <p>Controle de entrada e saída</p>
-  </div>
+<div class="brand">
+<h1>Merchant Distribuidora</h1>
+<p>Registro de entrada e saída</p>
+</div>
 
-  <div class="card">
+<div class="card">
 
-    <label for="nome">Nome</label>
+<label for="nome">Nome</label>
 
-    <input
-      id="nome"
-      class="field"
-      placeholder="Digite seu nome"
-      autocomplete="name"
-    >
+<input
+id="nome"
+class="field"
+placeholder="Digite seu nome"
+autocomplete="name"
+>
 
-    <button class="in" onclick="registrar('entrada')">
-      ✓ Registrar entrada
-    </button>
+<button class="in" onclick="registrar('entrada')">
+✓ Registrar entrada
+</button>
 
-    <button class="out" onclick="registrar('saida')">
-      ✓ Registrar saída
-    </button>
+<button class="out" onclick="registrar('saída')">
+✓ Registrar saída
+</button>
 
-    <div id="status" class="status">
-      Pronto para registrar.
-    </div>
+<div class="hours">
+<small>⏱️ HORAS TRABALHADAS NO DIA</small>
+<strong id="horas">0h 00min</strong>
+</div>
 
-    <div class="summary">
+<div id="status" class="status">
+Pronto para registrar.
+</div>
 
-      <h2>Total trabalhado no mês</h2>
+<button class="admin" onclick="abrirAdmin()">
+🔐 Área do administrador
+</button>
 
-      <div id="totalMes" class="total">
-        00h00min
-      </div>
+<div id="adminbox" class="adminbox">
 
-    </div>
+<h3>🔐 Administração</h3>
 
-    <button class="history" onclick="mostrarHistorico()">
-      📅 Ver histórico
-    </button>
+<p id="adminstatus">
+Área administrativa protegida.
+</p>
 
-    <button class="clear" onclick="limparHistorico()">
-      🗑️ Limpar histórico
-    </button>
+<button class="admin" onclick="verStatusAdmin()">
+📊 Ver situação do ponto
+</button>
 
-    <div id="historico" class="history-box"></div>
+</div>
 
-    <div class="note">
-      A localização será solicitada pelo navegador somente no momento do registro.
-      <br>
-      Os registros ficam salvos neste aparelho/navegador.
-    </div>
+<div class="note">
+A localização será solicitada pelo navegador somente no momento do registro.
+</div>
 
-  </div>
-
+</div>
 </div>
 
 <script>
 
-const DESTINO = "5588997104036";
+const DESTINO="5588997104036";
+const PIN_ADMIN="03101993";
 
-const STORAGE_KEY = "merchant_ponto_registros";
+const CHAVE_ENTRADA="merchant_ponto_entrada";
+const CHAVE_DATA="merchant_ponto_data";
 
+function hoje(){
 
-/* =========================
-   BANCO LOCAL
-========================= */
+const d=new Date();
 
-function obterRegistros(){
-
-  try{
-
-    return JSON.parse(
-      localStorage.getItem(STORAGE_KEY)
-    ) || [];
-
-  }catch(e){
-
-    return [];
-
-  }
+return d.toLocaleDateString("pt-BR");
 
 }
 
+function atualizarHoras(){
 
-function salvarRegistros(registros){
+const entrada=localStorage.getItem(CHAVE_ENTRADA);
+const dataEntrada=localStorage.getItem(CHAVE_DATA);
 
-  localStorage.setItem(
-    STORAGE_KEY,
-    JSON.stringify(registros)
-  );
+if(!entrada || dataEntrada!==hoje()){
 
-}
+document.getElementById("horas").textContent="0h 00min";
 
+if(dataEntrada!==hoje()){
 
-/* =========================
-   DATA
-========================= */
-
-function dataHoje(){
-
-  const d = new Date();
-
-  return d.toISOString().split("T")[0];
+localStorage.removeItem(CHAVE_ENTRADA);
+localStorage.removeItem(CHAVE_DATA);
 
 }
 
-
-function dataFormatada(data){
-
-  const partes = data.split("-");
-
-  return `${partes[2]}/${partes[1]}/${partes[0]}`;
+return;
 
 }
 
+const inicio=new Date(entrada);
+const agora=new Date();
 
-function horaAtual(){
+let minutos=Math.floor((agora-inicio)/60000);
 
-  return new Date().toLocaleTimeString(
-    "pt-BR",
-    {
-      hour:"2-digit",
-      minute:"2-digit"
-    }
-  );
+if(minutos<0) minutos=0;
 
-}
+const horas=Math.floor(minutos/60);
+const mins=minutos%60;
 
-
-/* =========================
-   CONVERTER HORA
-========================= */
-
-function horaParaMinutos(hora){
-
-  const partes = hora.split(":");
-
-  return (
-    parseInt(partes[0]) * 60 +
-    parseInt(partes[1])
-  );
+document.getElementById("horas").textContent=
+horas+"h "+String(mins).padStart(2,"0")+"min";
 
 }
-
-
-function minutosParaTexto(minutos){
-
-  if(!minutos || minutos < 0){
-    return "00h00min";
-  }
-
-  const horas = Math.floor(minutos / 60);
-
-  const mins = minutos % 60;
-
-  return `${String(horas).padStart(2,"0")}h${String(mins).padStart(2,"0")}min`;
-
-}
-
-
-/* =========================
-   REGISTRAR PONTO
-========================= */
 
 function registrar(tipo){
 
-  const nome =
-    document.getElementById("nome")
-    .value
-    .trim();
+const nome=document.getElementById("nome").value.trim();
 
-  if(!nome){
+if(!nome){
 
-    alert("Digite seu nome antes de registrar.");
+alert("Digite seu nome antes de registrar.");
 
-    return;
-  }
+return;
 
+}
 
-  if(!navigator.geolocation){
+if(!navigator.geolocation){
 
-    document.getElementById("status").textContent =
-      "Localização não disponível neste navegador.";
+document.getElementById("status").textContent=
+"Localização não disponível neste navegador.";
 
-    return;
-  }
+return;
 
+}
 
-  const hoje = dataHoje();
+if(tipo==="entrada"){
 
-  const registros = obterRegistros();
+localStorage.setItem(CHAVE_ENTRADA,new Date().toISOString());
+localStorage.setItem(CHAVE_DATA,hoje());
 
-  let registroHoje =
-    registros.find(r =>
-      r.data === hoje &&
-      r.nome.toLowerCase() === nome.toLowerCase()
-    );
+atualizarHoras();
 
+}
 
-  /* =========================
-     VERIFICAÇÕES
-  ========================= */
+document.getElementById("status").textContent=
+"Obtendo localização...";
 
-  if(tipo === "entrada" && registroHoje){
+navigator.geolocation.getCurrentPosition(
 
-    alert(
-      "A entrada de hoje já foi registrada."
-    );
+p=>{
 
-    return;
-  }
+const d=new Date();
 
+const data=d.toLocaleDateString("pt-BR");
+const hora=d.toLocaleTimeString("pt-BR");
 
-  if(tipo === "saida" && !registroHoje){
+const lat=p.coords.latitude.toFixed(6);
+const lon=p.coords.longitude.toFixed(6);
 
-    alert(
-      "Registre a entrada antes de registrar a saída."
-    );
+const mapa=
+`https://www.google.com/maps?q=${lat},${lon}`;
 
-    return;
-  }
+let horasTrabalhadas="";
 
+if(tipo==="saída"){
 
-  if(
-    tipo === "saida" &&
-    registroHoje.saida
-  ){
+const entrada=localStorage.getItem(CHAVE_ENTRADA);
 
-    alert(
-      "A saída de hoje já foi registrada."
-    );
+if(entrada){
 
-    return;
-  }
+const inicio=new Date(entrada);
+let minutos=Math.floor((d-inicio)/60000);
 
+if(minutos<0) minutos=0;
 
-  document.getElementById("status").textContent =
-    "Obtendo localização...";
+const h=Math.floor(minutos/60);
+const m=minutos%60;
 
+horasTrabalhadas=
+`⏱️ Horas trabalhadas: ${h}h ${String(m).padStart(2,"0")}min`;
 
-  navigator.geolocation.getCurrentPosition(
+}else{
 
-    function(position){
+horasTrabalhadas=
+"⏱️ Horas trabalhadas: entrada não encontrada";
 
-      const agora = new Date();
+}
 
-      const hora =
-        agora.toLocaleTimeString(
-          "pt-BR",
-          {
-            hour:"2-digit",
-            minute:"2-digit"
-          }
-        );
+}
 
-
-      const lat =
-        position.coords.latitude
-        .toFixed(6);
-
-      const lon =
-        position.coords.longitude
-        .toFixed(6);
-
-
-      const mapa =
-        `https://www.google.com/maps?q=${lat},${lon}`;
-
-
-      /* =========================
-         ENTRADA
-      ========================= */
-
-      if(tipo === "entrada"){
-
-        const novoRegistro = {
-
-          id: Date.now(),
-
-          nome: nome,
-
-          data: hoje,
-
-          entrada: hora,
-
-          saida: "",
-
-          totalMinutos: 0,
-
-          latitudeEntrada: lat,
-
-          longitudeEntrada: lon,
-
-          mapaEntrada: mapa
-
-        };
-
-
-        registros.push(novoRegistro);
-
-        salvarRegistros(registros);
-
-
-        const msg =
+const msg=
 `🏢 MERCHANT DISTRIBUIDORA
-📋 REGISTRO DE ENTRADA
-
+📋 REGISTRO DE ${tipo.toUpperCase()}
 👤 Nome: ${nome}
-📅 Data: ${dataFormatada(hoje)}
-🕐 Entrada: ${hora}
+📅 Data: ${data}
+🕐 Horário: ${hora}
+${horasTrabalhadas}
+📍 Localização: ${lat}, ${lon}
+🗺️ Mapa: ${mapa}`;
 
-📍 Localização:
-${lat}, ${lon}
+document.getElementById("status").textContent=msg;
 
-🗺️ Mapa:
-${mapa}`;
+if(tipo==="saída"){
 
-
-        document.getElementById("status")
-          .textContent = msg;
-
-
-        atualizarTotalMes();
-
-
-        abrirWhatsApp(msg);
-
-      }
-
-
-      /* =========================
-         SAÍDA
-      ========================= */
-
-      else{
-
-        registroHoje.saida = hora;
-
-        registroHoje.latitudeSaida = lat;
-
-        registroHoje.longitudeSaida = lon;
-
-        registroHoje.mapaSaida = mapa;
-
-
-        const entradaMinutos =
-          horaParaMinutos(
-            registroHoje.entrada
-          );
-
-        const saidaMinutos =
-          horaParaMinutos(hora);
-
-
-        let total =
-          saidaMinutos - entradaMinutos;
-
-
-        /*
-          Caso a saída seja depois da meia-noite,
-          considera a saída como dia seguinte.
-        */
-
-        if(total < 0){
-
-          total += 24 * 60;
-
-        }
-
-
-        registroHoje.totalMinutos = total;
-
-
-        salvarRegistros(registros);
-
-
-        const totalTexto =
-          minutosParaTexto(total);
-
-
-        const msg =
-`🏢 MERCHANT DISTRIBUIDORA
-📋 REGISTRO DE SAÍDA
-
-👤 Nome: ${nome}
-📅 Data: ${dataFormatada(hoje)}
-
-🕐 Entrada:
-${registroHoje.entrada}
-
-🕐 Saída:
-${hora}
-
-⏱️ Total trabalhado:
-${totalTexto}
-
-📍 Localização da saída:
-${lat}, ${lon}
-
-🗺️ Mapa:
-${mapa}`;
-
-
-        document.getElementById("status")
-          .textContent = msg;
-
-
-        atualizarTotalMes();
-
-
-        mostrarHistorico();
-
-
-        abrirWhatsApp(msg);
-
-      }
-
-    },
-
-    function(){
-
-      document.getElementById("status")
-        .textContent =
-        "Não foi possível obter a localização. Autorize a localização e tente novamente.";
-
-    },
-
-    {
-      enableHighAccuracy:true,
-
-      timeout:15000,
-
-      maximumAge:0
-
-    }
-
-  );
+localStorage.removeItem(CHAVE_ENTRADA);
+localStorage.removeItem(CHAVE_DATA);
 
 }
 
+location.href=
+`https://wa.me/${DESTINO}?text=${encodeURIComponent(msg)}`;
 
-/* =========================
-   WHATSAPP
-========================= */
+},
 
-function abrirWhatsApp(msg){
+()=>{
 
-  const url =
-    `https://wa.me/${DESTINO}?text=${encodeURIComponent(msg)}`;
+document.getElementById("status").textContent=
+"Não foi possível obter a localização. Autorize a localização e tente novamente.";
 
-  window.location.href = url;
+},
 
+{
+enableHighAccuracy:true,
+timeout:15000,
+maximumAge:0
 }
 
-
-/* =========================
-   TOTAL DO MÊS
-========================= */
-
-function atualizarTotalMes(){
-
-  const registros =
-    obterRegistros();
-
-  const hoje =
-    new Date();
-
-  const mes =
-    hoje.getMonth();
-
-  const ano =
-    hoje.getFullYear();
-
-
-  let total = 0;
-
-
-  registros.forEach(r => {
-
-    const partes =
-      r.data.split("-");
-
-    const anoRegistro =
-      parseInt(partes[0]);
-
-    const mesRegistro =
-      parseInt(partes[1]) - 1;
-
-
-    if(
-      anoRegistro === ano &&
-      mesRegistro === mes
-    ){
-
-      total +=
-        Number(r.totalMinutos || 0);
-
-    }
-
-  });
-
-
-  document.getElementById("totalMes")
-    .textContent =
-    minutosParaTexto(total);
-
-}
-
-
-/* =========================
-   HISTÓRICO
-========================= */
-
-function mostrarHistorico(){
-
-  const registros =
-    obterRegistros();
-
-
-  const area =
-    document.getElementById("historico");
-
-
-  if(registros.length === 0){
-
-    area.innerHTML =
-      "<p>Nenhum registro encontrado.</p>";
-
-    return;
-  }
-
-
-  const ordenados =
-    [...registros].sort(
-      (a,b) =>
-        b.data.localeCompare(a.data)
-    );
-
-
-  let html =
-    "<h2>📅 Histórico</h2>";
-
-
-  ordenados.forEach(r => {
-
-    html += `
-
-      <div class="day">
-
-        <strong>
-          ${dataFormatada(r.data)}
-        </strong>
-
-        👤 ${r.nome}<br>
-
-        🕐 Entrada:
-        ${r.entrada || "--:--"}<br>
-
-        🕐 Saída:
-        ${r.saida || "--:--"}<br>
-
-        ⏱️ Total:
-        ${r.saida
-          ? minutosParaTexto(r.totalMinutos)
-          : "Em aberto"
-        }
-
-      </div>
-
-    `;
-
-  });
-
-
-  area.innerHTML = html;
-
-}
-
-
-/* =========================
-   LIMPAR HISTÓRICO
-========================= */
-
-function limparHistorico(){
-
-  const registros =
-    obterRegistros();
-
-
-  if(registros.length === 0){
-
-    alert("Não há registros para apagar.");
-
-    return;
-  }
-
-
-  const confirmar =
-    confirm(
-      "Tem certeza que deseja apagar todos os registros deste aparelho?"
-    );
-
-
-  if(!confirmar){
-
-    return;
-
-  }
-
-
-  localStorage.removeItem(
-    STORAGE_KEY
-  );
-
-
-  document.getElementById("historico")
-    .innerHTML = "";
-
-
-  document.getElementById("totalMes")
-    .textContent = "00h00min";
-
-
-  document.getElementById("status")
-    .textContent =
-      "Histórico apagado.";
-
-}
-
-
-/* =========================
-   INICIALIZAÇÃO
-========================= */
-
-document.addEventListener(
-  "DOMContentLoaded",
-  function(){
-
-    atualizarTotalMes();
-
-    mostrarHistorico();
-
-  }
 );
+
+}
+
+function abrirAdmin(){
+
+const pin=prompt("Digite o PIN do administrador:");
+
+if(pin===null) return;
+
+if(pin===PIN_ADMIN){
+
+document.getElementById("adminbox").style.display="block";
+
+document.getElementById("adminstatus").textContent=
+"✅ Acesso autorizado. Administrador conectado.";
+
+}else{
+
+alert("❌ PIN incorreto.");
+
+}
+
+}
+
+function verStatusAdmin(){
+
+const entrada=localStorage.getItem(CHAVE_ENTRADA);
+const dataEntrada=localStorage.getItem(CHAVE_DATA);
+
+if(entrada && dataEntrada===hoje()){
+
+const inicio=new Date(entrada);
+const agora=new Date();
+
+let minutos=Math.floor((agora-inicio)/60000);
+
+if(minutos<0) minutos=0;
+
+const h=Math.floor(minutos/60);
+const m=minutos%60;
+
+document.getElementById("adminstatus").textContent=
+`✅ Funcionário com entrada registrada.
+⏱️ Tempo atual: ${h}h ${String(m).padStart(2,"0")}min`;
+
+}else{
+
+document.getElementById("adminstatus").textContent=
+"ℹ️ Nenhuma entrada registrada hoje.";
+
+}
+
+}
+
+atualizarHoras();
+
+setInterval(atualizarHoras,60000);
 
 </script>
 
