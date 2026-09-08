@@ -11,801 +11,227 @@
 *{box-sizing:border-box}
 body{
   margin:0;
-  font-family:Arial,Helvetica,sans-serif;
-  background:linear-gradient(135deg,#eef2f7,#dfe6ee);
-  min-height:100vh;
-  padding:18px;
-  color:#18212b
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  background:#f3f4f6;
+  color:#111827;
 }
-.wrap{max-width:520px;margin:auto}
-.brand{
+header{
   background:#111827;
-  color:#fff;
-  border-radius:22px 22px 0 0;
-  padding:25px 24px
+  color:white;
+  padding:22px 18px;
+  text-align:center;
 }
-.brand h1{margin:0;font-size:25px}
-.brand p{margin:7px 0 0;color:#cbd5e1}
+.logo{
+  width:82px;
+  height:82px;
+  object-fit:contain;
+  background:white;
+  border-radius:18px;
+  padding:7px;
+  margin-bottom:8px;
+}
+h1{margin:0;font-size:24px}
+.subtitle{opacity:.8;margin-top:5px;font-size:14px}
+.container{max-width:620px;margin:auto;padding:18px}
 .card{
-  background:#fff;
-  padding:24px;
-  border-radius:0 0 22px 22px;
-  box-shadow:0 18px 50px #0002
+  background:white;
+  border-radius:18px;
+  padding:20px;
+  margin-bottom:16px;
+  box-shadow:0 4px 18px rgba(0,0,0,.07);
 }
-label{display:block;font-weight:700;margin:0 0 7px}
-.field{
+label{
+  display:block;
+  font-weight:600;
+  margin-bottom:7px;
+}
+input,select,button{
   width:100%;
   padding:14px;
-  border:1px solid #d7dde5;
   border-radius:12px;
   font-size:16px;
-  margin-bottom:15px;
-  outline:none
 }
-.field:focus{border-color:#111827}
+input,select{
+  border:1px solid #d1d5db;
+  background:white;
+}
 button{
-  width:100%;
-  padding:15px;
   border:0;
-  border-radius:12px;
-  color:#fff;
-  font-size:16px;
-  font-weight:800;
-  margin:6px 0;
-  cursor:pointer
+  background:#111827;
+  color:white;
+  font-weight:700;
+  cursor:pointer;
+  margin-top:10px;
 }
-button:disabled{opacity:.6;cursor:not-allowed}
-.in{background:#198754}
-.out{background:#dc3545}
-.admin{background:#111827}
+button.secondary{background:#6b7280}
+button.success{background:#15803d}
+button.danger{background:#b91c1c}
+button:disabled{opacity:.5}
 .status{
-  margin-top:18px;
-  padding:15px;
-  background:#f6f8fa;
+  margin-top:14px;
+  padding:12px;
   border-radius:12px;
-  white-space:pre-wrap;
+  background:#f3f4f6;
   font-size:14px;
-  line-height:1.5
-}
-.ok{background:#e9f8ef;color:#146c43}
-.error{background:#fff0f0;color:#a61b1b}
-.note{
-  font-size:12px;
-  color:#687386;
-  text-align:center;
-  margin-top:16px
 }
 .hidden{display:none!important}
-.divider{
-  border:0;
-  border-top:1px solid #e5e7eb;
-  margin:24px 0
-}
-.admin-box{
-  background:#f8fafc;
-  padding:18px;
-  border-radius:15px;
-  margin-top:15px
-}
-.row{
-  display:flex;
-  gap:8px
-}
-.row button{flex:1}
-.employee{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
   gap:10px;
-  background:#fff;
+}
+.record{
   border:1px solid #e5e7eb;
+  border-radius:12px;
   padding:12px;
-  border-radius:10px;
-  margin-top:8px
+  margin-top:8px;
 }
-.employee button{
-  width:auto;
-  padding:9px 12px;
-  margin:0;
-  font-size:13px
+.small{font-size:13px;color:#6b7280}
+.hours{
+  font-size:24px;
+  font-weight:800;
+  text-align:center;
+  padding:12px;
 }
-.small{
+footer{
+  text-align:center;
+  padding:20px;
+  color:#6b7280;
   font-size:12px;
-  color:#64748b
 }
-table{
-  width:100%;
-  border-collapse:collapse;
-  margin-top:12px;
-  font-size:13px
-}
-th,td{
-  padding:9px 5px;
-  border-bottom:1px solid #e5e7eb;
-  text-align:left
-}
-.logout{
-  background:#6b7280;
-  margin-top:12px
+@media(max-width:430px){
+  .grid{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <div class="brand">
-    <h1>Merchant Distribuidora</h1>
-    <p>Sistema de registro de ponto</p>
+<header>
+  <div>
+    <img class="logo" src="logo.png" alt="Merchant Distribuidora"
+         onerror="this.style.display='none'">
   </div>
-  <div class="card">
-<!-- ÁREA DO FUNCIONÁRIO -->
-<section id="funcionarioArea">
-  <label for="nome">Nome do funcionário</label>
-  <input
-    id="nome"
-    class="field"
-    placeholder="Digite seu nome"
-    autocomplete="name"
-    maxlength="120"
-  >
-  <button id="entradaBtn" class="in" onclick="registrar('ENTRADA')">
-    ✓ Registrar entrada
-  </button>
-  <button id="saidaBtn" class="out" onclick="registrar('SAIDA')">
-    ✓ Registrar saída
-  </button>
-  <div id="status" class="status">
-    Pronto para registrar.
-  </div>
-  <button class="admin" onclick="abrirLoginAdmin()">
-    🔐 Área do administrador
-  </button>
-  <div class="note">
-    A localização será solicitada pelo navegador somente no momento do registro.
-  </div>
-</section>
-<!-- LOGIN ADMINISTRADOR -->
-<section id="loginArea" class="hidden">
-  <h2>Área administrativa</h2>
-  <label for="adminEmail">E-mail</label>
-  <input
-    id="adminEmail"
-    class="field"
-    type="email"
-    placeholder="E-mail do administrador"
-    autocomplete="email"
-  >
-  <label for="adminSenha">Senha</label>
-  <input
-    id="adminSenha"
-    class="field"
-    type="password"
-    placeholder="Senha do Supabase"
-    autocomplete="current-password"
-  >
-  <button class="admin" onclick="loginAdmin()">
-    Entrar
-  </button>
-  <button class="logout" onclick="fecharLoginAdmin()">
-    Voltar
-  </button>
-  <div id="loginStatus" class="status">
-    Faça login para acessar a administração.
-  </div>
-</section>
-<!-- PAINEL ADMIN -->
-<section id="adminArea" class="hidden">
-  <h2>Administrador</h2>
-  <div class="admin-box">
-    <strong>Funcionários</strong>
-    <input
-      id="novoFuncionario"
-      class="field"
-      placeholder="Nome do novo funcionário"
-      maxlength="120"
-      style="margin-top:12px"
-    >
-    <button class="in" onclick="adicionarFuncionario()">
-      + Cadastrar funcionário
-    </button>
-    <div id="listaFuncionarios">
-      Carregando funcionários...
-    </div>
-  </div>
-  <div class="admin-box">
-    <strong>Registros de ponto</strong>
-    <label style="margin-top:15px">Data</label>
-    <input id="dataConsulta" class="field" type="date">
-    <label>Funcionário</label>
-    <select id="funcionarioConsulta" class="field">
-      <option value="">Todos os funcionários</option>
-    </select>
-    <button class="admin" onclick="consultarRegistros()">
-      🔎 Consultar
-    </button>
-    <div id="resultadoConsulta" class="status">
-      Selecione a data e consulte os registros.
-    </div>
-  </div>
-  <button class="logout" onclick="logoutAdmin()">
-    Sair da administração
-  </button>
-</section>
-  </div>
+  <h1>Merchant Distribuidora</h1>
+  <div class="subtitle">Sistema de Controle de Ponto</div>
+</header>
+<main class="container">
+  <!-- PONTO DO FUNCIONÁRIO -->
+  <section class="card">
+    <h2>Registrar ponto</h2>
+<label for="nome">Funcionário</label>
+<input id="nome" list="listaFuncionarios"
+       placeholder="Digite seu nome"
+       autocomplete="name">
+<datalist id="listaFuncionarios"></datalist>
+<div class="grid">
+  <button class="success" id="btnEntrada">Registrar entrada</button>
+  <button class="danger" id="btnSaida">Registrar saída</button>
 </div>
+<div id="status" class="status">
+  Aguardando registro.
+</div>
+  </section>
+  <!-- ACESSO ADMINISTRATIVO -->
+  <section class="card">
+    <button id="btnMostrarAdmin" class="secondary">
+      Área administrativa
+    </button>
+  </section>
+  <!-- LOGIN ADMIN -->
+  <section id="loginAdmin" class="card hidden">
+    <h2>Login administrativo</h2>
+<label for="adminEmail">E-mail</label>
+<input id="adminEmail" type="email"
+       placeholder="E-mail do administrador"
+       autocomplete="username">
+<label for="adminSenha" style="margin-top:12px">Senha</label>
+<input id="adminSenha" type="password"
+       placeholder="Senha"
+       autocomplete="current-password">
+<button id="btnLogin">Entrar</button>
+<div id="loginStatus" class="status"></div>
+  </section>
+  <!-- PAINEL ADMIN -->
+  <section id="painelAdmin" class="hidden">
+<section class="card">
+  <h2>Painel administrativo</h2>
+  <div id="adminInfo" class="small"></div>
+  <button id="btnLogout" class="secondary">Sair</button>
+</section>
+<!-- FUNCIONÁRIOS -->
+<section class="card">
+  <h2>Funcionários</h2>
+  <label for="novoFuncionario">Novo funcionário</label>
+  <input id="novoFuncionario"
+         placeholder="Nome completo">
+  <button id="btnAdicionarFuncionario" class="success">
+    Adicionar funcionário
+  </button>
+  <div id="listaAdminFuncionarios"></div>
+</section>
+<!-- CONSULTA -->
+<section class="card">
+  <h2>Consulta de ponto</h2>
+  <label for="dataConsulta">Data</label>
+  <input id="dataConsulta" type="date">
+  <label for="funcionarioConsulta" style="margin-top:12px">
+    Funcionário
+  </label>
+  <select id="funcionarioConsulta">
+    <option value="">Todos os funcionários</option>
+  </select>
+  <button id="btnConsultar" class="success">
+    Consultar
+  </button>
+  <div id="resultadoHoras"></div>
+  <div id="resultadoRegistros"></div>
+</section>
+  </section>
+</main>
+<footer>
+  Merchant Distribuidora • Controle de Ponto
+</footer>
 <script>
-/* =========================================================
-   CONFIGURAÇÃO SUPABASE
-   ========================================================= */
-const SUPABASE_URL =
-  "https://paegduddojnlxyqssert.supabase.co";
-const SUPABASE_KEY =
-  "sb_publishable_e70A8BQcnZ0o6XB-aXSbzg_p3pDeenk";
-const { createClient } =
-  supabase;
-const db =
-  createClient(SUPABASE_URL, SUPABASE_KEY);
-/* =========================================================
-   CONFIGURAÇÃO WHATSAPP
-   ========================================================= */
-const DESTINO_WHATSAPP = "5588997104036";
-/* =========================================================
-   ELEMENTOS
-   ========================================================= */
-const statusEl =
-  document.getElementById("status");
-const loginStatusEl =
-  document.getElementById("loginStatus");
-const entradaBtn =
-  document.getElementById("entradaBtn");
-const saidaBtn =
-  document.getElementById("saidaBtn");
-/* =========================================================
-   UTILIDADES
-   ========================================================= */
-function mensagemStatus(texto, tipo="normal"){
-  statusEl.textContent = texto;
-  statusEl.className = "status";
-  if(tipo === "ok")
-    statusEl.classList.add("ok");
-  if(tipo === "error")
-    statusEl.classList.add("error");
+const SUPABASE_URL = "https://paegduddojnlxyqssert.supabase.co";
+const SUPABASE_KEY = "sb_publishable_e70A8BQcnZ0o6XB-aXSbzg_p3pDeenk";
+const { createClient } = supabase;
+const db = createClient(SUPABASE_URL, SUPABASE_KEY);
+const $ = id => document.getElementById(id);
+let funcionarios = [];
+function hojeFortaleza(){
+  const agora = new Date();
+  const partes = new Intl.DateTimeFormat("en-CA", {
+    timeZone:"America/Fortaleza",
+    year:"numeric",
+    month:"2-digit",
+    day:"2-digit"
+  }).formatToParts(agora);
+  const obj = {};
+  partes.forEach(p => obj[p.type] = p.value);
+  return `${obj.year}-${obj.month}-${obj.day}`;
 }
-function formatarDataHora(data){
-  return new Date(data).toLocaleString(
-    "pt-BR",
-    {
-      dateStyle:"short",
-      timeStyle:"medium"
-    }
-  );
+function mostrarStatus(texto, erro=false){
+  $("status").textContent = texto;
+  $("status").style.background = erro ? "#fee2e2" : "#f3f4f6";
 }
-function formatarDuracao(segundos){
-  segundos = Math.max(0, Math.floor(segundos));
-  const horas =
-    Math.floor(segundos / 3600);
-  const minutos =
-    Math.floor((segundos % 3600) / 60);
-  return String(horas).padStart(2,"0")
-    + ":" +
-    String(minutos).padStart(2,"0");
-}
-function bloquearBotoes(valor){
-  entradaBtn.disabled = valor;
-  saidaBtn.disabled = valor;
-}
-/* =========================================================
-   REGISTRAR PONTO
-   ========================================================= */
-async function registrar(tipo){
-  const nome =
-    document.getElementById("nome")
-      .value
-      .trim();
-  if(!nome){
-    alert("Digite seu nome antes de registrar.");
-    return;
-  }
-  bloquearBotoes(true);
-  mensagemStatus(
-    "Obtendo sua localização..."
-  );
-  if(!navigator.geolocation){
-    mensagemStatus(
-      "Seu navegador não disponibilizou a localização.",
-      "error"
-    );
-    bloquearBotoes(false);
-    return;
-  }
-  navigator.geolocation.getCurrentPosition(
-    async position => {
-      try{
-        const latitude =
-          position.coords.latitude;
-        const longitude =
-          position.coords.longitude;
-        const precisao =
-          position.coords.accuracy;
-        mensagemStatus(
-          "Registrando ponto no sistema..."
-        );
-        const { data, error } =
-          await db.rpc(
-            "registrar_ponto",
-            {
-              p_nome: nome,
-              p_tipo: tipo,
-              p_latitude: latitude,
-              p_longitude: longitude,
-              p_precisao_metros: precisao
-            }
-          );
-        if(error)
-          throw error;
-        const registro =
-          Array.isArray(data)
-            ? data[0]
-            : data;
-        if(!registro)
-          throw new Error(
-            "O sistema não retornou o registro."
-          );
-        const dataHora =
-          formatarDataHora(
-            registro.registrado_em
-          );
-        const mapa =
-          `https://www.google.com/maps?q=${latitude},${longitude}`;
-        const msg =
-`🏢 MERCHANT DISTRIBUIDORA
-📋 REGISTRO DE ${tipo}
-👤 Funcionário: ${registro.nome}
-📅 Data e horário: ${dataHora}
-📍 Latitude: ${latitude.toFixed(6)}
-📍 Longitude: ${longitude.toFixed(6)}
-🎯 Precisão: ${Math.round(precisao)} metros
-🗺️ Mapa: ${mapa}`;
-        mensagemStatus(
-          "✓ Ponto registrado com sucesso!\n\n" +
-          msg,
-          "ok"
-        );
-        /*
-          Abre o WhatsApp somente depois
-          de o registro ter sido salvo.
-        */
-        setTimeout(() => {
-          const whatsapp =
-            `https://wa.me/${DESTINO_WHATSAPP}?text=` +
-            encodeURIComponent(msg);
-          window.location.href =
-            whatsapp;
-        },500);
-      }catch(error){
-        console.error(error);
-        let texto =
-          error?.message ||
-          "Não foi possível registrar o ponto.";
-        if(
-          texto.includes(
-            "Funcionário não encontrado"
-          )
-        ){
-          texto =
-            "Funcionário não encontrado ou inativo.\n" +
-            "Procure o administrador para cadastrar seu nome.";
-        }
-        mensagemStatus(
-          "❌ " + texto,
-          "error"
-        );
-      }finally{
-        bloquearBotoes(false);
-      }
-    },
-    error => {
-      console.error(error);
-      let mensagem =
-        "Não foi possível obter sua localização.";
-      if(error.code === 1)
-        mensagem =
-          "Permissão de localização negada. " +
-          "Ative a localização do navegador e tente novamente.";
-      if(error.code === 2)
-        mensagem =
-          "Sua localização não está disponível no momento.";
-      if(error.code === 3)
-        mensagem =
-          "O tempo para obter sua localização terminou. Tente novamente.";
-      mensagemStatus(
-        mensagem,
-        "error"
-      );
-      bloquearBotoes(false);
-    },
-    {
-      enableHighAccuracy:true,
-      timeout:15000,
-      maximumAge:0
-    }
-  );
-}
-/* =========================================================
-   LOGIN ADMIN
-   ========================================================= */
-function abrirLoginAdmin(){
-  document
-    .getElementById("funcionarioArea")
-    .classList.add("hidden");
-  document
-    .getElementById("loginArea")
-    .classList.remove("hidden");
-  document
-    .getElementById("adminEmail")
-    .value =
-      "gleissonferreirapereira@hotmail.com";
-}
-function fecharLoginAdmin(){
-  document
-    .getElementById("loginArea")
-    .classList.add("hidden");
-  document
-    .getElementById("funcionarioArea")
-    .classList.remove("hidden");
-}
-async function loginAdmin(){
-  const email =
-    document
-      .getElementById("adminEmail")
-      .value
-      .trim();
-  const senha =
-    document
-      .getElementById("adminSenha")
-      .value;
-  if(!email || !senha){
-    loginStatusEl.textContent =
-      "Informe o e-mail e a senha.";
-    return;
-  }
-  loginStatusEl.textContent =
-    "Entrando...";
-  const { error } =
-    await db.auth.signInWithPassword({
-      email,
-      password:senha
-    });
-  if(error){
-    loginStatusEl.textContent =
-      "❌ E-mail ou senha incorretos.";
-    return;
-  }
-  const { data: perfil } =
-    await db
-      .from("perfis_usuario")
-      .select("papel")
-      .eq("id",(await db.auth.getUser()).data.user.id)
-      .single();
-  if(
-    !perfil ||
-    perfil.papel !== "admin"
-  ){
-    await db.auth.signOut();
-    loginStatusEl.textContent =
-      "❌ Este usuário não possui permissão de administrador.";
-    return;
-  }
-  abrirPainelAdmin();
-}
-/* =========================================================
-   PAINEL ADMIN
-   ========================================================= */
-async function abrirPainelAdmin(){
-  document
-    .getElementById("loginArea")
-    .classList.add("hidden");
-  document
-    .getElementById("funcionarioArea")
-    .classList.add("hidden");
-  document
-    .getElementById("adminArea")
-    .classList.remove("hidden");
-  document
-    .getElementById("dataConsulta")
-    .value =
-      new Date()
-        .toISOString()
-        .slice(0,10);
-  await carregarFuncionarios();
-}
-/* =========================================================
-   FUNCIONÁRIOS
-   ========================================================= */
 async function carregarFuncionarios(){
-  const lista =
-    document.getElementById(
-      "listaFuncionarios"
-    );
-  const select =
-    document.getElementById(
-      "funcionarioConsulta"
-    );
-  lista.textContent =
-    "Carregando...";
-  const { data, error } =
-    await db
-      .from("funcionarios")
-      .select("id,nome,ativo")
-      .order("nome");
+  const {data,error} = await db
+    .from("funcionarios")
+    .select("id,nome,ativo")
+    .eq("ativo",true)
+    .order("nome");
   if(error){
-    lista.textContent =
-      "Erro ao carregar funcionários.";
     console.error(error);
     return;
   }
-  lista.innerHTML = "";
-  select.innerHTML =
-    '<option value="">Todos os funcionários</option>';
-  if(!data.length){
-    lista.innerHTML =
-      '<div class="small">Nenhum funcionário cadastrado.</div>';
-    return;
-  }
-  data.forEach(funcionario => {
-    const item =
-      document.createElement("div");
-    item.className =
-      "employee";
-    const info =
-      document.createElement("div");
-    info.innerHTML =
-      `<strong>${escapeHtml(funcionario.nome)}</strong>
-       <div class="small">
-       ${funcionario.ativo ? "Ativo" : "Inativo"}
-       </div>`;
-    const botao =
-      document.createElement("button");
-    botao.className =
-      funcionario.ativo
-        ? "out"
-        : "in";
-    botao.textContent =
-      funcionario.ativo
-        ? "Desativar"
-        : "Ativar";
-    botao.onclick =
-      () =>
-        alterarStatusFuncionario(
-          funcionario.id,
-          !funcionario.ativo
-        );
-    item.appendChild(info);
-    item.appendChild(botao);
-    lista.appendChild(item);
-    if(funcionario.ativo){
-      const option =
-        document.createElement("option");
-      option.value =
-        funcionario.id;
-      option.textContent =
-        funcionario.nome;
-      select.appendChild(option);
-    }
-  });
+  funcionarios = data || [];
+  $("listaFuncionarios").innerHTML =
+    funcionarios.map(f => `<option value="${escapeHtml(f.nome)}"></option>`).join("");
+  $("funcionarioConsulta").innerHTML =
+    `<option value="">Todos os funcionários</option>` +
+    funcionarios.map(f =>
+      `<option value="${f.id}">${escapeHtml(f.nome)}</option>`
+    ).join("");
 }
-async function adicionarFuncionario(){
-  const campo =
-    document.getElementById(
-      "novoFuncionario"
-    );
-  const nome =
-    campo.value.trim();
-  if(!nome){
-    alert(
-      "Digite o nome do funcionário."
-    );
-    return;
-  }
-  const { error } =
-    await db
-      .from("funcionarios")
-      .insert({
-        nome,
-        ativo:true
-      });
-  if(error){
-    if(error.code === "23505"){
-      alert(
-        "Já existe um funcionário com esse nome."
-      );
-    }else{
-      alert(
-        "Não foi possível cadastrar o funcionário."
-      );
-      console.error(error);
-    }
-    return;
-  }
-  campo.value = "";
-  await carregarFuncionarios();
-  alert(
-    "Funcionário cadastrado com sucesso."
-  );
-}
-async function alterarStatusFuncionario(
-  id,
-  ativo
-){
-  const { error } =
-    await db
-      .from("funcionarios")
-      .update({ativo})
-      .eq("id",id);
-  if(error){
-    alert(
-      "Não foi possível alterar o funcionário."
-    );
-    console.error(error);
-    return;
-  }
-  await carregarFuncionarios();
-}
-/* =========================================================
-   CONSULTAR REGISTROS
-   ========================================================= */
-async function consultarRegistros(){
-  const data =
-    document
-      .getElementById("dataConsulta")
-      .value;
-  const funcionarioId =
-    document
-      .getElementById("funcionarioConsulta")
-      .value;
-  const resultado =
-    document
-      .getElementById("resultadoConsulta");
-  if(!data){
-    resultado.textContent =
-      "Selecione uma data.";
-    return;
-  }
-  resultado.textContent =
-    "Consultando registros...";
-  const inicio =
-    `${data}T00:00:00`;
-  const fimDate =
-    new Date(`${data}T00:00:00`);
-  fimDate.setDate(
-    fimDate.getDate()+1
-  );
-  const fim =
-    fimDate
-      .toISOString();
-  let query =
-    db
-      .from("registros_ponto")
-      .select(`
-        id,
-        tipo,
-        registrado_em,
-        latitude,
-        longitude,
-        precisao_metros,
-        funcionario_id,
-        funcionarios (
-          nome
-        )
-      `)
-      .gte("registrado_em",inicio)
-      .lt("registrado_em",fim)
-      .order("registrado_em");
-  if(funcionarioId){
-    query =
-      query.eq(
-        "funcionario_id",
-        funcionarioId
-      );
-  }
-  const { data: registros, error } =
-    await query;
-  if(error){
-    resultado.textContent =
-      "Erro ao consultar os registros.";
-    console.error(error);
-    return;
-  }
-  if(!registros.length){
-    resultado.textContent =
-      "Nenhum registro encontrado para esta data.";
-    return;
-  }
-  let html =
-    `<strong>${registros.length} registro(s)</strong>`;
-  html += `
-    <table>
-      <thead>
-        <tr>
-          <th>Funcionário</th>
-          <th>Tipo</th>
-          <th>Horário</th>
-        </tr>
-      </thead>
-      <tbody>
-  `;
-  registros.forEach(r => {
-    const nome =
-      r.funcionarios?.nome ||
-      "Funcionário";
-    html += `
-      <tr>
-        <td>${escapeHtml(nome)}</td>
-        <td>${r.tipo}</td>
-        <td>${formatarDataHora(r.registrado_em)}</td>
-      </tr>
-    `;
-  });
-  html += `
-      </tbody>
-    </table>
-  `;
-  /*
-    Calcula horas quando um funcionário
-    específico foi selecionado.
-  */
-  if(funcionarioId){
-    const { data: intervalo,
-      error: erroHoras } =
-      await db.rpc(
-        "calcular_horas_trabalhadas",
-        {
-          p_funcionario_id:
-            funcionarioId,
-          p_data:
-            data
-        }
-      );
-    if(!erroHoras && intervalo){
-      html += `
-        <div style="margin-top:15px">
-          <strong>⏱ Horas trabalhadas:</strong>
-          ${formatarIntervalo(intervalo)}
-        </div>
-      `;
-    }
-  }
-  resultado.innerHTML =
-    html;
-}
-/* =========================================================
-   FORMATAR INTERVALO POSTGRES
-   ========================================================= */
-function formatarIntervalo(valor){
-  if(typeof valor !== "string")
-    return valor;
-  const match =
-    valor.match(
-      /(?:(\d+)\s+days?\s*)?(\d{1,2}):(\d{2}):(\d{2})/
-    );
-  if(!match)
-    return valor;
-  const dias =
-    Number(match[1] || 0);
-  const horas =
-    Number(match[2] || 0);
-  const minutos =
-    Number(match[3] || 0);
-  const totalHoras =
-    dias * 24 + horas;
-  return (
-    String(totalHoras).padStart(2,"0")
-    + ":" +
-    String(minutos).padStart(2,"0")
-  );
-}
-/* =========================================================
-   SEGURANÇA DE TEXTO HTML
-   ========================================================= */
 function escapeHtml(text){
   return String(text)
     .replaceAll("&","&amp;")
@@ -814,64 +240,337 @@ function escapeHtml(text){
     .replaceAll('"',"&quot;")
     .replaceAll("'","&#039;");
 }
-/* =========================================================
-   VERIFICAR SESSÃO AO ABRIR
-   ========================================================= */
-async function verificarSessao(){
-  const { data } =
-    await db.auth.getSession();
-  if(data.session){
-    const { data: perfil } =
-      await db
-        .from("perfis_usuario")
-        .select("papel")
-        .eq(
-          "id",
-          data.session.user.id
-        )
-        .single();
-    if(
-      perfil &&
-      perfil.papel === "admin"
-    ){
-      abrirPainelAdmin();
+async function obterLocalizacao(){
+  return new Promise((resolve,reject)=>{
+    if(!navigator.geolocation){
+      reject(new Error("Geolocalização não disponível."));
+      return;
     }
+    navigator.geolocation.getCurrentPosition(
+      pos => resolve({
+        latitude:pos.coords.latitude,
+        longitude:pos.coords.longitude,
+        precisao:pos.coords.accuracy
+      }),
+      err => reject(new Error(
+        "Não foi possível obter sua localização. Ative a localização do celular."
+      )),
+      {
+        enableHighAccuracy:true,
+        timeout:15000,
+        maximumAge:0
+      }
+    );
+  });
+}
+async function registrar(tipo){
+  const nome = $("nome").value.trim();
+  if(!nome){
+    mostrarStatus("Digite seu nome antes de registrar o ponto.",true);
+    return;
+  }
+  $("btnEntrada").disabled = true;
+  $("btnSaida").disabled = true;
+  try{
+    mostrarStatus("Obtendo localização...");
+    const local = await obterLocalizacao();
+    mostrarStatus("Registrando ponto...");
+    const {data,error} = await db.rpc("registrar_ponto",{
+      p_nome:nome,
+      p_tipo:tipo,
+      p_latitude:local.latitude,
+      p_longitude:local.longitude,
+      p_precisao_metros:local.precisao
+    });
+    if(error) throw error;
+    const registro = Array.isArray(data) ? data[0] : data;
+    const horario = registro?.registrado_em
+      ? new Date(registro.registrado_em).toLocaleString("pt-BR",{
+          timeZone:"America/Fortaleza"
+        })
+      : new Date().toLocaleString("pt-BR",{
+          timeZone:"America/Fortaleza"
+        });
+    mostrarStatus(
+      `✓ ${tipo === "ENTRADA" ? "Entrada" : "Saída"} registrada com sucesso às ${horario}.`
+    );
+    enviarWhatsApp(nome,tipo,horario,local);
+  }catch(error){
+    console.error(error);
+    let mensagem = error.message || "Não foi possível registrar o ponto.";
+    if(mensagem.includes("duplicate") ||
+       mensagem.includes("Já existe") ||
+       mensagem.includes("já existe")){
+      mensagem = "Este ponto não pode ser registrado agora. Verifique se já existe uma entrada ou saída aberta.";
+    }
+    mostrarStatus("Erro: " + mensagem,true);
+  }finally{
+    $("btnEntrada").disabled = false;
+    $("btnSaida").disabled = false;
   }
 }
-verificarSessao();
-/* =========================================================
-   OBSERVAR LOGIN/LOGOUT
-   ========================================================= */
-db.auth.onAuthStateChange(
-  async (event) => {
-    if(event === "SIGNED_OUT"){
-      document
-        .getElementById("adminArea")
-        .classList.add("hidden");
-      document
-        .getElementById("loginArea")
-        .classList.add("hidden");
-      document
-        .getElementById("funcionarioArea")
-        .classList.remove("hidden");
-    }
+function enviarWhatsApp(nome,tipo,horario,local){
+  const numero = "5588997104036";
+  const texto =
+`Merchant Distribuidora
+Registro de ponto
+Funcionário: ${nome}
+Tipo: ${tipo}
+Horário: ${horario}
+Localização: ${local.latitude.toFixed(6)}, ${local.longitude.toFixed(6)}
+Precisão: ${Math.round(local.precisao)} metros`;
+  const url =
+    "https://wa.me/" + numero +
+    "?text=" + encodeURIComponent(texto);
+  window.open(url,"_blank");
+}
+$("btnEntrada").addEventListener("click",()=>registrar("ENTRADA"));
+$("btnSaida").addEventListener("click",()=>registrar("SAIDA"));
+$("btnMostrarAdmin").addEventListener("click",()=>{
+  $("loginAdmin").classList.toggle("hidden");
+});
+$("btnLogin").addEventListener("click",loginAdmin);
+async function loginAdmin(){
+  const email = $("adminEmail").value.trim();
+  const senha = $("adminSenha").value;
+  if(!email || !senha){
+    $("loginStatus").textContent = "Informe e-mail e senha.";
+    return;
   }
-);
-/* =========================================================
-   LOGOUT
-   ========================================================= */
-async function logoutAdmin(){
+  $("btnLogin").disabled = true;
+  $("loginStatus").textContent = "Entrando...";
+  try{
+    const {data,error} = await db.auth.signInWithPassword({
+      email,
+      password:senha
+    });
+    if(error) throw error;
+    const user = data.user;
+    const {data:perfil,error:perfilError} = await db
+      .from("perfis_usuario")
+      .select("id,email,papel,funcionario_id")
+      .eq("id",user.id)
+      .maybeSingle();
+    if(perfilError) throw perfilError;
+    if(!perfil || perfil.papel !== "admin"){
+      await db.auth.signOut();
+      throw new Error("Este usuário não possui permissão de administrador.");
+    }
+    $("loginStatus").textContent = "Login realizado com sucesso.";
+    $("loginAdmin").classList.add("hidden");
+    $("painelAdmin").classList.remove("hidden");
+    $("adminInfo").textContent = "Administrador: " + (perfil.email || user.email);
+    await carregarPainelAdmin();
+  }catch(error){
+    console.error(error);
+    $("loginStatus").textContent =
+      "Erro no login: " + (error.message || "verifique os dados.");
+  }finally{
+    $("btnLogin").disabled = false;
+  }
+}
+$("btnLogout").addEventListener("click",async()=>{
   await db.auth.signOut();
-}
-/* =========================================================
-   EXPORTAR/ATUALIZAR FUTURAMENTE
-   ========================================================= */
-async function atualizarPainel(){
+  $("painelAdmin").classList.add("hidden");
+  $("loginAdmin").classList.remove("hidden");
+  $("adminSenha").value = "";
+});
+async function carregarPainelAdmin(){
+  await carregarTodosFuncionariosAdmin();
+  $("dataConsulta").value = hojeFortaleza();
   await carregarFuncionarios();
 }
-/* =========================================================
-   FIM
-   ========================================================= */
+async function carregarTodosFuncionariosAdmin(){
+  const {data,error} = await db
+    .from("funcionarios")
+    .select("id,nome,ativo")
+    .order("nome");
+  if(error){
+    $("listaAdminFuncionarios").innerHTML =
+      `<div class="status">Erro: ${escapeHtml(error.message)}</div>`;
+    return;
+  }
+  $("listaAdminFuncionarios").innerHTML =
+    (data || []).map(f=>`
+      <div class="record">
+        <strong>${escapeHtml(f.nome)}</strong>
+        <div class="small">
+          ${f.ativo ? "Ativo" : "Inativo"}
+        </div>
+        <button
+          class="${f.ativo ? "danger" : "success"}"
+          onclick="alterarFuncionario('${f.id}',${!f.ativo})">
+          ${f.ativo ? "Desativar" : "Ativar"}
+        </button>
+      </div>
+    `).join("");
+}
+$("btnAdicionarFuncionario").addEventListener("click",async()=>{
+  const nome = $("novoFuncionario").value.trim();
+  if(!nome){
+    alert("Digite o nome do funcionário.");
+    return;
+  }
+  const {error} = await db
+    .from("funcionarios")
+    .insert({
+      nome:nome,
+      ativo:true
+    });
+  if(error){
+    alert("Erro: " + error.message);
+    return;
+  }
+  $("novoFuncionario").value = "";
+  await carregarTodosFuncionariosAdmin();
+  await carregarFuncionarios();
+  alert("Funcionário adicionado com sucesso.");
+});
+async function alterarFuncionario(id,ativo){
+  const {error} = await db
+    .from("funcionarios")
+    .update({ativo})
+    .eq("id",id);
+  if(error){
+    alert("Erro: " + error.message);
+    return;
+  }
+  await carregarTodosFuncionariosAdmin();
+  await carregarFuncionarios();
+}
+window.alterarFuncionario = alterarFuncionario;
+$("btnConsultar").addEventListener("click",consultarPontos);
+async function consultarPontos(){
+  const data = $("dataConsulta").value;
+  const funcionarioId = $("funcionarioConsulta").value;
+  if(!data){
+    alert("Escolha uma data.");
+    return;
+  }
+  $("resultadoHoras").innerHTML =
+    `<div class="status">Consultando...</div>`;
+  $("resultadoRegistros").innerHTML = "";
+  let inicio = `${data}T00:00:00-03:00`;
+  let fim = `${data}T23:59:59-03:00`;
+  let query = db
+    .from("registros_ponto")
+    .select(`
+      id,
+      tipo,
+      registrado_em,
+      latitude,
+      longitude,
+      precisao_metros,
+      funcionario_id,
+      funcionarios(nome)
+    `)
+    .gte("registrado_em",inicio)
+    .lte("registrado_em",fim)
+    .order("registrado_em",{ascending:true});
+  if(funcionarioId){
+    query = query.eq("funcionario_id",funcionarioId);
+  }
+  const {data:registros,error} = await query;
+  if(error){
+    $("resultadoHoras").innerHTML =
+      `<div class="status">Erro: ${escapeHtml(error.message)}</div>`;
+    return;
+  }
+  let totalSegundos = 0;
+  if(funcionarioId){
+    try{
+      const {data:horas,error:horasError} =
+        await db.rpc("calcular_horas_trabalhadas",{
+          p_funcionario_id:funcionarioId,
+          p_data:data
+        });
+      if(!horasError && horas){
+        const valor = Array.isArray(horas) ? horas[0] : horas;
+        totalSegundos =
+          Number(valor?.segundos || valor?.total_segundos || 0);
+      }
+    }catch(e){
+      console.warn(e);
+    }
+  }else{
+    totalSegundos = calcularHorasLocal(registros || []);
+  }
+  $("resultadoHoras").innerHTML =
+    `<div class="hours">
+      Horas trabalhadas: ${formatarHoras(totalSegundos)}
+    </div>`;
+  if(!registros || registros.length === 0){
+    $("resultadoRegistros").innerHTML =
+      `<div class="status">Nenhum registro encontrado.</div>`;
+    return;
+  }
+  $("resultadoRegistros").innerHTML =
+    registros.map(r=>{
+      const nome = r.funcionarios?.nome || "Funcionário";
+      const horario = new Date(r.registrado_em)
+        .toLocaleString("pt-BR",{timeZone:"America/Fortaleza"});
+      return `
+        <div class="record">
+          <strong>${escapeHtml(nome)}</strong><br>
+          ${r.tipo === "ENTRADA" ? "🟢 Entrada" : "🔴 Saída"}
+          <br>
+          <span class="small">${horario}</span>
+          <br>
+          <span class="small">
+            GPS: ${Number(r.latitude).toFixed(6)},
+            ${Number(r.longitude).toFixed(6)}
+            • ±${Math.round(r.precisao_metros || 0)}m
+          </span>
+        </div>
+      `;
+    }).join("");
+}
+function calcularHorasLocal(registros){
+  let entrada = null;
+  let total = 0;
+  for(const r of registros){
+    const instante = new Date(r.registrado_em);
+    if(r.tipo === "ENTRADA"){
+      if(!entrada) entrada = instante;
+    }else if(r.tipo === "SAIDA" && entrada){
+      total += Math.max(0,instante - entrada);
+      entrada = null;
+    }
+  }
+  return Math.floor(total / 1000);
+}
+function formatarHoras(segundos){
+  segundos = Number(segundos) || 0;
+  const horas = Math.floor(segundos / 3600);
+  const minutos = Math.floor((segundos % 3600) / 60);
+  return `${String(horas).padStart(2,"0")}:${String(minutos).padStart(2,"0")}`;
+}
+async function iniciar(){
+  await carregarFuncionarios();
+  $("dataConsulta").value = hojeFortaleza();
+  const {data} = await db.auth.getSession();
+  if(data?.session){
+    const user = data.session.user;
+    const {data:perfil} = await db
+      .from("perfis_usuario")
+      .select("email,papel")
+      .eq("id",user.id)
+      .maybeSingle();
+    if(perfil?.papel === "admin"){
+      $("painelAdmin").classList.remove("hidden");
+      $("loginAdmin").classList.add("hidden");
+      $("adminInfo").textContent =
+        "Administrador: " + (perfil.email || user.email);
+      await carregarPainelAdmin();
+    }
+  }
+}
+db.auth.onAuthStateChange(async(event,session)=>{
+  if(event === "SIGNED_OUT"){
+    $("painelAdmin").classList.add("hidden");
+  }
+});
+iniciar();
 </script>
 </body>
 </html>
