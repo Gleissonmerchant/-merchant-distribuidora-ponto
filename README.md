@@ -2,243 +2,199 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1, viewport-fit=cover"
->
-
-<meta name="theme-color" content="#111827">
-
-<meta
-  name="description"
-  content="Sistema de registro de ponto da Merchant Distribuidora"
->
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#18395f">
 
 <title>Merchant Distribuidora • Ponto</title>
 
-<style>
-*{
-  box-sizing:border-box;
-  -webkit-tap-highlight-color:transparent;
-}
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-html{
-  min-height:100%;
-}
+<style>
+*{box-sizing:border-box}
 
 body{
   margin:0;
-  min-height:100vh;
-  min-height:100dvh;
-  padding:18px;
-  padding-top:max(18px, env(safe-area-inset-top));
-  padding-bottom:max(18px, env(safe-area-inset-bottom));
-  font-family:Arial,Helvetica,sans-serif;
-  background:linear-gradient(135deg,#eef2f7,#dfe6ee);
-  color:#18212b;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  background:#f4f7fb;
+  color:#102744;
 }
 
-.wrap{
-  width:100%;
-  max-width:500px;
-  margin:0 auto;
+.header{
+  background:#18395f;
+  padding:22px 18px 28px;
+  text-align:center;
+  color:white;
+}
+
+.logo{
+  width:130px;
+  height:130px;
+  object-fit:contain;
+  display:block;
+  margin:0 auto 8px;
+  border-radius:18px;
 }
 
 .brand{
-  background:#111827;
-  color:#fff;
-  border-radius:22px 22px 0 0;
-  padding:24px 22px;
+  font-size:29px;
+  font-weight:800;
+  color:#ffb41f;
 }
 
-.brand h1{
-  margin:0;
-  font-size:25px;
-  line-height:1.2;
-}
-
-.brand p{
-  margin:8px 0 0;
-  color:#cbd5e1;
+.subtitle{
+  margin-top:5px;
   font-size:14px;
+  opacity:.9;
+}
+
+.wrap{
+  max-width:720px;
+  margin:-12px auto 30px;
+  padding:0 14px;
 }
 
 .card{
-  background:#fff;
-  padding:22px;
-  border-radius:0 0 22px 22px;
-  box-shadow:0 18px 50px rgba(0,0,0,.12);
+  background:white;
+  border-radius:18px;
+  padding:20px;
+  margin-top:14px;
+  box-shadow:0 7px 24px rgba(16,39,68,.09);
+}
+
+h2{
+  margin:0 0 14px;
+  font-size:20px;
 }
 
 label{
   display:block;
   font-weight:700;
-  margin-bottom:8px;
+  margin-bottom:7px;
 }
 
-.field{
+input{
   width:100%;
   padding:15px;
-  border:1px solid #d7dde5;
+  border:1px solid #d5dfeb;
   border-radius:12px;
   font-size:16px;
-  margin-bottom:14px;
   outline:none;
-  background:#fff;
-  color:#18212b;
 }
 
-.field:focus{
-  border-color:#111827;
-  box-shadow:0 0 0 3px rgba(17,24,39,.08);
+input:focus{
+  border-color:#18395f;
+}
+
+.buttons{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:13px;
 }
 
 button{
-  width:100%;
-  min-height:52px;
-  padding:14px;
   border:0;
   border-radius:12px;
-  color:#fff;
+  padding:16px 10px;
+  color:white;
   font-size:16px;
   font-weight:800;
-  margin:6px 0;
   cursor:pointer;
-  touch-action:manipulation;
 }
 
-button:active{
-  transform:scale(.99);
+.entry{
+  background:#11945a;
+}
+
+.exit{
+  background:#e52b36;
 }
 
 button:disabled{
-  opacity:.6;
-  cursor:not-allowed;
-}
-
-.in{
-  background:#198754;
-}
-
-.out{
-  background:#dc3545;
-}
-
-.admin{
-  background:#111827;
-}
-
-.clear{
-  background:#6b7280;
-}
-
-.status{
-  margin-top:18px;
-  padding:15px;
-  background:#f6f8fa;
-  border-radius:12px;
-  white-space:pre-wrap;
-  font-size:14px;
-  line-height:1.5;
-  overflow-wrap:anywhere;
+  opacity:.55;
 }
 
 .hours{
-  margin-top:18px;
-  padding:20px 15px;
-  background:#111827;
+  background:#18395f;
   color:white;
-  border-radius:15px;
   text-align:center;
+  padding:22px;
+  border-radius:16px;
+}
+
+.hours .title{
+  font-size:15px;
+  font-weight:700;
+}
+
+.hours .big{
+  font-size:40px;
+  font-weight:900;
+  margin:7px 0;
 }
 
 .hours small{
-  display:block;
-  color:#cbd5e1;
-  margin-bottom:7px;
-  font-weight:700;
+  opacity:.9;
 }
 
-.hours strong{
-  font-size:30px;
-  letter-spacing:.5px;
+.info{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:12px;
 }
 
-.dayinfo{
-  margin-top:10px;
-  text-align:center;
-  color:#64748b;
-  font-size:13px;
-  line-height:1.6;
+.info div{
+  background:#f2f6fa;
+  border-radius:12px;
+  padding:13px;
 }
 
-.adminbox{
-  display:none;
-  margin-top:18px;
-  padding:18px;
-  background:#f3f4f6;
-  border-radius:15px;
-}
-
-.adminbox h3{
-  margin-top:0;
-  margin-bottom:12px;
-}
-
-.adminstatus{
-  white-space:pre-wrap;
-  line-height:1.6;
-  font-size:14px;
-  overflow-wrap:anywhere;
-}
-
-.note{
+.k{
   font-size:12px;
-  color:#687386;
-  text-align:center;
-  margin-top:16px;
-  line-height:1.6;
+  color:#63758a;
+}
+
+.v{
+  font-weight:800;
+  margin-top:4px;
+}
+
+.status{
+  margin-top:12px;
+  padding:12px;
+  border-radius:10px;
+  display:none;
+  font-size:14px;
 }
 
 .ok{
-  color:#198754;
-  font-weight:700;
+  background:#eaf8f1;
+  color:#116b43;
 }
 
-.warning{
-  color:#dc3545;
-  font-weight:700;
+.err{
+  background:#fff0f1;
+  color:#a51d28;
 }
 
-.clock{
-  text-align:center;
-  margin-top:12px;
+.notice{
   font-size:13px;
-  color:#64748b;
+  line-height:1.5;
+  color:#52667d;
+  margin-top:12px;
 }
 
-hr{
-  border:0;
-  border-top:1px solid #e5e7eb;
-  margin:18px 0;
+.footer{
+  text-align:center;
+  color:#718399;
+  font-size:12px;
+  padding:15px;
 }
 
-@media(max-width:380px){
-  body{
-    padding:12px;
-  }
-
-  .card{
-    padding:18px;
-  }
-
-  .brand h1{
-    font-size:22px;
-  }
-
-  .hours strong{
-    font-size:26px;
+@media(max-width:520px){
+  .buttons{
+    grid-template-columns:1fr;
   }
 }
 </style>
@@ -246,1336 +202,547 @@ hr{
 
 <body>
 
-<div class="wrap">
+<header class="header">
+
+  <!-- LOGOMARCA MERCHANT -->
+  <img
+    class="logo"
+    src="IMG_1882.png"
+    alt="Merchant"
+  >
 
   <div class="brand">
-    <h1>Merchant Distribuidora</h1>
-    <p>Registro de entrada e saída</p>
+    Merchant
   </div>
 
-  <div class="card">
+  <div class="subtitle">
+    Ponto eletrônico • Registro de entrada e saída
+  </div>
 
-    <label for="nome">
-      Nome do funcionário
-    </label>
+</header>
 
-    <input
-      id="nome"
-      class="field"
-      type="text"
-      placeholder="Digite seu nome"
-      autocomplete="name"
-      maxlength="100"
-    >
+
+<main class="wrap">
+
+<section class="card">
+
+  <h2>Registrar ponto</h2>
+
+  <label for="nome">
+    Nome do funcionário
+  </label>
+
+  <input
+    id="nome"
+    autocomplete="name"
+    placeholder="Digite seu nome"
+  >
+
+  <div class="buttons">
 
     <button
-      id="btnEntrada"
-      class="in"
-      type="button"
-      onclick="registrarEntrada()"
+      id="entrada"
+      class="entry"
+      onclick="registrar('ENTRADA')"
     >
-      ✓ Registrar entrada
+      ➜ Registrar entrada
     </button>
 
     <button
-      id="btnSaida"
-      class="out"
-      type="button"
-      onclick="registrarSaida()"
+      id="saida"
+      class="exit"
+      onclick="registrar('SAIDA')"
     >
-      ✓ Registrar saída
+      ➜ Registrar saída
     </button>
 
-    <div class="hours">
-      <small>⏱️ HORAS TRABALHADAS NO DIA</small>
-      <strong id="horas">0h 00min</strong>
+  </div>
+
+  <div id="status" class="status"></div>
+
+  <div class="notice">
+    📍 A localização será solicitada no momento do registro.
+    O horário e o ponto ficam armazenados no banco centralizado.
+  </div>
+
+</section>
+
+
+<section class="card">
+
+  <div class="hours">
+
+    <div class="title">
+      ⏱️ HORAS TRABALHADAS HOJE
     </div>
 
-    <div
-      id="dayinfo"
-      class="dayinfo"
-    >
-      Nenhum expediente registrado hoje.
+    <div id="horas" class="big">
+      0h 00min
     </div>
 
-    <div
-      id="clock"
-      class="clock"
-    >
-      Horário atual: --:--:--
-    </div>
+    <small id="data">
+      —
+    </small>
 
-    <div
-      id="status"
-      class="status"
-    >
-      Pronto para registrar.
-    </div>
+  </div>
 
-    <button
-      class="admin"
-      type="button"
-      onclick="abrirAdmin()"
-    >
-      🔐 Área do administrador
-    </button>
 
-    <div
-      id="adminbox"
-      class="adminbox"
-    >
+  <div class="info">
 
-      <h3>🔐 Administração</h3>
-
-      <div
-        id="adminstatus"
-        class="adminstatus"
-      >
-        Área administrativa protegida.
+    <div>
+      <div class="k">
+        Funcionário
       </div>
 
-      <hr>
-
-      <button
-        class="admin"
-        type="button"
-        onclick="verStatusAdmin()"
-      >
-        📊 Ver situação do ponto
-      </button>
-
-      <button
-        class="clear"
-        type="button"
-        onclick="limparDadosAdmin()"
-      >
-        🗑️ Limpar registros deste aparelho
-      </button>
-
+      <div id="func" class="v">
+        —
+      </div>
     </div>
 
-    <div class="note">
-      📍 A localização será solicitada pelo navegador no momento do registro.
-      <br>
-      🔒 Os registros deste protótipo ficam armazenados neste aparelho.
-      <br>
-      📲 Os registros são enviados ao WhatsApp do administrador.
+
+    <div>
+      <div class="k">
+        Situação
+      </div>
+
+      <div id="situacao" class="v">
+        Aguardando
+      </div>
     </div>
 
   </div>
 
+</section>
+
+
+<section class="card">
+
+  <h2>
+    📋 Como funciona
+  </h2>
+
+  <div class="notice">
+
+    <b>Entrada:</b>
+    inicia o expediente.
+
+    <br><br>
+
+    <b>Saída:</b>
+    encerra o período e calcula as horas trabalhadas.
+
+    <br><br>
+
+    📍 A localização é registrada junto ao ponto.
+
+    <br>
+
+    ☁️ Os registros ficam armazenados de forma centralizada.
+
+    <br>
+
+    🇧🇷 O sistema utiliza o horário de São Paulo.
+
+  </div>
+
+</section>
+
+</main>
+
+
+<div class="footer">
+  Merchant Distribuidora • Ponto eletrônico
 </div>
+
 
 <script>
 
-/* =========================================================
-   CONFIGURAÇÕES
-   ========================================================= */
+const SUPABASE_URL =
+"https://paegduddojnlxyqssert.supabase.co";
 
-const DESTINO = "5588997104036";
+const SUPABASE_KEY =
+"sb_publishable_e70A8BQcnZ0o6XB-aXSbzg_p3pDeenk";
 
-const PIN_ADMIN = "03101993";
-
-const CHAVE_DADOS = "merchant_ponto_dados_v4";
-
-
-/* =========================================================
-   ESTADO
-   ========================================================= */
-
-let dados = carregarDados();
+const sb =
+window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
 
 
-/* =========================================================
-   DATA E HORA
-   ========================================================= */
+const DESTINO_WHATSAPP =
+"5588997104036";
 
-function dataHoje(){
 
-  const d = new Date();
+const nomeEl =
+document.getElementById("nome");
 
-  return d.toLocaleDateString(
-    "pt-BR"
+const statusEl =
+document.getElementById("status");
+
+
+let ultimoResumo = null;
+
+
+/* MENSAGEM */
+
+function mostrar(msg, ok=false){
+
+  statusEl.textContent = msg;
+
+  statusEl.className =
+    "status " + (ok ? "ok" : "err");
+
+  statusEl.style.display =
+    "block";
+}
+
+
+/* HORAS */
+
+function formatar(seg){
+
+  seg =
+    Math.max(
+      0,
+      Math.floor(seg || 0)
+    );
+
+  const h =
+    Math.floor(seg / 3600);
+
+  const m =
+    Math.floor(
+      (seg % 3600) / 60
+    );
+
+  return (
+    h +
+    "h " +
+    String(m).padStart(2,"0") +
+    "min"
   );
+}
+
+
+/* DATA */
+
+function atualizarData(){
+
+  document.getElementById("data")
+    .textContent =
+    "Hoje • " +
+    new Intl.DateTimeFormat(
+      "pt-BR",
+      {
+        timeZone:"America/Sao_Paulo",
+        dateStyle:"full"
+      }
+    ).format(new Date());
 
 }
 
 
-function horarioAtual(){
+/* RESUMO DAS HORAS */
 
-  const d = new Date();
-
-  return d.toLocaleTimeString(
-    "pt-BR",
-    {
-      hour:"2-digit",
-      minute:"2-digit",
-      second:"2-digit"
-    }
-  );
-
-}
-
-
-function atualizarRelogio(){
-
-  const elemento =
-    document.getElementById("clock");
-
-  if(elemento){
-
-    elemento.textContent =
-      "Horário atual: " +
-      horarioAtual();
-
-  }
-
-}
-
-
-/* =========================================================
-   ESTRUTURA DOS DADOS
-   ========================================================= */
-
-function criarDadosVazios(){
-
-  return {
-    data:dataHoje(),
-    registros:[]
-  };
-
-}
-
-
-/* =========================================================
-   CARREGAR DADOS
-   ========================================================= */
-
-function carregarDados(){
-
-  try{
-
-    const salvo =
-      localStorage.getItem(
-        CHAVE_DADOS
-      );
-
-    if(!salvo){
-
-      return criarDadosVazios();
-
-    }
-
-    const obj =
-      JSON.parse(salvo);
-
-    if(
-      !obj ||
-      obj.data !== dataHoje() ||
-      !Array.isArray(obj.registros)
-    ){
-
-      return criarDadosVazios();
-
-    }
-
-    return obj;
-
-  }catch(e){
-
-    console.error(
-      "Erro ao carregar dados:",
-      e
-    );
-
-    return criarDadosVazios();
-
-  }
-
-}
-
-
-/* =========================================================
-   SALVAR DADOS
-   ========================================================= */
-
-function salvarDados(){
-
-  try{
-
-    localStorage.setItem(
-      CHAVE_DADOS,
-      JSON.stringify(dados)
-    );
-
-  }catch(e){
-
-    console.error(
-      "Erro ao salvar dados:",
-      e
-    );
-
-    alert(
-      "Não foi possível salvar o registro neste aparelho."
-    );
-
-  }
-
-}
-
-
-/* =========================================================
-   NORMALIZAR NOME
-   ========================================================= */
-
-function normalizarNome(nome){
-
-  return nome
-    .trim()
-    .replace(/\s+/g," ")
-    .toLowerCase();
-
-}
-
-
-/* =========================================================
-   OBTER NOME
-   ========================================================= */
-
-function obterNome(){
-
-  const campo =
-    document.getElementById("nome");
+async function resumo(){
 
   const nome =
-    campo.value.trim();
+    nomeEl.value.trim();
 
   if(!nome){
+    ultimoResumo = null;
+    atualizarHoras();
+    return;
+  }
 
-    alert(
-      "Digite o nome do funcionário antes de registrar."
+
+  const {data,error} =
+    await sb.rpc(
+      "resumo_ponto_por_nome",
+      {
+        p_nome:nome
+      }
     );
 
-    campo.focus();
 
-    return null;
+  if(error){
+
+    ultimoResumo = null;
+    atualizarHoras();
+    return;
+  }
+
+
+  ultimoResumo =
+    data && data[0]
+      ? data[0]
+      : null;
+
+
+  document.getElementById("func")
+    .textContent =
+    ultimoResumo?.funcionario_nome ||
+    nome;
+
+
+  atualizarHoras();
+
+}
+
+
+/* ATUALIZAR HORAS */
+
+function atualizarHoras(){
+
+  atualizarData();
+
+
+  if(!ultimoResumo){
+
+    document.getElementById("horas")
+      .textContent =
+      "0h 00min";
+
+    document.getElementById("situacao")
+      .textContent =
+      "Sem registros hoje";
+
+    return;
+  }
+
+
+  let total =
+    Number(
+      ultimoResumo
+        .horas_trabalhadas_segundos ||
+      0
+    );
+
+
+  if(
+    ultimoResumo.em_andamento &&
+    ultimoResumo.entrada_em_andamento
+  ){
+
+    total += Math.max(
+      0,
+      (
+        Date.now() -
+        new Date(
+          ultimoResumo
+            .entrada_em_andamento
+        ).getTime()
+      ) / 1000
+    );
 
   }
+
+
+  document.getElementById("horas")
+    .textContent =
+    formatar(total);
+
+
+  document.getElementById("situacao")
+    .textContent =
+    ultimoResumo.em_andamento
+      ? "🟢 Em andamento"
+      : "Concluído";
+
+}
+
+
+/* LOCALIZAÇÃO */
+
+async function localizar(){
+
+  return new Promise(
+    (resolve,reject)=>{
+
+      if(!navigator.geolocation){
+
+        reject(
+          new Error(
+            "Seu aparelho não oferece localização."
+          )
+        );
+
+        return;
+      }
+
+
+      navigator.geolocation.getCurrentPosition(
+
+        position =>
+          resolve(
+            position.coords
+          ),
+
+        () =>
+          reject(
+            new Error(
+              "Não foi possível obter sua localização. Ative a localização e tente novamente."
+            )
+          ),
+
+        {
+          enableHighAccuracy:true,
+          timeout:15000,
+          maximumAge:0
+        }
+
+      );
+
+    }
+  );
+
+}
+
+
+/* REGISTRAR */
+
+async function registrar(tipo){
+
+  const nome =
+    nomeEl.value.trim();
+
 
   if(nome.length < 2){
 
-    alert(
-      "Digite um nome válido."
-    );
-
-    campo.focus();
-
-    return null;
-
-  }
-
-  return nome;
-
-}
-
-
-/* =========================================================
-   PROCURAR REGISTRO DO FUNCIONÁRIO
-   ========================================================= */
-
-function encontrarRegistro(nome){
-
-  const nomeNormalizado =
-    normalizarNome(nome);
-
-  return dados.registros.find(
-    registro =>
-      normalizarNome(registro.nome) ===
-      nomeNormalizado
-  );
-
-}
-
-
-/* =========================================================
-   FORMATAR TEMPO
-   ========================================================= */
-
-function formatarTempo(minutos){
-
-  minutos =
-    Math.max(
-      0,
-      Math.floor(minutos || 0)
-    );
-
-  const horas =
-    Math.floor(minutos / 60);
-
-  const mins =
-    minutos % 60;
-
-  return (
-    horas +
-    "h " +
-    String(mins).padStart(2,"0") +
-    "min"
-  );
-
-}
-
-
-/* =========================================================
-   CALCULAR MINUTOS
-   ========================================================= */
-
-function minutosDoRegistro(registro){
-
-  if(
-    !registro ||
-    !registro.entrada
-  ){
-
-    return 0;
-
-  }
-
-  const inicio =
-    new Date(
-      registro.entrada
-    );
-
-  if(
-    isNaN(
-      inicio.getTime()
-    )
-  ){
-
-    return 0;
-
-  }
-
-  const fim =
-    registro.saida
-      ? new Date(registro.saida)
-      : new Date();
-
-  if(
-    isNaN(
-      fim.getTime()
-    )
-  ){
-
-    return 0;
-
-  }
-
-  let minutos =
-    Math.floor(
-      (fim - inicio) / 60000
-    );
-
-  if(minutos < 0){
-
-    minutos = 0;
-
-  }
-
-  return minutos;
-
-}
-
-
-/* =========================================================
-   TOTAL DO DIA
-   ========================================================= */
-
-function totalDoDia(){
-
-  let total = 0;
-
-  dados.registros.forEach(
-    registro => {
-
-      total +=
-        minutosDoRegistro(
-          registro
-        );
-
-    }
-  );
-
-  return total;
-
-}
-
-
-/* =========================================================
-   FORMATAR HORA
-   ========================================================= */
-
-function formatarHora(dataISO){
-
-  if(!dataISO){
-
-    return "--:--";
-
-  }
-
-  const data =
-    new Date(dataISO);
-
-  if(
-    isNaN(
-      data.getTime()
-    )
-  ){
-
-    return "--:--";
-
-  }
-
-  return data.toLocaleTimeString(
-    "pt-BR",
-    {
-      hour:"2-digit",
-      minute:"2-digit"
-    }
-  );
-
-}
-
-
-/* =========================================================
-   ATUALIZAR TELA
-   ========================================================= */
-
-function atualizarTela(){
-
-  if(
-    dados.data !== dataHoje()
-  ){
-
-    dados =
-      criarDadosVazios();
-
-    salvarDados();
-
-  }
-
-  const nomeCampo =
-    document.getElementById(
-      "nome"
-    ).value.trim();
-
-  let registroAtual = null;
-
-  if(nomeCampo){
-
-    registroAtual =
-      encontrarRegistro(
-        nomeCampo
-      );
-
-  }
-
-  const horas =
-    document.getElementById(
-      "horas"
-    );
-
-  const info =
-    document.getElementById(
-      "dayinfo"
-    );
-
-  const btnEntrada =
-    document.getElementById(
-      "btnEntrada"
-    );
-
-  const btnSaida =
-    document.getElementById(
-      "btnSaida"
-    );
-
-
-  /*
-   * Se houver nome digitado,
-   * mostra as horas daquele funcionário.
-   */
-
-  if(registroAtual){
-
-    const total =
-      minutosDoRegistro(
-        registroAtual
-      );
-
-    horas.textContent =
-      formatarTempo(total);
-
-
-    if(
-      registroAtual.entrada &&
-      !registroAtual.saida
-    ){
-
-      info.innerHTML =
-        "🟢 Entrada: " +
-        formatarHora(
-          registroAtual.entrada
-        ) +
-        "<br>⏳ Expediente em andamento";
-
-
-      btnEntrada.disabled = true;
-
-      btnSaida.disabled = false;
-
-    }
-
-    else if(
-      registroAtual.entrada &&
-      registroAtual.saida
-    ){
-
-      info.innerHTML =
-        "🟢 Entrada: " +
-        formatarHora(
-          registroAtual.entrada
-        ) +
-        "<br>🔴 Saída: " +
-        formatarHora(
-          registroAtual.saida
-        );
-
-
-      btnEntrada.disabled = false;
-
-      btnSaida.disabled = true;
-
-    }
-
-  }
-
-  else{
-
-    horas.textContent =
-      "0h 00min";
-
-    info.textContent =
-      "Nenhum expediente registrado hoje.";
-
-    btnEntrada.disabled = false;
-
-    btnSaida.disabled = false;
-
-  }
-
-  atualizarRelogio();
-
-}
-
-
-/* =========================================================
-   REGISTRAR ENTRADA
-   ========================================================= */
-
-function registrarEntrada(){
-
-  const nome =
-    obterNome();
-
-  if(!nome){
-
-    return;
-
-  }
-
-  let registro =
-    encontrarRegistro(
-      nome
-    );
-
-
-  if(
-    registro &&
-    registro.entrada &&
-    !registro.saida
-  ){
-
-    alert(
-      "Este funcionário já possui uma entrada registrada hoje."
-    );
-
-    atualizarTela();
-
-    return;
-
-  }
-
-
-  if(
-    registro &&
-    registro.entrada &&
-    registro.saida
-  ){
-
-    alert(
-      "A entrada e a saída deste funcionário já foram registradas hoje."
-    );
-
-    atualizarTela();
-
-    return;
-
-  }
-
-
-  registro = {
-
-    nome:nome,
-
-    entrada:
-      new Date().toISOString(),
-
-    saida:null
-
-  };
-
-
-  dados.registros.push(
-    registro
-  );
-
-  salvarDados();
-
-  atualizarTela();
-
-  registrarLocalizacao(
-    "ENTRADA",
-    registro
-  );
-
-}
-
-
-/* =========================================================
-   REGISTRAR SAÍDA
-   ========================================================= */
-
-function registrarSaida(){
-
-  const nome =
-    obterNome();
-
-  if(!nome){
-
-    return;
-
-  }
-
-  const registro =
-    encontrarRegistro(
-      nome
-    );
-
-
-  if(!registro){
-
-    alert(
-      "Não existe entrada registrada hoje para este funcionário."
+    mostrar(
+      "Informe o nome do funcionário."
     );
 
     return;
-
   }
 
 
-  if(!registro.entrada){
+  document.getElementById("entrada")
+    .disabled = true;
 
-    alert(
-      "Não existe entrada registrada hoje."
-    );
-
-    return;
-
-  }
+  document.getElementById("saida")
+    .disabled = true;
 
 
-  if(registro.saida){
-
-    alert(
-      "A saída de hoje já foi registrada para este funcionário."
-    );
-
-    atualizarTela();
-
-    return;
-
-  }
-
-
-  registro.saida =
-    new Date().toISOString();
-
-
-  salvarDados();
-
-  atualizarTela();
-
-  registrarLocalizacao(
-    "SAÍDA",
-    registro
+  mostrar(
+    "Obtendo localização e registrando...",
+    true
   );
-
-}
-
-
-/* =========================================================
-   LOCALIZAÇÃO
-   ========================================================= */
-
-function registrarLocalizacao(
-  tipo,
-  registro
-){
-
-  const status =
-    document.getElementById(
-      "status"
-    );
-
-  status.textContent =
-    "📍 Obtendo localização...";
-
-
-  if(
-    !navigator.geolocation
-  ){
-
-    status.textContent =
-      "⚠️ Este navegador não disponibilizou a localização.";
-
-    enviarWhatsAppSemLocalizacao(
-      tipo,
-      registro
-    );
-
-    return;
-
-  }
-
-
-  navigator.geolocation.getCurrentPosition(
-
-    function(position){
-
-      const latitude =
-        position.coords.latitude
-          .toFixed(6);
-
-      const longitude =
-        position.coords.longitude
-          .toFixed(6);
-
-      const precisao =
-        position.coords.accuracy
-          ? Math.round(
-              position.coords.accuracy
-            )
-          : null;
-
-
-      const mapa =
-        "https://www.google.com/maps?q=" +
-        latitude +
-        "," +
-        longitude;
-
-
-      enviarRegistroWhatsApp(
-        tipo,
-        registro,
-        latitude,
-        longitude,
-        mapa,
-        precisao
-      );
-
-    },
-
-    function(error){
-
-      let mensagem =
-        "Não foi possível obter a localização.";
-
-
-      if(error.code === 1){
-
-        mensagem =
-          "Localização negada. Autorize a localização para registrar o ponto.";
-
-      }
-
-
-      if(error.code === 2){
-
-        mensagem =
-          "Não foi possível determinar sua localização.";
-
-      }
-
-
-      if(error.code === 3){
-
-        mensagem =
-          "A localização demorou demais para responder.";
-
-      }
-
-
-      status.textContent =
-        "⚠️ " +
-        mensagem;
-
-
-      enviarWhatsAppSemLocalizacao(
-        tipo,
-        registro
-      );
-
-    },
-
-    {
-      enableHighAccuracy:true,
-      timeout:20000,
-      maximumAge:0
-    }
-
-  );
-
-}
-
-
-/* =========================================================
-   WHATSAPP COM LOCALIZAÇÃO
-   ========================================================= */
-
-function enviarRegistroWhatsApp(
-  tipo,
-  registro,
-  latitude,
-  longitude,
-  mapa,
-  precisao
-){
-
-  const data =
-    dataHoje();
-
-  const hora =
-    horarioAtual();
-
-
-  let textoHoras = "";
-
-
-  if(tipo === "SAÍDA"){
-
-    textoHoras =
-      "⏱️ Horas trabalhadas: " +
-      formatarTempo(
-        minutosDoRegistro(
-          registro
-        )
-      );
-
-  }else{
-
-    textoHoras =
-      "⏱️ Expediente iniciado";
-
-  }
-
-
-  const textoPrecisao =
-    precisao
-      ? "📡 Precisão aproximada: " +
-        precisao +
-        " metros"
-      : "";
-
-
-  const mensagem =
-`🏢 MERCHANT DISTRIBUIDORA
-📋 REGISTRO DE ${tipo}
-
-👤 Funcionário: ${registro.nome}
-📅 Data: ${data}
-🕐 Horário: ${hora}
-
-${textoHoras}
-
-📍 Localização:
-${latitude}, ${longitude}
-
-${textoPrecisao}
-
-🗺️ Mapa:
-${mapa}`;
-
-
-  document.getElementById(
-    "status"
-  ).textContent =
-    mensagem;
-
-
-  abrirWhatsApp(
-    mensagem
-  );
-
-}
-
-
-/* =========================================================
-   WHATSAPP SEM LOCALIZAÇÃO
-   ========================================================= */
-
-function enviarWhatsAppSemLocalizacao(
-  tipo,
-  registro
-){
-
-  const hora =
-    horarioAtual();
-
-
-  const textoHoras =
-    tipo === "SAÍDA"
-
-      ? "⏱️ Horas trabalhadas: " +
-        formatarTempo(
-          minutosDoRegistro(
-            registro
-          )
-        )
-
-      : "⏱️ Expediente iniciado";
-
-
-  const mensagem =
-`🏢 MERCHANT DISTRIBUIDORA
-📋 REGISTRO DE ${tipo}
-
-👤 Funcionário: ${registro.nome}
-📅 Data: ${dataHoje()}
-🕐 Horário: ${hora}
-
-${textoHoras}
-
-⚠️ Localização não disponível.`;
-
-
-  document.getElementById(
-    "status"
-  ).textContent =
-    mensagem;
-
-
-  abrirWhatsApp(
-    mensagem
-  );
-
-}
-
-
-/* =========================================================
-   ABRIR WHATSAPP
-   ========================================================= */
-
-function abrirWhatsApp(
-  mensagem
-){
-
-  const url =
-    "https://wa.me/" +
-    DESTINO +
-    "?text=" +
-    encodeURIComponent(
-      mensagem
-    );
-
-
-  /*
-   * location.href funciona melhor
-   * no iPhone e Android para abrir
-   * o WhatsApp ou WhatsApp Web.
-   */
-
-  window.location.href =
-    url;
-
-}
-
-
-/* =========================================================
-   ÁREA ADMINISTRATIVA
-   ========================================================= */
-
-function abrirAdmin(){
-
-  const pin =
-    prompt(
-      "Digite o PIN do administrador:"
-    );
-
-
-  if(pin === null){
-
-    return;
-
-  }
-
-
-  if(pin === PIN_ADMIN){
-
-    document.getElementById(
-      "adminbox"
-    ).style.display =
-      "block";
-
-
-    document.getElementById(
-      "adminstatus"
-    ).textContent =
-      "✅ Acesso autorizado.\nAdministrador conectado.";
-
-
-    verStatusAdmin();
-
-  }
-
-  else{
-
-    alert(
-      "❌ PIN incorreto."
-    );
-
-  }
-
-}
-
-
-/* =========================================================
-   STATUS ADMIN
-   ========================================================= */
-
-function verStatusAdmin(){
-
-  const area =
-    document.getElementById(
-      "adminstatus"
-    );
-
-
-  if(
-    !dados.registros.length
-  ){
-
-    area.textContent =
-      "ℹ️ Nenhum registro encontrado hoje.";
-
-    return;
-
-  }
-
-
-  let texto =
-    "📊 SITUAÇÃO DO PONTO\n\n";
-
-
-  dados.registros.forEach(
-    function(registro,index){
-
-      const total =
-        minutosDoRegistro(
-          registro
-        );
-
-
-      texto +=
-`👤 Funcionário: ${registro.nome}
-🟢 Entrada: ${formatarHora(registro.entrada)}
-`;
-
-
-      if(registro.saida){
-
-        texto +=
-`🔴 Saída: ${formatarHora(registro.saida)}
-⏱️ Total: ${formatarTempo(total)}
-`;
-
-      }
-
-      else{
-
-        texto +=
-`⏳ Expediente em andamento
-⏱️ Tempo atual: ${formatarTempo(total)}
-`;
-
-      }
-
-
-      if(
-        index <
-        dados.registros.length - 1
-      ){
-
-        texto +=
-          "\n--------------------\n\n";
-
-      }
-
-    }
-  );
-
-
-  texto +=
-    "\n====================\n" +
-    "⏱️ TOTAL DO APARELHO: " +
-    formatarTempo(
-      totalDoDia()
-    );
-
-
-  area.textContent =
-    texto;
-
-}
-
-
-/* =========================================================
-   LIMPAR DADOS
-   ========================================================= */
-
-function limparDadosAdmin(){
-
-  const confirmar =
-    confirm(
-      "Tem certeza que deseja apagar TODOS os registros deste aparelho?"
-    );
-
-
-  if(!confirmar){
-
-    return;
-
-  }
 
 
   try{
 
-    localStorage.removeItem(
-      CHAVE_DADOS
+    const c =
+      await localizar();
+
+
+    const {data,error} =
+      await sb.rpc(
+        "registrar_ponto_por_nome",
+        {
+          p_nome:nome,
+          p_tipo:tipo,
+          p_latitude:c.latitude,
+          p_longitude:c.longitude,
+          p_precisao_metros:c.accuracy
+        }
+      );
+
+
+    if(error)
+      throw error;
+
+
+    const quando =
+      new Intl.DateTimeFormat(
+        "pt-BR",
+        {
+          timeZone:"America/Sao_Paulo",
+          dateStyle:"short",
+          timeStyle:"medium"
+        }
+      ).format(
+        new Date(data.registrado_em)
+      );
+
+
+    const mapa =
+      `https://www.google.com/maps?q=${c.latitude},${c.longitude}`;
+
+
+    const texto =
+      `Merchant Distribuidora
+${tipo} registrada
+Funcionário: ${nome}
+Data/hora: ${quando}
+Localização: ${mapa}`;
+
+
+    window.open(
+      `https://wa.me/${DESTINO_WHATSAPP}?text=${encodeURIComponent(texto)}`,
+      "_blank"
     );
 
-  }catch(e){
 
-    console.error(e);
+    mostrar(
+      `${tipo === "ENTRADA" ? "Entrada" : "Saída"} registrada com sucesso às ${quando}.`,
+      true
+    );
+
+
+    await resumo();
 
   }
+  catch(e){
 
+    mostrar(
+      e.message ||
+      "Não foi possível registrar o ponto."
+    );
 
-  dados =
-    criarDadosVazios();
+  }
+  finally{
 
+    document.getElementById("entrada")
+      .disabled = false;
 
-  document.getElementById(
-    "nome"
-  ).value =
-    "";
+    document.getElementById("saida")
+      .disabled = false;
 
-
-  document.getElementById(
-    "status"
-  ).textContent =
-    "Registro deste aparelho apagado.";
-
-
-  atualizarTela();
-
-  verStatusAdmin();
+  }
 
 }
 
 
-/* =========================================================
-   EVENTO AO DIGITAR O NOME
-   ========================================================= */
+/* ATUALIZA AUTOMATICAMENTE */
 
-document
-  .getElementById("nome")
-  .addEventListener(
-    "input",
-    function(){
-
-      atualizarTela();
-
-    }
-  );
+let timer;
 
 
-/* =========================================================
-   INICIALIZAÇÃO
-   ========================================================= */
+nomeEl.addEventListener(
+  "input",
+  () => {
 
-atualizarTela();
+    clearTimeout(timer);
 
-
-/*
- * Atualiza relógio e horas trabalhadas
- * a cada 10 segundos.
- */
-
-setInterval(
-  function(){
-
-    atualizarTela();
-
-  },
-  10000
-);
-
-
-/*
- * Garante que, se o usuário voltar
- * para a página, os dados sejam
- * atualizados imediatamente.
- */
-
-document.addEventListener(
-  "visibilitychange",
-  function(){
-
-    if(
-      document.visibilityState ===
-      "visible"
-    ){
-
-      dados =
-        carregarDados();
-
-      atualizarTela();
-
-    }
+    timer =
+      setTimeout(
+        resumo,
+        500
+      );
 
   }
 );
+
+
+setInterval(
+  atualizarHoras,
+  1000
+);
+
+
+atualizarData();
 
 </script>
 
