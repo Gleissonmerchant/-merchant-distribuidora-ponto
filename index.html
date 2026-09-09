@@ -372,39 +372,64 @@ function obterLocalizacao(){
    ===================================================== */
 
 async function registrarEntrada(){
-
   if(!funcionario) return;
 
-  const botao =
-    document.getElementById("entradaBtn");
-
+  const botao = document.getElementById("entradaBtn");
   botao.disabled = true;
+  mostrarStatus("Obtendo localização...");
 
-  mostrarMensagem(
-    "Obtendo localização..."
-  );
+  try {
+    const local = await obterLocalizacao();
+    const horario = agora();
 
-  const local = await obterLocalizacao();
+    const registro = {
+      funcionario: funcionario,
+      data: formatarData(horario),
+      entrada: horario.toISOString(),
+      saida: null,
+      latitude: local ? local.latitude : null,
+      longitude: local ? local.longitude : null
+    };
 
-  const horario = agora();
+    if(!supabaseClient){
+      throw new Error("Supabase não está conectado.");
+    }
 
-  const registro = {
+    const { data, error } = await supabaseClient
+      .from("ponto")
+      .insert([registro])
+      .select();
 
-    funcionario:funcionario,
+    if(error){
+      throw error;
+    }
 
-    data:formatarData(horario),
+    console.log("Registro salvo no Supabase:", data);
 
-    entrada:horario.toISOString(),
+    entradaAtual = data && data[0] ? data[0] : registro;
+    registrosHoje.push(entradaAtual);
+    salvarLocalmente();
 
-    saida:null,
+    document.getElementById("saidaBtn").disabled = false;
 
-    latitude:
-      local ? local.latitude : null,
+    mostrarStatus(
+      "Entrada registrada às " + formatarHora(horario)
+    );
 
-    longitude:
-      local ? local.longitude : null
+    atualizarHorasNaTela();
 
-  };
+  } catch(error) {
+
+    console.error("Erro ao registrar entrada:", error);
+
+    mostrarStatus(
+      "Erro ao salvar no banco: " +
+      (error.message || "verifique a conexão com o Supabase.")
+    );
+
+    botao.disabled = false;
+  }
+}
 
   registrosHoje.push(registro);
 
