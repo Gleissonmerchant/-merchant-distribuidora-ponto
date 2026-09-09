@@ -431,39 +431,6 @@ async function registrarEntrada(){
   }
 }
 
-  registrosHoje.push(registro);
-
-  salvarLocalmente();
-
-  if(supabaseClient){
-
-    try{
-
-  await supabaseClient
-  .from("ponto")
-  .insert([registro])
-  .select();
-
-    }catch(error){
-
-      console.error(error);
-
-    }
-
-  }
-
-  entradaAtual = registro;
-
-  document.getElementById("saidaBtn")
-    .disabled = false;
-
-  mostrarStatus(
-    "Entrada registrada às " +
-    formatarHora(horario)
-  );
-
-  atualizarHorasNaTela()
-}
 
 /* =====================================================
    SAÍDA
