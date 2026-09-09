@@ -224,15 +224,14 @@ const SUPABASE_URL =
    Gleison1993
    Não coloque service_role ou outra chave secreta.
 */
-const SUPABASE_KEY =
-Gleison1993 
+const SUPABASE_KEY = "COLE_AQUI_SUA_PUBLISHABLE_KEY_DO_SUPABASE"; 
 
 let supabaseClient = null;
 
 if(
   SUPABASE_URL &&
   SUPABASE_KEY &&
-  SUPABASE_KEY !== Gleison1993
+  SUPABASE_KEY !==SUPABASE_KEY && SUPABASE_KEY.startsWith("sb_")
 ){
   supabaseClient =
     window.supabase.createClient(
