@@ -231,7 +231,7 @@ let supabaseClient = null;
 if(
   SUPABASE_URL &&
   SUPABASE_KEY &&
-  SUPABASE_KEY !== Gleisson1993
+  SUPABASE_KEY !== "sb_publishable_e70A8BQcnZ0o6XB-aXSbzg_p3pDeenk"
 ){
   supabaseClient =
     window.supabase.createClient(
