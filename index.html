@@ -569,26 +569,7 @@ function calcularSegundos(){
 function atualizarHorasNaTela(){
 atualizarHorasNaTela();
 
-  // Enviar registro de saída pelo WhatsApp
-  const numeroWhatsApp = "5588997104036";
-
-  const mensagemSaida =
-`🏢 Merchant Distribuidora
-🔴 SAÍDA REGISTRADA
-
-👤 Funcionário: ${funcionario}
-📅 Data: ${new Date(horario).toLocaleDateString("pt-BR")}
-🟢 Entrada: ${formatarHora(new Date(entradaAtual.entrada))}
-🔴 Saída: ${formatarHora(horario)}
-⏱️ Total trabalhado: ${horasTrabalhadas}`;
-
-  window.open(
-    "https://wa.me/" +
-    numeroWhatsApp +
-    "?text=" +
-    encodeURIComponent(mensagemSaida),
-    "_blank"
-  );
+  
 }
   let total = 0;
 
