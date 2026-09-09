@@ -641,77 +641,7 @@ function atualizarHorasNaTela(){
     segundosParaHora(total);
 }
 
-  registrosHoje.forEach(r => {
-
-    if(!r.entrada) return;
-
-    const inicio = new Date(r.entrada);
-
-    const fim = r.saida
-      ? new Date(r.saida)
-      : agora();
-
-    if(!isNaN(inicio.getTime()) && !isNaN(fim.getTime())){
-
-      total += Math.max(
-        0,
-        (fim.getTime() - inicio.getTime()) / 1000
-      );
-
-    }
-
-  });
-
-  if(
-    entradaAtual &&
-    entradaAtual.entrada &&
-    !entradaAtual.saida
-  ){
-
-    const inicio = new Date(entradaAtual.entrada);
-
-    if(!isNaN(inicio.getTime())){
-
-      const segundosAbertos =
-        Math.max(
-          0,
-          (agora().getTime() - inicio.getTime()) / 1000
-        );
-
-      const totalSemAberta =
-        registrosHoje.reduce((soma,r) => {
-
-          if(!r.entrada || !r.saida){
-            return soma;
-          }
-
-          const inicioR = new Date(r.entrada);
-          const fimR = new Date(r.saida);
-
-          if(
-            isNaN(inicioR.getTime()) ||
-            isNaN(fimR.getTime())
-          ){
-            return soma;
-          }
-
-          return soma + Math.max(
-            0,
-            (fimR.getTime() - inicioR.getTime()) / 1000
-          );
-
-        },0);
-
-      total =
-        totalSemAberta +
-        segundosAbertos;
-    }
-  }
-
-  document.getElementById("horasHoje").textContent =
-    segundosParaHora(total);
-}
-
+  
 /* =====================================================
    REGISTROS
    ===================================================== */
