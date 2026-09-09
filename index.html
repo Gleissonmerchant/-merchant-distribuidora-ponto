@@ -442,8 +442,22 @@ async function registrarSaida(){
 
   const horario = agora();
 
-  entradaAtual.saida =
-    horario.toISOString();
+  entradaAtual.saida = horario.toISOString();
+
+  // Calcula o total trabalhado
+  const segundos = calcularSegundos(
+    entradaAtual.entrada,
+    entradaAtual.saida
+  );
+
+  const horas = Math.floor(segundos / 3600);
+  const minutos = Math.floor((segundos % 3600) / 60);
+
+  const horasTrabalhadas =
+    String(horas).padStart(2, "0") + ":" +
+    String(minutos).padStart(2, "0");
+
+  entradaAtual.horas_trabalhadas = horasTrabalhadas;
 
   salvarLocalmente();
 
@@ -451,25 +465,43 @@ async function registrarSaida(){
 
     try{
 
-      await supabaseClient
+      const { error } = await supabaseClient
         .from("ponto")
         .update({
-          saida:entradaAtual.saida
+          saida: entradaAtual.saida,
+          horas_trabalhadas: horasTrabalhadas
         })
-        .eq("funcionario",funcionario)
-        .eq("entrada",entradaAtual.entrada);
+        .eq("funcionario", funcionario)
+        .eq("entrada", entradaAtual.entrada);
+
+      if(error){
+        throw error;
+      }
 
     }catch(error){
 
-      console.error(error);
+      console.error(
+        "Erro ao atualizar saída:",
+        error
+      );
 
+      mostrarStatus(
+        "Saída registrada, mas houve erro ao salvar as horas no banco."
+      );
+
+      document.getElementById("saidaBtn")
+        .disabled = true;
+
+      atualizarHorasNaTela();
+      return;
     }
-
   }
 
   mostrarStatus(
     "Saída registrada às " +
-    formatarHora(horario)
+    formatarHora(horario) +
+    " • Total: " +
+    horasTrabalhadas
   );
 
   document.getElementById("saidaBtn")
