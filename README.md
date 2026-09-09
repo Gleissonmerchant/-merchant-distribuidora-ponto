@@ -1,576 +1,873 @@
-<!doctype html>
-
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#111827">
 <title>Merchant Distribuidora • Ponto</title>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
 *{box-sizing:border-box}
+
 body{
   margin:0;
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
   background:#f3f4f6;
   color:#111827;
 }
+
 header{
   background:#111827;
   color:white;
   padding:22px 18px;
   text-align:center;
 }
-.logo{
-  width:82px;
-  height:82px;
-  object-fit:contain;
-  background:white;
-  border-radius:18px;
-  padding:7px;
-  margin-bottom:8px;
+
+header h1{
+  margin:0;
+  font-size:24px;
 }
-h1{margin:0;font-size:24px}
-.subtitle{opacity:.8;margin-top:5px;font-size:14px}
-.container{max-width:620px;margin:auto;padding:18px}
+
+header p{
+  margin:6px 0 0;
+  opacity:.8;
+}
+
+.container{
+  max-width:520px;
+  margin:auto;
+  padding:18px;
+}
+
 .card{
   background:white;
   border-radius:18px;
   padding:20px;
   margin-bottom:16px;
-  box-shadow:0 4px 18px rgba(0,0,0,.07);
+  box-shadow:0 4px 18px rgba(0,0,0,.08);
 }
-label{
-  display:block;
-  font-weight:600;
-  margin-bottom:7px;
+
+h2{
+  margin-top:0;
 }
-input,select,button{
+
+input,button,select{
   width:100%;
   padding:14px;
   border-radius:12px;
-  font-size:16px;
-}
-input,select{
   border:1px solid #d1d5db;
-  background:white;
+  font-size:16px;
+  margin-top:10px;
 }
+
 button{
   border:0;
   background:#111827;
   color:white;
   font-weight:700;
   cursor:pointer;
-  margin-top:10px;
 }
-button.secondary{background:#6b7280}
-button.success{background:#15803d}
-button.danger{background:#b91c1c}
-button:disabled{opacity:.5}
-.status{
-  margin-top:14px;
-  padding:12px;
+
+button:disabled{
+  opacity:.5;
+}
+
+.btn-green{
+  background:#15803d;
+}
+
+.btn-red{
+  background:#b91c1c;
+}
+
+.btn-blue{
+  background:#2563eb;
+}
+
+.info{
+  background:#f9fafb;
+  padding:14px;
   border-radius:12px;
-  background:#f3f4f6;
-  font-size:14px;
+  margin-top:12px;
 }
-.hidden{display:none!important}
-.grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-}
-.record{
-  border:1px solid #e5e7eb;
-  border-radius:12px;
-  padding:12px;
-  margin-top:8px;
-}
-.small{font-size:13px;color:#6b7280}
-.hours{
-  font-size:24px;
+
+.big{
+  font-size:28px;
   font-weight:800;
   text-align:center;
-  padding:12px;
+  margin:10px 0;
 }
-footer{
+
+.status{
   text-align:center;
-  padding:20px;
-  color:#6b7280;
-  font-size:12px;
+  font-weight:700;
+  padding:10px;
+  border-radius:10px;
+  margin-top:12px;
 }
-@media(max-width:430px){
-  .grid{grid-template-columns:1fr}
+
+.hidden{
+  display:none;
+}
+
+small{
+  color:#6b7280;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:12px;
+}
+
+td,th{
+  padding:9px 5px;
+  border-bottom:1px solid #e5e7eb;
+  text-align:left;
+  font-size:13px;
 }
 </style>
 </head>
+
 <body>
+
 <header>
-  <div>
-    <img class="logo" src="logo.png" alt="Merchant Distribuidora"
-         onerror="this.style.display='none'">
-  </div>
   <h1>Merchant Distribuidora</h1>
-  <div class="subtitle">Sistema de Controle de Ponto</div>
+  <p>Sistema de Controle de Ponto</p>
 </header>
-<main class="container">
-  <!-- PONTO DO FUNCIONÁRIO -->
-  <section class="card">
-    <h2>Registrar ponto</h2>
-<label for="nome">Funcionário</label>
-<input id="nome" list="listaFuncionarios"
-       placeholder="Digite seu nome"
-       autocomplete="name">
-<datalist id="listaFuncionarios"></datalist>
-<div class="grid">
-  <button class="success" id="btnEntrada">Registrar entrada</button>
-  <button class="danger" id="btnSaida">Registrar saída</button>
-</div>
-<div id="status" class="status">
-  Aguardando registro.
-</div>
-  </section>
-  <!-- ACESSO ADMINISTRATIVO -->
-  <section class="card">
-    <button id="btnMostrarAdmin" class="secondary">
-      Área administrativa
-    </button>
-  </section>
-  <!-- LOGIN ADMIN -->
-  <section id="loginAdmin" class="card hidden">
-    <h2>Login administrativo</h2>
-<label for="adminEmail">E-mail</label>
-<input id="adminEmail" type="email"
-       placeholder="E-mail do administrador"
-       autocomplete="username">
-<label for="adminSenha" style="margin-top:12px">Senha</label>
-<input id="adminSenha" type="password"
-       placeholder="Senha"
-       autocomplete="current-password">
-<button id="btnLogin">Entrar</button>
-<div id="loginStatus" class="status"></div>
-  </section>
-  <!-- PAINEL ADMIN -->
-  <section id="painelAdmin" class="hidden">
-<section class="card">
-  <h2>Painel administrativo</h2>
-  <div id="adminInfo" class="small"></div>
-  <button id="btnLogout" class="secondary">Sair</button>
-</section>
-<!-- FUNCIONÁRIOS -->
-<section class="card">
-  <h2>Funcionários</h2>
-  <label for="novoFuncionario">Novo funcionário</label>
-  <input id="novoFuncionario"
-         placeholder="Nome completo">
-  <button id="btnAdicionarFuncionario" class="success">
-    Adicionar funcionário
+
+<div class="container">
+
+<div class="card" id="loginCard">
+  <h2>Entrar</h2>
+
+  <input id="nome" type="text" placeholder="Nome do funcionário">
+
+  <button class="btn-blue" onclick="entrar()">
+    Entrar no sistema
   </button>
-  <div id="listaAdminFuncionarios"></div>
-</section>
-<!-- CONSULTA -->
-<section class="card">
-  <h2>Consulta de ponto</h2>
-  <label for="dataConsulta">Data</label>
-  <input id="dataConsulta" type="date">
-  <label for="funcionarioConsulta" style="margin-top:12px">
-    Funcionário
-  </label>
-  <select id="funcionarioConsulta">
-    <option value="">Todos os funcionários</option>
-  </select>
-  <button id="btnConsultar" class="success">
-    Consultar
+
+  <div id="loginMsg"></div>
+</div>
+
+<div class="card hidden" id="pontoCard">
+
+  <h2 id="saudacao">Olá!</h2>
+
+  <div class="info">
+    <strong>Data:</strong>
+    <span id="dataAtual"></span>
+  </div>
+
+  <div class="info">
+    <strong>Horário atual:</strong>
+    <div class="big" id="relogio">--:--:--</div>
+  </div>
+
+  <div class="info">
+    <strong>Horas trabalhadas hoje</strong>
+    <div class="big" id="horasHoje">00:00:00</div>
+  </div>
+
+  <div id="status" class="status">
+    Aguardando registro
+  </div>
+
+  <button id="entradaBtn" class="btn-green" onclick="registrarEntrada()">
+    Registrar Entrada
   </button>
-  <div id="resultadoHoras"></div>
-  <div id="resultadoRegistros"></div>
-</section>
-  </section>
-</main>
-<footer>
-  Merchant Distribuidora • Controle de Ponto
-</footer>
+
+  <button id="saidaBtn" class="btn-red" onclick="registrarSaida()" disabled>
+    Registrar Saída
+  </button>
+
+  <button class="btn-blue" onclick="carregarRegistros()">
+    Atualizar registros
+  </button>
+
+  <button onclick="sair()">
+    Sair
+  </button>
+
+</div>
+
+<div class="card hidden" id="adminCard">
+
+  <h2>Área Administrativa</h2>
+
+  <button class="btn-blue" onclick="carregarTodos()">
+    Ver registros
+  </button>
+
+  <div id="adminResultado"></div>
+
+</div>
+
+</div>
+
 <script>
-const SUPABASE_URL = "https://paegduddojnlxyqssert.supabase.co";
-const SUPABASE_KEY = "sb_publishable_e70A8BQcnZ0o6XB-aXSbzg_p3pDeenk";
-const { createClient } = supabase;
-const db = createClient(SUPABASE_URL, SUPABASE_KEY);
-const $ = id => document.getElementById(id);
-let funcionarios = [];
-function hojeFortaleza(){
-  const agora = new Date();
-  const partes = new Intl.DateTimeFormat("en-CA", {
-    timeZone:"America/Fortaleza",
-    year:"numeric",
-    month:"2-digit",
-    day:"2-digit"
-  }).formatToParts(agora);
-  const obj = {};
-  partes.forEach(p => obj[p.type] = p.value);
-  return `${obj.year}-${obj.month}-${obj.day}`;
+
+/* =====================================================
+   CONFIGURAÇÃO SUPABASE
+   ===================================================== */
+
+/*
+   URL do seu projeto Supabase.
+   NÃO altere se esta for a URL do seu projeto.
+*/
+const SUPABASE_URL =
+"https://paegduddojnlxyqssert.supabase.co";
+
+/*
+   Gleisson1993
+   Não coloque service_role ou outra chave secreta.
+*/
+const SUPABASE_KEY =
+Gleisson1993
+
+let supabaseClient = null;
+
+if(
+  SUPABASE_URL &&
+  SUPABASE_KEY &&
+  SUPABASE_KEY !== Gleisson1993
+){
+  supabaseClient =
+    window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_KEY
+    );
 }
-function mostrarStatus(texto, erro=false){
-  $("status").textContent = texto;
-  $("status").style.background = erro ? "#fee2e2" : "#f3f4f6";
+
+/* =====================================================
+   ESTADO
+   ===================================================== */
+
+let funcionario = "";
+let entradaAtual = null;
+let registrosHoje = [];
+
+/* =====================================================
+   DATA / HORA
+   ===================================================== */
+
+function agora(){
+  return new Date();
 }
-async function carregarFuncionarios(){
-  const {data,error} = await db
-    .from("funcionarios")
-    .select("id,nome,ativo")
-    .eq("ativo",true)
-    .order("nome");
-  if(error){
-    console.error(error);
+
+function formatarData(data){
+  return data.toLocaleDateString("pt-BR");
+}
+
+function formatarHora(data){
+  return data.toLocaleTimeString("pt-BR");
+}
+
+function segundosParaHora(segundos){
+
+  segundos = Math.max(0,Math.floor(segundos));
+
+  const h = Math.floor(segundos / 3600);
+  const m = Math.floor((segundos % 3600) / 60);
+  const s = segundos % 60;
+
+  return String(h).padStart(2,"0")+":"+
+         String(m).padStart(2,"0")+":"+
+         String(s).padStart(2,"0");
+}
+
+function atualizarRelogio(){
+
+  const d = agora();
+
+  document.getElementById("relogio").textContent =
+    formatarHora(d);
+
+  document.getElementById("dataAtual").textContent =
+    formatarData(d);
+
+  atualizarHorasNaTela();
+}
+
+setInterval(atualizarRelogio,1000);
+
+/* =====================================================
+   LOGIN
+   ===================================================== */
+
+function entrar(){
+
+  const nome =
+    document.getElementById("nome").value.trim();
+
+  if(!nome){
+    mostrarMensagem(
+      "Digite o nome do funcionário.",
+      true
+    );
     return;
   }
-  funcionarios = data || [];
-  $("listaFuncionarios").innerHTML =
-    funcionarios.map(f => `<option value="${escapeHtml(f.nome)}"></option>`).join("");
-  $("funcionarioConsulta").innerHTML =
-    `<option value="">Todos os funcionários</option>` +
-    funcionarios.map(f =>
-      `<option value="${f.id}">${escapeHtml(f.nome)}</option>`
-    ).join("");
+
+  funcionario = nome;
+
+  localStorage.setItem(
+    "merchant_funcionario",
+    funcionario
+  );
+
+  document.getElementById("loginCard")
+    .classList.add("hidden");
+
+  document.getElementById("pontoCard")
+    .classList.remove("hidden");
+
+  document.getElementById("saudacao").textContent =
+    "Olá, " + funcionario + "!";
+
+  carregarRegistros();
 }
+
+/* =====================================================
+   LOCALIZAÇÃO
+   ===================================================== */
+
+function obterLocalizacao(){
+
+  return new Promise((resolve)=>{
+
+    if(!navigator.geolocation){
+      resolve(null);
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+
+      position => {
+
+        resolve({
+          latitude:position.coords.latitude,
+          longitude:position.coords.longitude,
+          precisao:position.coords.accuracy
+        });
+
+      },
+
+      () => resolve(null),
+
+      {
+        enableHighAccuracy:true,
+        timeout:10000,
+        maximumAge:0
+      }
+
+    );
+
+  });
+
+}
+
+/* =====================================================
+   ENTRADA
+   ===================================================== */
+
+async function registrarEntrada(){
+
+  if(!funcionario) return;
+
+  const botao =
+    document.getElementById("entradaBtn");
+
+  botao.disabled = true;
+
+  mostrarMensagem(
+    "Obtendo localização..."
+  );
+
+  const local = await obterLocalizacao();
+
+  const horario = agora();
+
+  const registro = {
+
+    funcionario:funcionario,
+
+    data:formatarData(horario),
+
+    entrada:horario.toISOString(),
+
+    saida:null,
+
+    latitude:
+      local ? local.latitude : null,
+
+    longitude:
+      local ? local.longitude : null
+
+  };
+
+  registrosHoje.push(registro);
+
+  salvarLocalmente();
+
+  if(supabaseClient){
+
+    try{
+
+      await supabaseClient
+        .from("ponto")
+        .insert(registro);
+
+    }catch(error){
+
+      console.error(error);
+
+    }
+
+  }
+
+  entradaAtual = registro;
+
+  document.getElementById("saidaBtn")
+    .disabled = false;
+
+  mostrarStatus(
+    "Entrada registrada às " +
+    formatarHora(horario)
+  );
+
+  atualizarHorasNaTela();
+}
+
+/* =====================================================
+   SAÍDA
+   ===================================================== */
+
+async function registrarSaida(){
+
+  if(!entradaAtual) return;
+
+  const horario = agora();
+
+  entradaAtual.saida =
+    horario.toISOString();
+
+  salvarLocalmente();
+
+  if(supabaseClient){
+
+    try{
+
+      await supabaseClient
+        .from("ponto")
+        .update({
+          saida:entradaAtual.saida
+        })
+        .eq("funcionario",funcionario)
+        .eq("entrada",entradaAtual.entrada);
+
+    }catch(error){
+
+      console.error(error);
+
+    }
+
+  }
+
+  mostrarStatus(
+    "Saída registrada às " +
+    formatarHora(horario)
+  );
+
+  document.getElementById("saidaBtn")
+    .disabled = true;
+
+  document.getElementById("entradaBtn")
+    .disabled = true;
+
+  atualizarHorasNaTela();
+}
+
+/* =====================================================
+   HORAS TRABALHADAS
+   ===================================================== */
+
+function calcularSegundos(){
+
+  let total = 0;
+
+  registrosHoje.forEach(r => {
+
+    if(!r.entrada) return;
+
+    const inicio =
+      new Date(r.entrada);
+
+    const fim =
+      r.saida
+      ? new Date(r.saida)
+      : agora();
+
+    if(
+      !isNaN(inicio.getTime()) &&
+      !isNaN(fim.getTime())
+    ){
+
+      total +=
+        Math.max(
+          0,
+          (fim-inicio)/1000
+        );
+
+    }
+
+  });
+
+  return total;
+}
+
+function atualizarHorasNaTela(){
+
+  document.getElementById("horasHoje")
+    .textContent =
+    segundosParaHora(
+      calcularSegundos()
+    );
+}
+
+/* =====================================================
+   REGISTROS
+   ===================================================== */
+
+async function carregarRegistros(){
+
+  registrosHoje = [];
+
+  const hoje =
+    formatarData(agora());
+
+  if(supabaseClient){
+
+    try{
+
+      const {data,error} =
+        await supabaseClient
+        .from("ponto")
+        .select("*")
+        .eq("funcionario",funcionario)
+        .eq("data",hoje)
+        .order("entrada",{ascending:true});
+
+      if(!error && data){
+
+        registrosHoje = data;
+
+      }
+
+    }catch(error){
+
+      console.error(error);
+
+    }
+
+  }
+
+  if(!registrosHoje.length){
+
+    const salvo =
+      localStorage.getItem(
+        "merchant_registros"
+      );
+
+    if(salvo){
+
+      try{
+
+        const todos =
+          JSON.parse(salvo);
+
+        registrosHoje =
+          todos.filter(
+            r =>
+              r.funcionario === funcionario &&
+              r.data === hoje
+          );
+
+      }catch(e){}
+
+    }
+
+  }
+
+  entradaAtual =
+    registrosHoje.find(
+      r => r.entrada && !r.saida
+    ) || null;
+
+  document.getElementById("saidaBtn")
+    .disabled =
+    !entradaAtual;
+
+  atualizarHorasNaTela();
+
+  if(entradaAtual){
+
+    document.getElementById("entradaBtn")
+      .disabled = true;
+
+    mostrarStatus(
+      "Você está trabalhando desde " +
+      formatarHora(
+        new Date(entradaAtual.entrada)
+      )
+    );
+
+  }
+
+}
+
+/* =====================================================
+   SALVAR LOCALMENTE
+   ===================================================== */
+
+function salvarLocalmente(){
+
+  const salvo =
+    localStorage.getItem(
+      "merchant_registros"
+    );
+
+  let todos = [];
+
+  if(salvo){
+
+    try{
+      todos = JSON.parse(salvo);
+    }catch(e){}
+
+  }
+
+  const outros =
+    todos.filter(
+      r =>
+        !(
+          r.funcionario === funcionario &&
+          r.data === formatarData(agora()) &&
+          r.entrada ===
+            (entradaAtual ? entradaAtual.entrada : "")
+        )
+    );
+
+  registrosHoje.forEach(registro=>{
+
+    const indice =
+      outros.findIndex(
+        r =>
+          r.funcionario === registro.funcionario &&
+          r.entrada === registro.entrada
+      );
+
+    if(indice >= 0)
+      outros[indice] = registro;
+    else
+      outros.push(registro);
+
+  });
+
+  localStorage.setItem(
+    "merchant_registros",
+    JSON.stringify(outros)
+  );
+
+}
+
+/* =====================================================
+   ADMINISTRADOR
+   ===================================================== */
+
+async function carregarTodos(){
+
+  const resultado =
+    document.getElementById(
+      "adminResultado"
+    );
+
+  resultado.innerHTML =
+    "<p>Carregando...</p>";
+
+  if(!supabaseClient){
+
+    resultado.innerHTML =
+      "<p>Supabase ainda não está configurado.</p>";
+
+    return;
+  }
+
+  try{
+
+    const {data,error} =
+      await supabaseClient
+      .from("ponto")
+      .select("*")
+      .order("entrada",{ascending:false})
+      .limit(100);
+
+    if(error) throw error;
+
+    if(!data || !data.length){
+
+      resultado.innerHTML =
+        "<p>Nenhum registro encontrado.</p>";
+
+      return;
+
+    }
+
+    let html =
+      "<table>" +
+      "<tr>" +
+      "<th>Funcionário</th>" +
+      "<th>Data</th>" +
+      "<th>Entrada</th>" +
+      "<th>Saída</th>" +
+      "</tr>";
+
+    data.forEach(r=>{
+
+      html +=
+        "<tr>" +
+        "<td>"+escapeHtml(r.funcionario || "")+"</td>" +
+        "<td>"+escapeHtml(r.data || "")+"</td>" +
+        "<td>"+(
+          r.entrada
+          ? formatarHora(new Date(r.entrada))
+          : "-"
+        )+"</td>" +
+        "<td>"+(
+          r.saida
+          ? formatarHora(new Date(r.saida))
+          : "Trabalhando"
+        )+"</td>" +
+        "</tr>";
+
+    });
+
+    html += "</table>";
+
+    resultado.innerHTML = html;
+
+  }catch(error){
+
+    console.error(error);
+
+    resultado.innerHTML =
+      "<p>Não foi possível carregar os registros.</p>";
+
+  }
+
+}
+
+/* =====================================================
+   SEGURANÇA DE TEXTO
+   ===================================================== */
+
 function escapeHtml(text){
+
   return String(text)
     .replaceAll("&","&amp;")
     .replaceAll("<","&lt;")
     .replaceAll(">","&gt;")
     .replaceAll('"',"&quot;")
     .replaceAll("'","&#039;");
+
 }
-async function obterLocalizacao(){
-  return new Promise((resolve,reject)=>{
-    if(!navigator.geolocation){
-      reject(new Error("Geolocalização não disponível."));
-      return;
-    }
-    navigator.geolocation.getCurrentPosition(
-      pos => resolve({
-        latitude:pos.coords.latitude,
-        longitude:pos.coords.longitude,
-        precisao:pos.coords.accuracy
-      }),
-      err => reject(new Error(
-        "Não foi possível obter sua localização. Ative a localização do celular."
-      )),
-      {
-        enableHighAccuracy:true,
-        timeout:15000,
-        maximumAge:0
-      }
+
+/* =====================================================
+   MENSAGENS
+   ===================================================== */
+
+function mostrarMensagem(texto,erro=false){
+
+  const el =
+    document.getElementById("loginMsg");
+
+  el.textContent = texto;
+
+  el.style.color =
+    erro ? "#b91c1c" : "#15803d";
+
+}
+
+function mostrarStatus(texto){
+
+  const el =
+    document.getElementById("status");
+
+  el.textContent = texto;
+}
+
+/* =====================================================
+   SAIR
+   ===================================================== */
+
+function sair(){
+
+  funcionario = "";
+  entradaAtual = null;
+  registrosHoje = [];
+
+  localStorage.removeItem(
+    "merchant_funcionario"
+  );
+
+  document.getElementById("pontoCard")
+    .classList.add("hidden");
+
+  document.getElementById("adminCard")
+    .classList.add("hidden");
+
+  document.getElementById("loginCard")
+    .classList.remove("hidden");
+
+  document.getElementById("nome").value = "";
+
+}
+
+/* =====================================================
+   INICIALIZAÇÃO
+   ===================================================== */
+
+window.addEventListener("load",()=>{
+
+  atualizarRelogio();
+
+  const salvo =
+    localStorage.getItem(
+      "merchant_funcionario"
     );
-  });
-}
-async function registrar(tipo){
-  const nome = $("nome").value.trim();
-  if(!nome){
-    mostrarStatus("Digite seu nome antes de registrar o ponto.",true);
-    return;
+
+  if(salvo){
+
+    funcionario = salvo;
+
+    document.getElementById("loginCard")
+      .classList.add("hidden");
+
+    document.getElementById("pontoCard")
+      .classList.remove("hidden");
+
+    document.getElementById("saudacao")
+      .textContent =
+      "Olá, " + funcionario + "!";
+
+    carregarRegistros();
+
   }
-  $("btnEntrada").disabled = true;
-  $("btnSaida").disabled = true;
-  try{
-    mostrarStatus("Obtendo localização...");
-    const local = await obterLocalizacao();
-    mostrarStatus("Registrando ponto...");
-    const {data,error} = await db.rpc("registrar_ponto",{
-      p_nome:nome,
-      p_tipo:tipo,
-      p_latitude:local.latitude,
-      p_longitude:local.longitude,
-      p_precisao_metros:local.precisao
-    });
-    if(error) throw error;
-    const registro = Array.isArray(data) ? data[0] : data;
-    const horario = registro?.registrado_em
-      ? new Date(registro.registrado_em).toLocaleString("pt-BR",{
-          timeZone:"America/Fortaleza"
-        })
-      : new Date().toLocaleString("pt-BR",{
-          timeZone:"America/Fortaleza"
-        });
-    mostrarStatus(
-      `✓ ${tipo === "ENTRADA" ? "Entrada" : "Saída"} registrada com sucesso às ${horario}.`
-    );
-    enviarWhatsApp(nome,tipo,horario,local);
-  }catch(error){
-    console.error(error);
-    let mensagem = error.message || "Não foi possível registrar o ponto.";
-    if(mensagem.includes("duplicate") ||
-       mensagem.includes("Já existe") ||
-       mensagem.includes("já existe")){
-      mensagem = "Este ponto não pode ser registrado agora. Verifique se já existe uma entrada ou saída aberta.";
-    }
-    mostrarStatus("Erro: " + mensagem,true);
-  }finally{
-    $("btnEntrada").disabled = false;
-    $("btnSaida").disabled = false;
-  }
-}
-function enviarWhatsApp(nome,tipo,horario,local){
-  const numero = "5588997104036";
-  const texto =
-`Merchant Distribuidora
-Registro de ponto
-Funcionário: ${nome}
-Tipo: ${tipo}
-Horário: ${horario}
-Localização: ${local.latitude.toFixed(6)}, ${local.longitude.toFixed(6)}
-Precisão: ${Math.round(local.precisao)} metros`;
-  const url =
-    "https://wa.me/" + numero +
-    "?text=" + encodeURIComponent(texto);
-  window.open(url,"_blank");
-}
-$("btnEntrada").addEventListener("click",()=>registrar("ENTRADA"));
-$("btnSaida").addEventListener("click",()=>registrar("SAIDA"));
-$("btnMostrarAdmin").addEventListener("click",()=>{
-  $("loginAdmin").classList.toggle("hidden");
+
 });
-$("btnLogin").addEventListener("click",loginAdmin);
-async function loginAdmin(){
-  const email = $("adminEmail").value.trim();
-  const senha = $("adminSenha").value;
-  if(!email || !senha){
-    $("loginStatus").textContent = "Informe e-mail e senha.";
-    return;
-  }
-  $("btnLogin").disabled = true;
-  $("loginStatus").textContent = "Entrando...";
-  try{
-    const {data,error} = await db.auth.signInWithPassword({
-      email,
-      password:senha
-    });
-    if(error) throw error;
-    const user = data.user;
-    const {data:perfil,error:perfilError} = await db
-      .from("perfis_usuario")
-      .select("id,email,papel,funcionario_id")
-      .eq("id",user.id)
-      .maybeSingle();
-    if(perfilError) throw perfilError;
-    if(!perfil || perfil.papel !== "admin"){
-      await db.auth.signOut();
-      throw new Error("Este usuário não possui permissão de administrador.");
-    }
-    $("loginStatus").textContent = "Login realizado com sucesso.";
-    $("loginAdmin").classList.add("hidden");
-    $("painelAdmin").classList.remove("hidden");
-    $("adminInfo").textContent = "Administrador: " + (perfil.email || user.email);
-    await carregarPainelAdmin();
-  }catch(error){
-    console.error(error);
-    $("loginStatus").textContent =
-      "Erro no login: " + (error.message || "verifique os dados.");
-  }finally{
-    $("btnLogin").disabled = false;
-  }
-}
-$("btnLogout").addEventListener("click",async()=>{
-  await db.auth.signOut();
-  $("painelAdmin").classList.add("hidden");
-  $("loginAdmin").classList.remove("hidden");
-  $("adminSenha").value = "";
-});
-async function carregarPainelAdmin(){
-  await carregarTodosFuncionariosAdmin();
-  $("dataConsulta").value = hojeFortaleza();
-  await carregarFuncionarios();
-}
-async function carregarTodosFuncionariosAdmin(){
-  const {data,error} = await db
-    .from("funcionarios")
-    .select("id,nome,ativo")
-    .order("nome");
-  if(error){
-    $("listaAdminFuncionarios").innerHTML =
-      `<div class="status">Erro: ${escapeHtml(error.message)}</div>`;
-    return;
-  }
-  $("listaAdminFuncionarios").innerHTML =
-    (data || []).map(f=>`
-      <div class="record">
-        <strong>${escapeHtml(f.nome)}</strong>
-        <div class="small">
-          ${f.ativo ? "Ativo" : "Inativo"}
-        </div>
-        <button
-          class="${f.ativo ? "danger" : "success"}"
-          onclick="alterarFuncionario('${f.id}',${!f.ativo})">
-          ${f.ativo ? "Desativar" : "Ativar"}
-        </button>
-      </div>
-    `).join("");
-}
-$("btnAdicionarFuncionario").addEventListener("click",async()=>{
-  const nome = $("novoFuncionario").value.trim();
-  if(!nome){
-    alert("Digite o nome do funcionário.");
-    return;
-  }
-  const {error} = await db
-    .from("funcionarios")
-    .insert({
-      nome:nome,
-      ativo:true
-    });
-  if(error){
-    alert("Erro: " + error.message);
-    return;
-  }
-  $("novoFuncionario").value = "";
-  await carregarTodosFuncionariosAdmin();
-  await carregarFuncionarios();
-  alert("Funcionário adicionado com sucesso.");
-});
-async function alterarFuncionario(id,ativo){
-  const {error} = await db
-    .from("funcionarios")
-    .update({ativo})
-    .eq("id",id);
-  if(error){
-    alert("Erro: " + error.message);
-    return;
-  }
-  await carregarTodosFuncionariosAdmin();
-  await carregarFuncionarios();
-}
-window.alterarFuncionario = alterarFuncionario;
-$("btnConsultar").addEventListener("click",consultarPontos);
-async function consultarPontos(){
-  const data = $("dataConsulta").value;
-  const funcionarioId = $("funcionarioConsulta").value;
-  if(!data){
-    alert("Escolha uma data.");
-    return;
-  }
-  $("resultadoHoras").innerHTML =
-    `<div class="status">Consultando...</div>`;
-  $("resultadoRegistros").innerHTML = "";
-  let inicio = `${data}T00:00:00-03:00`;
-  let fim = `${data}T23:59:59-03:00`;
-  let query = db
-    .from("registros_ponto")
-    .select(`
-      id,
-      tipo,
-      registrado_em,
-      latitude,
-      longitude,
-      precisao_metros,
-      funcionario_id,
-      funcionarios(nome)
-    `)
-    .gte("registrado_em",inicio)
-    .lte("registrado_em",fim)
-    .order("registrado_em",{ascending:true});
-  if(funcionarioId){
-    query = query.eq("funcionario_id",funcionarioId);
-  }
-  const {data:registros,error} = await query;
-  if(error){
-    $("resultadoHoras").innerHTML =
-      `<div class="status">Erro: ${escapeHtml(error.message)}</div>`;
-    return;
-  }
-  let totalSegundos = 0;
-  if(funcionarioId){
-    try{
-      const {data:horas,error:horasError} =
-        await db.rpc("calcular_horas_trabalhadas",{
-          p_funcionario_id:funcionarioId,
-          p_data:data
-        });
-      if(!horasError && horas){
-        const valor = Array.isArray(horas) ? horas[0] : horas;
-        totalSegundos =
-          Number(valor?.segundos || valor?.total_segundos || 0);
-      }
-    }catch(e){
-      console.warn(e);
-    }
-  }else{
-    totalSegundos = calcularHorasLocal(registros || []);
-  }
-  $("resultadoHoras").innerHTML =
-    `<div class="hours">
-      Horas trabalhadas: ${formatarHoras(totalSegundos)}
-    </div>`;
-  if(!registros || registros.length === 0){
-    $("resultadoRegistros").innerHTML =
-      `<div class="status">Nenhum registro encontrado.</div>`;
-    return;
-  }
-  $("resultadoRegistros").innerHTML =
-    registros.map(r=>{
-      const nome = r.funcionarios?.nome || "Funcionário";
-      const horario = new Date(r.registrado_em)
-        .toLocaleString("pt-BR",{timeZone:"America/Fortaleza"});
-      return `
-        <div class="record">
-          <strong>${escapeHtml(nome)}</strong><br>
-          ${r.tipo === "ENTRADA" ? "🟢 Entrada" : "🔴 Saída"}
-          <br>
-          <span class="small">${horario}</span>
-          <br>
-          <span class="small">
-            GPS: ${Number(r.latitude).toFixed(6)},
-            ${Number(r.longitude).toFixed(6)}
-            • ±${Math.round(r.precisao_metros || 0)}m
-          </span>
-        </div>
-      `;
-    }).join("");
-}
-function calcularHorasLocal(registros){
-  let entrada = null;
-  let total = 0;
-  for(const r of registros){
-    const instante = new Date(r.registrado_em);
-    if(r.tipo === "ENTRADA"){
-      if(!entrada) entrada = instante;
-    }else if(r.tipo === "SAIDA" && entrada){
-      total += Math.max(0,instante - entrada);
-      entrada = null;
-    }
-  }
-  return Math.floor(total / 1000);
-}
-function formatarHoras(segundos){
-  segundos = Number(segundos) || 0;
-  const horas = Math.floor(segundos / 3600);
-  const minutos = Math.floor((segundos % 3600) / 60);
-  return `${String(horas).padStart(2,"0")}:${String(minutos).padStart(2,"0")}`;
-}
-async function iniciar(){
-  await carregarFuncionarios();
-  $("dataConsulta").value = hojeFortaleza();
-  const {data} = await db.auth.getSession();
-  if(data?.session){
-    const user = data.session.user;
-    const {data:perfil} = await db
-      .from("perfis_usuario")
-      .select("email,papel")
-      .eq("id",user.id)
-      .maybeSingle();
-    if(perfil?.papel === "admin"){
-      $("painelAdmin").classList.remove("hidden");
-      $("loginAdmin").classList.add("hidden");
-      $("adminInfo").textContent =
-        "Administrador: " + (perfil.email || user.email);
-      await carregarPainelAdmin();
-    }
-  }
-}
-db.auth.onAuthStateChange(async(event,session)=>{
-  if(event === "SIGNED_OUT"){
-    $("painelAdmin").classList.add("hidden");
-  }
-});
-iniciar();
+
 </script>
+
 </body>
 </html>
