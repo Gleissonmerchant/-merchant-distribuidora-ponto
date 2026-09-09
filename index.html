@@ -414,9 +414,10 @@ async function registrarEntrada(){
 
     try{
 
-      await supabaseClient
-        .from("ponto")
-        .insert(registro);
+  await supabaseClient
+  .from("ponto")
+  .insert([registro])
+  .select();
 
     }catch(error){
 
