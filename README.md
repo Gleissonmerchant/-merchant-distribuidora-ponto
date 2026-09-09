@@ -412,20 +412,19 @@ async function registrarEntrada(){
   salvarLocalmente();
 
 if(supabaseClient){
-  try{
-    const { data, error } = await supabaseClient
-      .from("ponto")
-      .insert(registro);
+  const { data, error } = await supabaseClient
+    .from("ponto")
+    .insert([registro])
+    .select();
 
-    if(error){
-      throw error;
-    }
-  }catch(error){
-    console.error("Erro ao salvar no Supabase:", error);
+  if(error){
+    console.error("Erro Supabase:", error);
     mostrarMensagem("Erro ao salvar no banco: " + error.message);
     botao.disabled = false;
     return;
   }
+
+  console.log("Registro salvo no Supabase:", data);
 }
   }catch(error){
     console.error("Erro ao salvar no Supabase:", error);
