@@ -411,7 +411,7 @@ async function registrarEntrada(){
 
   salvarLocalmente();
 
- if(supabaseClient){
+if(supabaseClient){
   try{
     const { data, error } = await supabaseClient
       .from("ponto")
@@ -420,6 +420,13 @@ async function registrarEntrada(){
     if(error){
       throw error;
     }
+  }catch(error){
+    console.error("Erro ao salvar no Supabase:", error);
+    mostrarMensagem("Erro ao salvar no banco: " + error.message);
+    botao.disabled = false;
+    return;
+  }
+}
   }catch(error){
     console.error("Erro ao salvar no Supabase:", error);
     mostrarMensagem("Erro ao salvar no banco: " + error.message);
