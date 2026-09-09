@@ -426,8 +426,12 @@ const mensagemEntrada =
   minute: "2-digit"
 })}`;
 
-window.location.href =
-  `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensagemEntrada)}`;
+window.location.assign(
+  "https://wa.me/" +
+  numeroWhatsApp +
+  "?text=" +
+  encodeURIComponent(mensagemEntrada)
+);
 
     atualizarHorasNaTela();
 
