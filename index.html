@@ -414,6 +414,22 @@ async function registrarEntrada(){
     mostrarStatus(
       "Entrada registrada às " + formatarHora(horario)
     );
+    const numeroWhatsApp = "5588999999999"; // coloque aqui o número da empresa
+
+const mensagemEntrada =
+`🏢 Merchant Distribuidora
+🟢 ENTRADA REGISTRADA
+
+📅 Data: ${new Date().toLocaleDateString("pt-BR")}
+⏰ Horário: ${new Date().toLocaleTimeString("pt-BR", {
+  hour: "2-digit",
+  minute: "2-digit"
+})}`;
+
+window.open(
+  `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensagemEntrada)}`,
+  "_blank"
+);
 
     atualizarHorasNaTela();
 
@@ -551,7 +567,29 @@ function calcularSegundos(){
 }
 
 function atualizarHorasNaTela(){
+atualizarHorasNaTela();
 
+  // Enviar registro de saída pelo WhatsApp
+  const numeroWhatsApp = "5588999999999";
+
+  const mensagemSaida =
+`🏢 Merchant Distribuidora
+🔴 SAÍDA REGISTRADA
+
+👤 Funcionário: ${funcionario}
+📅 Data: ${new Date(horario).toLocaleDateString("pt-BR")}
+🟢 Entrada: ${formatarHora(new Date(entradaAtual.entrada))}
+🔴 Saída: ${formatarHora(horario)}
+⏱️ Total trabalhado: ${horasTrabalhadas}`;
+
+  window.open(
+    "https://wa.me/" +
+    numeroWhatsApp +
+    "?text=" +
+    encodeURIComponent(mensagemSaida),
+    "_blank"
+  );
+}
   let total = 0;
 
   registrosHoje.forEach(r => {
