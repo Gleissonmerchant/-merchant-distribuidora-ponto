@@ -225,7 +225,7 @@ const SUPABASE_URL =
 
    Não coloque service_role ou outra chave secreta.
 */
-const SUPABASE_KEY = "sb_publishable_e70A8BQcnZ0o6XB-aXSbzg_p3pDeenk"
+const SUPABASE_KEY ="sb_publishable_e70A8BQcnZ0o6XB-aXSbzg_p3pDeenk"
 
 let supabaseClient = null;
 
