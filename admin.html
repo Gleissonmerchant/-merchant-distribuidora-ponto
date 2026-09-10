@@ -1,4 +1,5 @@
 <!doctype html>
+
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
@@ -11,159 +12,341 @@
 body{
   margin:0;
   font-family:Arial,Helvetica,sans-serif;
-  background:linear-gradient(135deg,#111827,#1f2937);
+  background:
+    radial-gradient(circle at top,#24344d 0,#111827 42%,#0b1220 100%);
   color:#111827;
   min-height:100vh;
 }
 .container{
   width:100%;
-  max-width:700px;
+  max-width:760px;
   margin:auto;
-  padding:20px 14px 40px;
+  padding:18px 14px 40px;
 }
+/* CABEÇALHO */
 .header{
   text-align:center;
   color:white;
-  margin-bottom:18px;
+  margin-bottom:20px;
 }
-.logo{
-  width:78px;
-  height:78px;
-  object-fit:contain;
+.logo-box{
+  width:82px;
+  height:82px;
+  margin:0 auto 12px;
   background:white;
-  border-radius:18px;
-  padding:8px;
-  margin-bottom:10px;
+  border-radius:22px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:28px;
+  font-weight:900;
+  color:#111827;
+  box-shadow:0 10px 30px rgba(0,0,0,.28);
 }
 .header h1{
-  margin:5px 0;
-  font-size:24px;
+  margin:0;
+  font-size:25px;
+  font-weight:800;
+  letter-spacing:-.4px;
 }
 .header p{
-  margin:5px 0;
-  opacity:.8;
+  margin:6px 0 0;
+  color:#cbd5e1;
+  font-size:14px;
 }
+/* CARDS */
 .card{
-  background:white;
-  border-radius:18px;
+  background:rgba(255,255,255,.98);
+  border-radius:22px;
   padding:18px;
-  margin-bottom:15px;
-  box-shadow:0 8px 25px rgba(0,0,0,.18);
+  margin-bottom:16px;
+  box-shadow:0 12px 35px rgba(0,0,0,.20);
 }
-h2{
-  margin-top:0;
-  font-size:20px;
+.card-title{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  margin:0 0 16px;
+  font-size:19px;
+  font-weight:800;
 }
+/* LOGIN */
 input{
   width:100%;
-  padding:14px;
+  padding:15px;
   border:1px solid #d1d5db;
-  border-radius:10px;
+  border-radius:13px;
   font-size:16px;
-  margin-bottom:10px;
+  margin-bottom:11px;
+  outline:none;
+  background:#f9fafb;
+}
+input:focus{
+  border-color:#2563eb;
+  box-shadow:0 0 0 3px rgba(37,99,235,.12);
 }
 button{
   width:100%;
   border:0;
-  border-radius:10px;
-  padding:14px;
+  border-radius:13px;
+  padding:15px;
   font-size:16px;
-  font-weight:bold;
+  font-weight:800;
   cursor:pointer;
 }
 .btn-blue{
   background:#2563eb;
   color:white;
 }
-.btn-green{
-  background:#16a34a;
-  color:white;
-}
-.btn-gray{
-  background:#e5e7eb;
-  color:#111827;
+.btn-blue:active{
+  transform:scale(.99);
 }
 .btn-red{
   background:#dc2626;
   color:white;
 }
 .hidden{
-  display:none;
+  display:none!important;
 }
+/* AÇÕES */
 .top-actions{
-  display:flex;
-  gap:8px;
-  margin-bottom:15px;
+  display:grid;
+  grid-template-columns:1fr 110px;
+  gap:10px;
+  margin-bottom:16px;
 }
-.top-actions button{
-  flex:1;
-}
-.status{
-  padding:12px;
-  border-radius:10px;
-  background:#f3f4f6;
-  margin-bottom:15px;
-  text-align:center;
-  font-weight:bold;
+/* RESUMO */
+.resumo-titulo{
+  margin-bottom:12px;
 }
 .resumo{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:10px;
-  margin-bottom:15px;
+  gap:12px;
 }
 .resumo-item{
-  background:#f3f4f6;
-  padding:14px;
-  border-radius:12px;
-  text-align:center;
+  position:relative;
+  overflow:hidden;
+  background:#f8fafc;
+  border:1px solid #e5e7eb;
+  padding:16px;
+  border-radius:17px;
+}
+.resumo-item::after{
+  content:"";
+  position:absolute;
+  right:-22px;
+  top:-22px;
+  width:70px;
+  height:70px;
+  border-radius:50%;
+  background:#dbeafe;
 }
 .resumo-numero{
   display:block;
-  font-size:24px;
-  font-weight:bold;
+  position:relative;
+  z-index:1;
+  font-size:30px;
+  font-weight:900;
+  color:#111827;
+  margin-bottom:5px;
+}
+.resumo-label{
+  position:relative;
+  z-index:1;
+  color:#64748b;
+  font-size:13px;
+  font-weight:700;
+}
+.mes-atual{
+  margin-top:13px;
+  padding:11px 13px;
+  border-radius:12px;
+  background:#eff6ff;
+  color:#1e40af;
+  font-size:13px;
+  font-weight:700;
+  text-align:center;
+}
+/* STATUS */
+.status{
+  padding:12px 14px;
+  border-radius:12px;
+  background:#f1f5f9;
+  color:#475569;
+  margin:16px 0;
+  text-align:center;
+  font-size:13px;
+  font-weight:700;
+}
+/* REGISTROS */
+.registro{
+  border:1px solid #e2e8f0;
+  border-radius:19px;
+  padding:16px;
+  margin-bottom:13px;
+  background:white;
+  box-shadow:0 5px 18px rgba(15,23,42,.07);
+}
+.funcionario{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding-bottom:13px;
+  border-bottom:1px solid #eef2f7;
+}
+.avatar{
+  width:43px;
+  height:43px;
+  flex-shrink:0;
+  border-radius:50%;
+  background:#e0e7ff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:20px;
+}
+.nome{
+  font-size:17px;
+  font-weight:900;
+  color:#111827;
+}
+.data{
+  margin-top:3px;
+  color:#64748b;
+  font-size:12px;
+}
+.horarios{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+  margin-top:13px;
+}
+.horario-box{
+  padding:12px;
+  border-radius:14px;
+}
+.entrada{
+  background:#ecfdf5;
+  border:1px solid #bbf7d0;
+}
+.saida{
+  background:#fef2f2;
+  border:1px solid #fecaca;
+}
+.horario-label{
+  font-size:11px;
+  font-weight:800;
   margin-bottom:4px;
 }
-.registro{
-  border:1px solid #e5e7eb;
-  border-radius:14px;
-  padding:15px;
-  margin-bottom:12px;
-  background:#fafafa;
+.entrada .horario-label{
+  color:#15803d;
 }
-.registro strong{
-  font-size:18px;
+.saida .horario-label{
+  color:#b91c1c;
 }
-.linha{
-  margin-top:7px;
-  color:#4b5563;
-  font-size:14px;
+.horario-valor{
+  font-size:16px;
+  font-weight:900;
 }
-.horas{
+.horas-box{
   margin-top:10px;
-  font-size:20px;
-  font-weight:bold;
+  padding:13px;
+  border-radius:14px;
+  background:#eff6ff;
+  border:1px solid #bfdbfe;
+  text-align:center;
 }
-.mapa{
-  font-size:13px;
+.horas-label{
+  color:#1d4ed8;
+  font-size:11px;
+  font-weight:800;
+  display:block;
+  margin-bottom:3px;
+}
+.horas-valor{
+  color:#1e3a8a;
+  font-size:23px;
+  font-weight:900;
+}
+/* LOCALIZAÇÃO */
+.localizacao{
+  display:block;
+  margin-top:11px;
+  padding:12px;
+  border-radius:13px;
+  background:#f8fafc;
+  border:1px solid #e2e8f0;
   color:#2563eb;
-  margin-top:8px;
-  word-break:break-all;
+  text-decoration:none;
+  font-size:13px;
+  font-weight:800;
+  text-align:center;
 }
+.localizacao:active{
+  background:#eff6ff;
+}
+.sem-local{
+  margin-top:10px;
+  padding:10px;
+  border-radius:12px;
+  background:#f8fafc;
+  color:#94a3b8;
+  text-align:center;
+  font-size:12px;
+}
+/* VAZIO / ERRO */
 .vazio{
   text-align:center;
-  padding:25px 10px;
-  color:#6b7280;
+  padding:30px 10px;
+  color:#64748b;
+  font-size:14px;
 }
 .erro{
   background:#fee2e2;
   color:#991b1b;
-  padding:12px;
-  border-radius:10px;
-  margin-bottom:12px;
+  padding:13px;
+  border-radius:12px;
+  margin-top:12px;
+  font-size:13px;
+  font-weight:700;
 }
-@media(max-width:400px){
+/* CELULAR */
+@media(max-width:430px){
+  .container{
+    padding:14px 10px 30px;
+  }
+  .header h1{
+    font-size:22px;
+  }
+  .card{
+    padding:15px;
+    border-radius:19px;
+  }
   .resumo{
+    gap:9px;
+  }
+  .resumo-item{
+    padding:14px 12px;
+  }
+  .resumo-numero{
+    font-size:27px;
+  }
+  .top-actions{
+    grid-template-columns:1fr 95px;
+  }
+  .horarios{
+    gap:7px;
+  }
+  .horario-valor{
+    font-size:15px;
+  }
+}
+@media(max-width:350px){
+  .resumo{
+    grid-template-columns:1fr;
+  }
+  .horarios{
     grid-template-columns:1fr;
   }
 }
@@ -171,70 +354,89 @@ button{
 </head>
 <body>
 <div class="container">
+  <!-- CABEÇALHO -->
   <div class="header">
-    <!-- Se quiser, depois colocamos a logomarca oficial aqui -->
-    <div style="
-      width:78px;
-      height:78px;
-      margin:0 auto 10px;
-      background:white;
-      border-radius:18px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-size:28px;
-      font-weight:bold;
-      color:#111827;">
-      MD
-    </div>
-    <h1>Merchant Distribuidora</h1>
-    <p>Painel Administrativo</p>
+<div class="logo-box">
+  MD
+</div>
+<h1>Merchant Distribuidora</h1>
+<p>Painel Administrativo</p>
   </div>
   <!-- LOGIN -->
   <div class="card" id="loginCard">
-    <h2>🔐 Acesso administrativo</h2>
-    <input
-      type="email"
-      id="email"
-      placeholder="E-mail do administrador"
-      autocomplete="username">
-    <input
-      type="password"
-      id="senha"
-      placeholder="Senha"
-      autocomplete="current-password">
-    <button class="btn-blue" onclick="entrarAdmin()">
-      Entrar
-    </button>
-    <div id="loginMensagem"></div>
+<h2 class="card-title">
+  🔐 Acesso administrativo
+</h2>
+<input
+  type="email"
+  id="email"
+  placeholder="E-mail do administrador"
+  autocomplete="username">
+<input
+  type="password"
+  id="senha"
+  placeholder="Senha"
+  autocomplete="current-password">
+<button
+  class="btn-blue"
+  onclick="entrarAdmin()">
+  Entrar
+</button>
+<div id="loginMensagem"></div>
   </div>
   <!-- PAINEL -->
   <div id="painel" class="hidden">
-    <div class="top-actions">
-      <button class="btn-blue" onclick="carregarRegistros()">
-        🔄 Atualizar
-      </button>
-      <button class="btn-red" onclick="sairAdmin()">
-        Sair
-      </button>
+<div class="top-actions">
+  <button
+    class="btn-blue"
+    onclick="carregarRegistros()">
+    🔄 Atualizar registros
+  </button>
+  <button
+    class="btn-red"
+    onclick="sairAdmin()">
+    Sair
+  </button>
+</div>
+<!-- RESUMO DO MÊS -->
+<div class="card">
+  <h2 class="card-title">
+    📊 Resumo do mês
+  </h2>
+  <div class="resumo">
+    <div class="resumo-item">
+      <span
+        class="resumo-numero"
+        id="totalRegistros">
+        0
+      </span>
+      <span class="resumo-label">
+        Registros
+      </span>
     </div>
-    <div class="card">
-      <h2>📊 Resumo</h2>
-      <div class="resumo">
-        <div class="resumo-item">
-          <span class="resumo-numero" id="totalRegistros">0</span>
-          Registros
-        </div>
-        <div class="resumo-item">
-          <span class="resumo-numero" id="totalFuncionarios">0</span>
-          Funcionários
-        </div>
-      </div>
-      <div class="status" id="status">
-        Carregando registros...
-      </div>
-      <div id="listaRegistros"></div>
+    <div class="resumo-item">
+      <span
+        class="resumo-numero"
+        id="totalFuncionarios">
+        0
+      </span>
+      <span class="resumo-label">
+        Funcionários
+      </span>
     </div>
+  </div>
+  <div
+    class="mes-atual"
+    id="mesAtual">
+    Resumo do mês atual
+  </div>
+  <div
+    class="status"
+    id="status">
+    Carregando registros...
+  </div>
+  <div id="listaRegistros"></div>
+</div>
   </div>
 </div>
 <script>
@@ -243,17 +445,26 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
 "sb_publishable_e70A8BQcnZ0o6XB-aXSbzg_p3pDeenk";
 const supabaseClient =
-supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
 /* =========================
    LOGIN
 ========================= */
 async function entrarAdmin(){
   const email =
-    document.getElementById("email").value.trim();
+    document
+      .getElementById("email")
+      .value
+      .trim();
   const senha =
-    document.getElementById("senha").value;
+    document
+      .getElementById("senha")
+      .value;
   const mensagem =
-    document.getElementById("loginMensagem");
+    document
+      .getElementById("loginMensagem");
   mensagem.innerHTML = "";
   if(!email || !senha){
     mensagem.innerHTML =
@@ -263,12 +474,11 @@ async function entrarAdmin(){
   try{
     const {data,error} =
       await supabaseClient.auth.signInWithPassword({
-        email: email,
-        password: senha
+        email:email,
+        password:senha
       });
     if(error) throw error;
-    /* Confere se o usuário é administrador */
-    const {data: perfil,error: erroPerfil} =
+    const {data:perfil,error:erroPerfil} =
       await supabaseClient
         .from("perfis_usuario")
         .select("papel")
@@ -288,7 +498,8 @@ async function entrarAdmin(){
       .getElementById("painel")
       .classList.remove("hidden");
     carregarRegistros();
-  }catch(error){
+  }
+  catch(error){
     console.error(error);
     mensagem.innerHTML =
       '<div class="erro">Não foi possível entrar: ' +
@@ -316,9 +527,11 @@ async function carregarRegistros(){
         .limit(200);
     if(error) throw error;
     if(!data || data.length === 0){
-      document.getElementById("totalRegistros")
+      document
+        .getElementById("totalRegistros")
         .textContent = "0";
-      document.getElementById("totalFuncionarios")
+      document
+        .getElementById("totalFuncionarios")
         .textContent = "0";
       status.textContent =
         "Nenhum registro encontrado.";
@@ -326,24 +539,58 @@ async function carregarRegistros(){
         '<div class="vazio">Ainda não existem registros de ponto.</div>';
       return;
     }
+    /* RESUMO */
+    const agora = new Date();
+    const mesAtual = agora.getMonth();
+    const anoAtual = agora.getFullYear();
+    const registrosMes =
+      data.filter(item => {
+        if(!item.entrada) return false;
+        const d = new Date(item.entrada);
+        return (
+          d.getMonth() === mesAtual &&
+          d.getFullYear() === anoAtual
+        );
+      });
     const funcionarios =
       new Set(
-        data.map(item =>
+        registrosMes.map(item =>
           item.funcionario
         )
       );
-    document.getElementById("totalRegistros")
-      .textContent = data.length;
-    document.getElementById("totalFuncionarios")
-      .textContent = funcionarios.size;
+    document
+      .getElementById("totalRegistros")
+      .textContent =
+      registrosMes.length;
+    document
+      .getElementById("totalFuncionarios")
+      .textContent =
+      funcionarios.size;
+    document
+      .getElementById("mesAtual")
+      .textContent =
+      "📅 " +
+      agora.toLocaleDateString(
+        "pt-BR",
+        {
+          month:"long",
+          year:"numeric"
+        }
+      )
+      .replace(/^./,c => c.toUpperCase());
     status.textContent =
-      "Registros carregados com sucesso.";
+      data.length +
+      " registro(s) carregado(s).";
+    /* LISTA */
     data.forEach(registro => {
       const div =
         document.createElement("div");
-      div.className = "registro";
+      div.className =
+        "registro";
       const entrada =
-        formatarDataHora(registro.entrada);
+        formatarDataHora(
+          registro.entrada
+        );
       const saida =
         registro.saida
           ? formatarDataHora(registro.saida)
@@ -358,32 +605,90 @@ async function carregarRegistros(){
       let local = "";
       if(
         registro.latitude !== null &&
-        registro.longitude !== null
+        registro.longitude !== null &&
+        registro.latitude !== undefined &&
+        registro.longitude !== undefined
       ){
+        const latitude =
+          encodeURIComponent(
+            registro.latitude
+          );
+        const longitude =
+          encodeURIComponent(
+            registro.longitude
+          );
         local =
-          `<div class="mapa">
-            📍 ${registro.latitude}, ${registro.longitude}
-          </div>`;
+          `
+          <a
+            class="localizacao"
+            href="https://www.google.com/maps?q=${latitude},${longitude}"
+            target="_blank"
+            rel="noopener">
+            📍 Abrir localização no mapa
+          </a>
+          `;
+      }
+      else{
+        local =
+          `
+          <div class="sem-local">
+            📍 Localização não registrada
+          </div>
+          `;
       }
       div.innerHTML = `
-        <strong>👤 ${escapeHtml(registro.funcionario || "Sem nome")}</strong>
-        <div class="linha">
-          📅 Data: ${escapeHtml(registro.data || "-")}
+        <div class="funcionario">
+          <div class="avatar">
+            👤
+          </div>
+          <div>
+            <div class="nome">
+              ${escapeHtml(
+                registro.funcionario ||
+                "Sem nome"
+              )}
+            </div>
+            <div class="data">
+              📅 ${escapeHtml(
+                registro.data || "-"
+              )}
+            </div>
+          </div>
         </div>
-        <div class="linha">
-          🟢 Entrada: ${entrada}
+        <div class="horarios">
+          <div class="horario-box entrada">
+            <div class="horario-label">
+              🟢 ENTRADA
+            </div>
+            <div class="horario-valor">
+              ${entrada}
+            </div>
+          </div>
+          <div class="horario-box saida">
+            <div class="horario-label">
+              🔴 SAÍDA
+            </div>
+            <div class="horario-valor">
+              ${saida}
+            </div>
+          </div>
         </div>
-        <div class="linha">
-          🔴 Saída: ${saida}
-        </div>
-        <div class="horas">
-          ⏱️ ${escapeHtml(horas || "00:00")}
+        <div class="horas-box">
+          <span class="horas-label">
+            ⏱️ HORAS TRABALHADAS
+          </span>
+          <span class="horas-valor">
+            ${escapeHtml(
+              horas || "00:00"
+            )}
+          </span>
         </div>
         ${local}
       `;
       lista.appendChild(div);
     });
-  }catch(error){
+  }
+  catch(error){
     console.error(error);
     status.textContent =
       "Erro ao carregar.";
@@ -411,14 +716,18 @@ function calcularHoras(entrada,saida){
       )
     );
   const horas =
-    Math.floor(segundos/3600);
+    Math.floor(
+      segundos/3600
+    );
   const minutos =
     Math.floor(
       (segundos%3600)/60
     );
-  return String(horas).padStart(2,"0")
+  return String(horas)
+    .padStart(2,"0")
     + ":" +
-    String(minutos).padStart(2,"0");
+    String(minutos)
+    .padStart(2,"0");
 }
 /* =========================
    DATA / HORA
@@ -428,7 +737,9 @@ function formatarDataHora(valor){
   const data =
     new Date(valor);
   if(isNaN(data.getTime()))
-    return escapeHtml(String(valor));
+    return escapeHtml(
+      String(valor)
+    );
   return data.toLocaleString(
     "pt-BR",
     {
@@ -441,14 +752,17 @@ function formatarDataHora(valor){
    SAIR
 ========================= */
 async function sairAdmin(){
-  await supabaseClient.auth.signOut();
+  await supabaseClient
+    .auth
+    .signOut();
   document
     .getElementById("painel")
     .classList.add("hidden");
   document
     .getElementById("loginCard")
     .classList.remove("hidden");
-  document.getElementById("senha")
+  document
+    .getElementById("senha")
     .value = "";
 }
 /* =========================
@@ -467,7 +781,9 @@ function escapeHtml(text){
 ========================= */
 async function verificarSessao(){
   const {data} =
-    await supabaseClient.auth.getSession();
+    await supabaseClient
+      .auth
+      .getSession();
   if(data.session){
     const {data:perfil} =
       await supabaseClient
@@ -475,7 +791,10 @@ async function verificarSessao(){
         .select("papel")
         .eq("id",data.session.user.id)
         .maybeSingle();
-    if(perfil && perfil.papel === "admin"){
+    if(
+      perfil &&
+      perfil.papel === "admin"
+    ){
       document
         .getElementById("loginCard")
         .classList.add("hidden");
