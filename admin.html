@@ -1,0 +1,492 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111827">
+<title>Merchant Distribuidora • Administração</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:linear-gradient(135deg,#111827,#1f2937);
+  color:#111827;
+  min-height:100vh;
+}
+.container{
+  width:100%;
+  max-width:700px;
+  margin:auto;
+  padding:20px 14px 40px;
+}
+.header{
+  text-align:center;
+  color:white;
+  margin-bottom:18px;
+}
+.logo{
+  width:78px;
+  height:78px;
+  object-fit:contain;
+  background:white;
+  border-radius:18px;
+  padding:8px;
+  margin-bottom:10px;
+}
+.header h1{
+  margin:5px 0;
+  font-size:24px;
+}
+.header p{
+  margin:5px 0;
+  opacity:.8;
+}
+.card{
+  background:white;
+  border-radius:18px;
+  padding:18px;
+  margin-bottom:15px;
+  box-shadow:0 8px 25px rgba(0,0,0,.18);
+}
+h2{
+  margin-top:0;
+  font-size:20px;
+}
+input{
+  width:100%;
+  padding:14px;
+  border:1px solid #d1d5db;
+  border-radius:10px;
+  font-size:16px;
+  margin-bottom:10px;
+}
+button{
+  width:100%;
+  border:0;
+  border-radius:10px;
+  padding:14px;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+}
+.btn-blue{
+  background:#2563eb;
+  color:white;
+}
+.btn-green{
+  background:#16a34a;
+  color:white;
+}
+.btn-gray{
+  background:#e5e7eb;
+  color:#111827;
+}
+.btn-red{
+  background:#dc2626;
+  color:white;
+}
+.hidden{
+  display:none;
+}
+.top-actions{
+  display:flex;
+  gap:8px;
+  margin-bottom:15px;
+}
+.top-actions button{
+  flex:1;
+}
+.status{
+  padding:12px;
+  border-radius:10px;
+  background:#f3f4f6;
+  margin-bottom:15px;
+  text-align:center;
+  font-weight:bold;
+}
+.resumo{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-bottom:15px;
+}
+.resumo-item{
+  background:#f3f4f6;
+  padding:14px;
+  border-radius:12px;
+  text-align:center;
+}
+.resumo-numero{
+  display:block;
+  font-size:24px;
+  font-weight:bold;
+  margin-bottom:4px;
+}
+.registro{
+  border:1px solid #e5e7eb;
+  border-radius:14px;
+  padding:15px;
+  margin-bottom:12px;
+  background:#fafafa;
+}
+.registro strong{
+  font-size:18px;
+}
+.linha{
+  margin-top:7px;
+  color:#4b5563;
+  font-size:14px;
+}
+.horas{
+  margin-top:10px;
+  font-size:20px;
+  font-weight:bold;
+}
+.mapa{
+  font-size:13px;
+  color:#2563eb;
+  margin-top:8px;
+  word-break:break-all;
+}
+.vazio{
+  text-align:center;
+  padding:25px 10px;
+  color:#6b7280;
+}
+.erro{
+  background:#fee2e2;
+  color:#991b1b;
+  padding:12px;
+  border-radius:10px;
+  margin-bottom:12px;
+}
+@media(max-width:400px){
+  .resumo{
+    grid-template-columns:1fr;
+  }
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <!-- Se quiser, depois colocamos a logomarca oficial aqui -->
+    <div style="
+      width:78px;
+      height:78px;
+      margin:0 auto 10px;
+      background:white;
+      border-radius:18px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:28px;
+      font-weight:bold;
+      color:#111827;">
+      MD
+    </div>
+    <h1>Merchant Distribuidora</h1>
+    <p>Painel Administrativo</p>
+  </div>
+  <!-- LOGIN -->
+  <div class="card" id="loginCard">
+    <h2>🔐 Acesso administrativo</h2>
+    <input
+      type="email"
+      id="email"
+      placeholder="E-mail do administrador"
+      autocomplete="username">
+    <input
+      type="password"
+      id="senha"
+      placeholder="Senha"
+      autocomplete="current-password">
+    <button class="btn-blue" onclick="entrarAdmin()">
+      Entrar
+    </button>
+    <div id="loginMensagem"></div>
+  </div>
+  <!-- PAINEL -->
+  <div id="painel" class="hidden">
+    <div class="top-actions">
+      <button class="btn-blue" onclick="carregarRegistros()">
+        🔄 Atualizar
+      </button>
+      <button class="btn-red" onclick="sairAdmin()">
+        Sair
+      </button>
+    </div>
+    <div class="card">
+      <h2>📊 Resumo</h2>
+      <div class="resumo">
+        <div class="resumo-item">
+          <span class="resumo-numero" id="totalRegistros">0</span>
+          Registros
+        </div>
+        <div class="resumo-item">
+          <span class="resumo-numero" id="totalFuncionarios">0</span>
+          Funcionários
+        </div>
+      </div>
+      <div class="status" id="status">
+        Carregando registros...
+      </div>
+      <div id="listaRegistros"></div>
+    </div>
+  </div>
+</div>
+<script>
+const SUPABASE_URL =
+"https://paegduddojnlxyqssert.supabase.co";
+const SUPABASE_KEY =
+"sb_publishable_e70A8BQcnZ0o6XB-aXSbzg_p3pDeenk";
+const supabaseClient =
+supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+/* =========================
+   LOGIN
+========================= */
+async function entrarAdmin(){
+  const email =
+    document.getElementById("email").value.trim();
+  const senha =
+    document.getElementById("senha").value;
+  const mensagem =
+    document.getElementById("loginMensagem");
+  mensagem.innerHTML = "";
+  if(!email || !senha){
+    mensagem.innerHTML =
+      '<div class="erro">Digite o e-mail e a senha.</div>';
+    return;
+  }
+  try{
+    const {data,error} =
+      await supabaseClient.auth.signInWithPassword({
+        email: email,
+        password: senha
+      });
+    if(error) throw error;
+    /* Confere se o usuário é administrador */
+    const {data: perfil,error: erroPerfil} =
+      await supabaseClient
+        .from("perfis_usuario")
+        .select("papel")
+        .eq("id",data.user.id)
+        .maybeSingle();
+    if(erroPerfil) throw erroPerfil;
+    if(!perfil || perfil.papel !== "admin"){
+      await supabaseClient.auth.signOut();
+      mensagem.innerHTML =
+        '<div class="erro">Este usuário não possui acesso administrativo.</div>';
+      return;
+    }
+    document
+      .getElementById("loginCard")
+      .classList.add("hidden");
+    document
+      .getElementById("painel")
+      .classList.remove("hidden");
+    carregarRegistros();
+  }catch(error){
+    console.error(error);
+    mensagem.innerHTML =
+      '<div class="erro">Não foi possível entrar: ' +
+      escapeHtml(error.message) +
+      '</div>';
+  }
+}
+/* =========================
+   CARREGAR REGISTROS
+========================= */
+async function carregarRegistros(){
+  const status =
+    document.getElementById("status");
+  const lista =
+    document.getElementById("listaRegistros");
+  status.textContent =
+    "Carregando registros...";
+  lista.innerHTML = "";
+  try{
+    const {data,error} =
+      await supabaseClient
+        .from("painel_admin_ponto")
+        .select("*")
+        .order("entrada",{ascending:false})
+        .limit(200);
+    if(error) throw error;
+    if(!data || data.length === 0){
+      document.getElementById("totalRegistros")
+        .textContent = "0";
+      document.getElementById("totalFuncionarios")
+        .textContent = "0";
+      status.textContent =
+        "Nenhum registro encontrado.";
+      lista.innerHTML =
+        '<div class="vazio">Ainda não existem registros de ponto.</div>';
+      return;
+    }
+    const funcionarios =
+      new Set(
+        data.map(item =>
+          item.funcionario
+        )
+      );
+    document.getElementById("totalRegistros")
+      .textContent = data.length;
+    document.getElementById("totalFuncionarios")
+      .textContent = funcionarios.size;
+    status.textContent =
+      "Registros carregados com sucesso.";
+    data.forEach(registro => {
+      const div =
+        document.createElement("div");
+      div.className = "registro";
+      const entrada =
+        formatarDataHora(registro.entrada);
+      const saida =
+        registro.saida
+          ? formatarDataHora(registro.saida)
+          : "Ainda não registrada";
+      const horas =
+        registro.horas_trabalhadas
+          ? registro.horas_trabalhadas
+          : calcularHoras(
+              registro.entrada,
+              registro.saida
+            );
+      let local = "";
+      if(
+        registro.latitude !== null &&
+        registro.longitude !== null
+      ){
+        local =
+          `<div class="mapa">
+            📍 ${registro.latitude}, ${registro.longitude}
+          </div>`;
+      }
+      div.innerHTML = `
+        <strong>👤 ${escapeHtml(registro.funcionario || "Sem nome")}</strong>
+        <div class="linha">
+          📅 Data: ${escapeHtml(registro.data || "-")}
+        </div>
+        <div class="linha">
+          🟢 Entrada: ${entrada}
+        </div>
+        <div class="linha">
+          🔴 Saída: ${saida}
+        </div>
+        <div class="horas">
+          ⏱️ ${escapeHtml(horas || "00:00")}
+        </div>
+        ${local}
+      `;
+      lista.appendChild(div);
+    });
+  }catch(error){
+    console.error(error);
+    status.textContent =
+      "Erro ao carregar.";
+    lista.innerHTML =
+      '<div class="erro">Erro ao carregar os registros: ' +
+      escapeHtml(error.message) +
+      '</div>';
+  }
+}
+/* =========================
+   CALCULAR HORAS
+========================= */
+function calcularHoras(entrada,saida){
+  if(!entrada || !saida)
+    return "Em andamento";
+  const inicio =
+    new Date(entrada);
+  const fim =
+    new Date(saida);
+  const segundos =
+    Math.max(
+      0,
+      Math.floor(
+        (fim-inicio)/1000
+      )
+    );
+  const horas =
+    Math.floor(segundos/3600);
+  const minutos =
+    Math.floor(
+      (segundos%3600)/60
+    );
+  return String(horas).padStart(2,"0")
+    + ":" +
+    String(minutos).padStart(2,"0");
+}
+/* =========================
+   DATA / HORA
+========================= */
+function formatarDataHora(valor){
+  if(!valor) return "-";
+  const data =
+    new Date(valor);
+  if(isNaN(data.getTime()))
+    return escapeHtml(String(valor));
+  return data.toLocaleString(
+    "pt-BR",
+    {
+      dateStyle:"short",
+      timeStyle:"short"
+    }
+  );
+}
+/* =========================
+   SAIR
+========================= */
+async function sairAdmin(){
+  await supabaseClient.auth.signOut();
+  document
+    .getElementById("painel")
+    .classList.add("hidden");
+  document
+    .getElementById("loginCard")
+    .classList.remove("hidden");
+  document.getElementById("senha")
+    .value = "";
+}
+/* =========================
+   SEGURANÇA DE TEXTO
+========================= */
+function escapeHtml(text){
+  return String(text)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+/* =========================
+   VERIFICAR SESSÃO
+========================= */
+async function verificarSessao(){
+  const {data} =
+    await supabaseClient.auth.getSession();
+  if(data.session){
+    const {data:perfil} =
+      await supabaseClient
+        .from("perfis_usuario")
+        .select("papel")
+        .eq("id",data.session.user.id)
+        .maybeSingle();
+    if(perfil && perfil.papel === "admin"){
+      document
+        .getElementById("loginCard")
+        .classList.add("hidden");
+      document
+        .getElementById("painel")
+        .classList.remove("hidden");
+      carregarRegistros();
+    }
+  }
+}
+verificarSessao();
+</script>
+</body>
+</html>
