@@ -366,13 +366,11 @@ function atualizarInformacoes(){
   ){
     document.getElementById("localizacao").textContent =
       "Registrada";
-    document.getElementById("btnMapa")
-      .classList.remove("hidden");
+    
   }else{
     document.getElementById("localizacao").textContent =
       "Não registrada";
-    document.getElementById("btnMapa")
-      .classList.add("hidden");
+    
   }
   iniciarContador();
 }
