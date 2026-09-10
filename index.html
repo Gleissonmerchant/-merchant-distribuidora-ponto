@@ -2,232 +2,444 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#111827">
 <title>Merchant Distribuidora • Ponto</title>
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <style>
 *{box-sizing:border-box}
-
 body{
   margin:0;
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
-  background:#f3f4f6;
+  background:
+    radial-gradient(circle at top,#24344d 0,#111827 42%,#0b1220 100%);
   color:#111827;
+  min-height:100vh;
 }
-
+.container{
+  width:100%;
+  max-width:540px;
+  margin:auto;
+  padding:14px 12px 35px;
+}
+/* CABEÇALHO */
 header{
-  background:#111827;
-  color:white;
-  padding:22px 18px;
   text-align:center;
+  color:white;
+  padding:12px 5px 20px;
 }
-
+.logo-box{
+  width:82px;
+  height:82px;
+  margin:0 auto 12px;
+  background:white;
+  border-radius:22px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:28px;
+  font-weight:900;
+  color:#111827;
+  box-shadow:0 10px 30px rgba(0,0,0,.28);
+}
 header h1{
   margin:0;
   font-size:24px;
+  font-weight:900;
+  letter-spacing:-.4px;
 }
-
 header p{
   margin:6px 0 0;
-  opacity:.8;
+  color:#cbd5e1;
+  font-size:13px;
 }
-
-.container{
-  max-width:520px;
-  margin:auto;
-  padding:18px;
-}
-
+/* CARDS */
 .card{
-  background:white;
-  border-radius:18px;
-  padding:20px;
-  margin-bottom:16px;
-  box-shadow:0 4px 18px rgba(0,0,0,.08);
+  background:rgba(255,255,255,.98);
+  border-radius:22px;
+  padding:18px;
+  margin-bottom:15px;
+  box-shadow:0 12px 35px rgba(0,0,0,.20);
 }
-
-h2{
-  margin-top:0;
+.card-title{
+  margin:0 0 16px;
+  font-size:20px;
+  font-weight:900;
 }
-
-input,button,select{
+/* LOGIN */
+input{
   width:100%;
-  padding:14px;
-  border-radius:12px;
+  padding:15px;
   border:1px solid #d1d5db;
+  border-radius:13px;
   font-size:16px;
   margin-top:10px;
+  outline:none;
+  background:#f9fafb;
 }
-
+input:focus{
+  border-color:#2563eb;
+  box-shadow:0 0 0 3px rgba(37,99,235,.12);
+}
 button{
+  width:100%;
+  padding:15px;
+  margin-top:10px;
   border:0;
-  background:#111827;
-  color:white;
-  font-weight:700;
+  border-radius:13px;
+  font-size:16px;
+  font-weight:800;
   cursor:pointer;
 }
-
 button:disabled{
   opacity:.5;
 }
-
 .btn-green{
   background:#15803d;
+  color:white;
 }
-
 .btn-red{
   background:#b91c1c;
+  color:white;
 }
-
 .btn-blue{
   background:#2563eb;
+  color:white;
 }
-
+.btn-dark{
+  background:#111827;
+  color:white;
+}
+/* SAUDAÇÃO */
+.saudacao{
+  font-size:22px;
+  font-weight:900;
+  margin-bottom:14px;
+}
 .info{
-  background:#f9fafb;
-  padding:14px;
-  border-radius:12px;
-  margin-top:12px;
+  background:#f8fafc;
+  border:1px solid #e2e8f0;
+  padding:13px;
+  border-radius:15px;
+  margin-top:10px;
 }
-
-.big{
-  font-size:28px;
+.info-label{
+  display:block;
+  color:#64748b;
+  font-size:12px;
   font-weight:800;
-  text-align:center;
-  margin:10px 0;
+  margin-bottom:4px;
 }
-
+.info-value{
+  font-size:16px;
+  font-weight:800;
+}
+/* RELÓGIO */
+.relogio-card{
+  background:#eff6ff;
+  border:1px solid #bfdbfe;
+  text-align:center;
+}
+.relogio{
+  font-size:32px;
+  font-weight:900;
+  color:#1e3a8a;
+  letter-spacing:1px;
+}
+/* HORAS */
+.horas-card{
+  background:#111827;
+  color:white;
+  text-align:center;
+  padding:20px 15px;
+}
+.horas-label{
+  display:block;
+  color:#cbd5e1;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.5px;
+  margin-bottom:6px;
+}
+.horas{
+  font-size:38px;
+  line-height:1.1;
+  font-weight:900;
+  letter-spacing:1px;
+}
+.horas-sub{
+  margin-top:6px;
+  color:#94a3b8;
+  font-size:12px;
+}
+/* STATUS */
 .status{
   text-align:center;
-  font-weight:700;
-  padding:10px;
-  border-radius:10px;
+  font-weight:800;
+  font-size:13px;
+  padding:12px;
+  border-radius:13px;
+  margin:13px 0;
+  background:#f1f5f9;
+  color:#475569;
+}
+/* ENTRADA / SAÍDA */
+.horarios{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
   margin-top:12px;
 }
-
+.horario{
+  padding:13px 10px;
+  border-radius:15px;
+}
+.entrada{
+  background:#ecfdf5;
+  border:1px solid #bbf7d0;
+}
+.saida{
+  background:#fef2f2;
+  border:1px solid #fecaca;
+}
+.horario-label{
+  font-size:11px;
+  font-weight:900;
+  margin-bottom:5px;
+}
+.entrada .horario-label{
+  color:#15803d;
+}
+.saida .horario-label{
+  color:#b91c1c;
+}
+.horario-valor{
+  font-size:14px;
+  font-weight:900;
+  line-height:1.25;
+}
+/* LOCALIZAÇÃO */
+.localizacao{
+  margin-top:12px;
+  padding:14px;
+  border-radius:15px;
+  background:#f8fafc;
+  border:1px solid #e2e8f0;
+  text-align:center;
+}
+.localizacao-titulo{
+  font-size:12px;
+  font-weight:900;
+  color:#475569;
+}
+.localizacao-status{
+  margin-top:4px;
+  font-size:13px;
+  font-weight:800;
+  color:#15803d;
+}
+.localizacao-status.sem{
+  color:#64748b;
+}
+/* MENSAGEM */
+#loginMsg{
+  margin-top:10px;
+  font-size:13px;
+  font-weight:700;
+}
 .hidden{
-  display:none;
+  display:none!important;
 }
-
-small{
-  color:#6b7280;
+/* ADMIN */
+.admin-table{
+  overflow-x:auto;
 }
-
 table{
   width:100%;
   border-collapse:collapse;
   margin-top:12px;
 }
-
 td,th{
   padding:9px 5px;
   border-bottom:1px solid #e5e7eb;
   text-align:left;
   font-size:13px;
 }
+/* CELULAR */
+@media(max-width:430px){
+  .container{
+    padding:10px 10px 30px;
+  }
+  header h1{
+    font-size:22px;
+  }
+  .card{
+    padding:15px;
+    border-radius:19px;
+  }
+  .horas{
+    font-size:36px;
+  }
+  .horario-valor{
+    font-size:13px;
+  }
+}
+@media(max-width:350px){
+  .horarios{
+    grid-template-columns:1fr;
+  }
+}
 </style>
 </head>
-
 <body>
-
 <header>
+  <div class="logo-box">
+    MD
+  </div>
   <h1>Merchant Distribuidora</h1>
   <p>Sistema de Controle de Ponto</p>
 </header>
-
 <div class="container">
-
+<!-- LOGIN -->
 <div class="card" id="loginCard">
-  <h2>Entrar</h2>
+  <h2 class="card-title">
+    👤 Entrada do funcionário
+  </h2>
 
-  <input id="nome" type="text" placeholder="Nome do funcionário">
-
-  <button class="btn-blue" onclick="entrar()">
-    Entrar no sistema
-  </button>
-
+Entrar no sistema
   <div id="loginMsg"></div>
 </div>
-
-<div class="card hidden" id="pontoCard">
-
-  <h2 id="saudacao">Olá!</h2>
-
-  <div class="info">
-    <strong>Data:</strong>
-    <span id="dataAtual"></span>
-  </div>
-
-  <div class="info">
-    <strong>Horário atual:</strong>
-    <div class="big" id="relogio">--:--:--</div>
-  </div>
-
-  <div class="info">
-    <strong>Horas trabalhadas hoje</strong>
-    <div class="big" id="horasHoje">00:00</div>
-  </div>
-
-  <div id="status" class="status">
-    Aguardando registro
-  </div>
-
-  <button id="entradaBtn" class="btn-green" onclick="registrarEntrada()">
-    Registrar Entrada
-  </button>
-
-  <button id="saidaBtn" class="btn-red" onclick="registrarSaida()" disabled>
-    Registrar Saída
-  </button>
-
-  <button class="btn-blue" onclick="carregarRegistros()">
-    Atualizar registros
-  </button>
-
-  <button onclick="sair()">
-    Sair
-  </button>
-
+<!-- PAINEL FUNCIONÁRIO -->
+<div class="hidden" id="pontoCard">
+  <div class="card">
+<div class="saudacao" id="saudacao">
+  Olá!
 </div>
-
+<div class="info">
+  <span class="info-label">
+    📅 DATA
+  </span>
+  <span
+    class="info-value"
+    id="dataAtual">
+    --
+  </span>
+</div>
+<div class="info relogio-card">
+  <span class="info-label">
+    🕐 HORÁRIO ATUAL
+  </span>
+  <div
+    class="relogio"
+    id="relogio">
+    --:--:--
+  </div>
+</div>
+  </div>
+  <!-- HORAS DO DIA -->
+  <div class="card horas-card">
+<span class="horas-label">
+  ⏱️ HORAS TRABALHADAS HOJE
+</span>
+<div
+  class="horas"
+  id="horasHoje">
+  00:00
+</div>
+<div class="horas-sub">
+  Atualização automática
+</div>
+  </div>
+  <!-- REGISTRO ATUAL -->
+  <div class="card">
+<h2 class="card-title">
+  📋 Registro de hoje
+</h2>
+<div class="horarios">
+  <div class="horario entrada">
+    <div class="horario-label">
+      🟢 ENTRADA
+    </div>
+    <div
+      class="horario-valor"
+      id="entradaDisplay">
+      Ainda não registrada
+    </div>
+  </div>
+  <div class="horario saida">
+    <div class="horario-label">
+      🔴 SAÍDA
+    </div>
+    <div
+      class="horario-valor"
+      id="saidaDisplay">
+      Ainda não registrada
+    </div>
+  </div>
+</div>
+<div
+  id="status"
+  class="status">
+  Aguardando registro
+</div>
+<!-- LOCALIZAÇÃO -->
+<div class="localizacao">
+  <div class="localizacao-titulo">
+    📍 LOCALIZAÇÃO DO REGISTRO
+  </div>
+  <div
+    class="localizacao-status sem"
+    id="localizacaoStatus">
+    Aguardando registro de entrada
+  </div>
+</div>
+<button
+  id="entradaBtn"
+  class="btn-green"
+  onclick="registrarEntrada()">
+  🟢 Registrar Entrada
+</button>
+<button
+  id="saidaBtn"
+  class="btn-red"
+  onclick="registrarSaida()"
+  disabled>
+  🔴 Registrar Saída
+</button>
+<button
+  class="btn-blue"
+  onclick="carregarRegistros()">
+  🔄 Atualizar registros
+</button>
+<button
+  class="btn-dark"
+  onclick="sair()">
+  Sair
+</button>
+  </div>
+</div>
+<!-- ÁREA ADMINISTRATIVA EXISTENTE -->
 <div class="card hidden" id="adminCard">
+  <h2 class="card-title">
+    Área Administrativa
+  </h2>
 
-  <h2>Área Administrativa</h2>
-
-  <button class="btn-blue" onclick="carregarTodos()">
-    Ver registros
-  </button>
-
-  <div id="adminResultado"></div>
-
+Ver registros
+  <div
+    class="admin-table"
+    id="adminResultado">
+  </div>
 </div>
-
 </div>
-
 <script>
-
 /* =====================================================
    CONFIGURAÇÃO SUPABASE
    ===================================================== */
-
-/*
-   URL do seu projeto Supabase.
-   NÃO altere se esta for a URL do seu projeto.
-*/
 const SUPABASE_URL =
 "https://paegduddojnlxyqssert.supabase.co";
-
-/*
-   sb_publishable_e70A8BQcnZ0o6XB-aXSbzg_p3pDeenk
-   Não coloque service_role ou outra chave secreta.
-*/
-const SUPABASE_KEY = "sb_publishable_e70A8BQcnZ0o6XB-aXSbzg_p3pDeenk"; 
-
+const SUPABASE_KEY =
+"sb_publishable_e70A8BQcnZ0o6XB-aXSbzg_p3pDeenk";
 let supabaseClient = null;
-
 if(
   SUPABASE_URL &&
   SUPABASE_KEY &&
@@ -239,67 +451,64 @@ if(
       SUPABASE_KEY
     );
 }
-
 /* =====================================================
    ESTADO
    ===================================================== */
-
 let funcionario = "";
 let entradaAtual = null;
 let registrosHoje = [];
-
 /* =====================================================
    DATA / HORA
    ===================================================== */
-
 function agora(){
   return new Date();
 }
-
 function formatarData(data){
   return data.toLocaleDateString("pt-BR");
 }
-
 function formatarHora(data){
   return data.toLocaleTimeString("pt-BR");
 }
-
 function segundosParaHora(segundos){
-
-  segundos = Math.max(0,Math.floor(segundos));
-
-  const h = Math.floor(segundos / 3600);
-  const m = Math.floor((segundos % 3600) / 60);
-  const s = segundos % 60;
-
-  return String(h).padStart(2,"0")+":"+
-       String(m).padStart(2,"0");
+  segundos = Math.max(
+    0,
+    Math.floor(segundos)
+  );
+  const h =
+    Math.floor(segundos / 3600);
+  const m =
+    Math.floor(
+      (segundos % 3600) / 60
+    );
+  return String(h).padStart(2,"0")
+    + ":" +
+    String(m).padStart(2,"0");
 }
-
 function atualizarRelogio(){
-
   const d = agora();
-
-  document.getElementById("relogio").textContent =
+  document
+    .getElementById("relogio")
+    .textContent =
     formatarHora(d);
-
-  document.getElementById("dataAtual").textContent =
+  document
+    .getElementById("dataAtual")
+    .textContent =
     formatarData(d);
-
   atualizarHorasNaTela();
 }
-
-setInterval(atualizarRelogio,1000);
-
+setInterval(
+  atualizarRelogio,
+  1000
+);
 /* =====================================================
    LOGIN
    ===================================================== */
-
 function entrar(){
-
   const nome =
-    document.getElementById("nome").value.trim();
-
+    document
+      .getElementById("nome")
+      .value
+      .trim();
   if(!nome){
     mostrarMensagem(
       "Digite o nome do funcionário.",
@@ -307,468 +516,508 @@ function entrar(){
     );
     return;
   }
-
   funcionario = nome;
-
   localStorage.setItem(
     "merchant_funcionario",
     funcionario
   );
-
-  document.getElementById("loginCard")
+  document
+    .getElementById("loginCard")
     .classList.add("hidden");
-
-  document.getElementById("pontoCard")
+  document
+    .getElementById("pontoCard")
     .classList.remove("hidden");
-
-  document.getElementById("saudacao").textContent =
+  document
+    .getElementById("saudacao")
+    .textContent =
     "Olá, " + funcionario + "!";
-
   carregarRegistros();
 }
-
 /* =====================================================
    LOCALIZAÇÃO
    ===================================================== */
-
 function obterLocalizacao(){
-
   return new Promise((resolve)=>{
-
     if(!navigator.geolocation){
       resolve(null);
       return;
     }
-
     navigator.geolocation.getCurrentPosition(
-
       position => {
-
         resolve({
-          latitude:position.coords.latitude,
-          longitude:position.coords.longitude,
-          precisao:position.coords.accuracy
+          latitude:
+            position.coords.latitude,
+          longitude:
+            position.coords.longitude,
+          precisao:
+            position.coords.accuracy
         });
-
       },
-
       () => resolve(null),
-
       {
         enableHighAccuracy:true,
         timeout:10000,
         maximumAge:0
       }
-
     );
-
   });
-
 }
-
 /* =====================================================
    ENTRADA
    ===================================================== */
-
 async function registrarEntrada(){
   if(!funcionario) return;
-
-  const botao = document.getElementById("entradaBtn");
+  const botao =
+    document.getElementById("entradaBtn");
   botao.disabled = true;
-  mostrarStatus("Obtendo localização...");
-
-  try {
-    const local = await obterLocalizacao();
-    const horario = agora();
-
+  mostrarStatus(
+    "Obtendo localização..."
+  );
+  atualizarLocalizacao(
+    "Obtendo localização...",
+    false
+  );
+  try{
+    const local =
+      await obterLocalizacao();
+    const horario =
+      agora();
     const registro = {
-      funcionario: funcionario,
-      data: formatarData(horario),
-      entrada: horario.toISOString(),
-      saida: null,
-      latitude: local ? local.latitude : null,
-      longitude: local ? local.longitude : null
+      funcionario:
+        funcionario,
+      data:
+        formatarData(horario),
+      entrada:
+        horario.toISOString(),
+      saida:
+        null,
+      latitude:
+        local ? local.latitude : null,
+      longitude:
+        local ? local.longitude : null
     };
-
     if(!supabaseClient){
-      throw new Error("Supabase não está conectado.");
+      throw new Error(
+        "Supabase não está conectado."
+      );
     }
-
-    const { data, error } = await supabaseClient
-      .from("ponto")
-      .insert([registro])
-      .select();
-
+    const {data,error} =
+      await supabaseClient
+        .from("ponto")
+        .insert([registro])
+        .select();
     if(error){
       throw error;
     }
-
-    console.log("Registro salvo no Supabase:", data);
-
-    entradaAtual = data && data[0] ? data[0] : registro;
-    registrosHoje.push(entradaAtual);
-    salvarLocalmente();
-
-    document.getElementById("saidaBtn").disabled = false;
-
-    mostrarStatus(
-      "Entrada registrada às " + formatarHora(horario)
+    console.log(
+      "Registro salvo no Supabase:",
+      data
     );
-    const numeroWhatsApp = "5588997104036"; // coloque aqui o número da empresa
-
-const mensagemEntrada =
+    entradaAtual =
+      data && data[0]
+      ? data[0]
+      : registro;
+    registrosHoje.push(
+      entradaAtual
+    );
+    salvarLocalmente();
+    document
+      .getElementById("saidaBtn")
+      .disabled = false;
+    atualizarRegistroNaTela();
+    if(local){
+      atualizarLocalizacao(
+        "Localização registrada",
+        true
+      );
+    }else{
+      atualizarLocalizacao(
+        "Localização não disponível",
+        false
+      );
+    }
+    mostrarStatus(
+      "Entrada registrada às " +
+      formatarHora(horario)
+    );
+    const numeroWhatsApp =
+      "5588997104036";
+    const mensagemEntrada =
 `🏢 Merchant Distribuidora
 🟢 ENTRADA REGISTRADA
-
+👤 Funcionário: ${funcionario}
 📅 Data: ${new Date().toLocaleDateString("pt-BR")}
-⏰ Horário: ${new Date().toLocaleTimeString("pt-BR", {
-  hour: "2-digit",
-  minute: "2-digit"
+⏰ Horário: ${new Date().toLocaleTimeString("pt-BR",{
+  hour:"2-digit",
+  minute:"2-digit"
 })}`;
-
-window.location.assign(
-  "https://wa.me/" +
-  numeroWhatsApp +
-  "?text=" +
-  encodeURIComponent(mensagemEntrada)
-);
-
+    window.location.assign(
+      "https://wa.me/" +
+      numeroWhatsApp +
+      "?text=" +
+      encodeURIComponent(
+        mensagemEntrada
+      )
+    );
     atualizarHorasNaTela();
-
-  } catch(error) {
-
-    console.error("Erro ao registrar entrada:", error);
-
+  }catch(error){
+    console.error(
+      "Erro ao registrar entrada:",
+      error
+    );
     mostrarStatus(
       "Erro ao salvar no banco: " +
-      (error.message || "verifique a conexão com o Supabase.")
+      (
+        error.message ||
+        "verifique a conexão com o Supabase."
+      )
     );
-
     botao.disabled = false;
   }
 }
-
-
 /* =====================================================
    SAÍDA
    ===================================================== */
-
 async function registrarSaida(){
-
   if(!entradaAtual) return;
-
-  const horario = agora();
-
-  entradaAtual.saida = horario.toISOString();
-
-  // Calcula o total trabalhado
-  const segundos = calcularSegundos(
-    entradaAtual.entrada,
-    entradaAtual.saida
-  );
-
-  const horas = Math.floor(segundos / 3600);
-  const minutos = Math.floor((segundos % 3600) / 60);
-
+  const horario =
+    agora();
+  entradaAtual.saida =
+    horario.toISOString();
+  const segundos =
+    calcularSegundosRegistro(
+      entradaAtual.entrada,
+      entradaAtual.saida
+    );
+  const horas =
+    Math.floor(
+      segundos / 3600
+    );
+  const minutos =
+    Math.floor(
+      (segundos % 3600) / 60
+    );
   const horasTrabalhadas =
-    String(horas).padStart(2, "0") + ":" +
-    String(minutos).padStart(2, "0");
-
-  entradaAtual.horas_trabalhadas = horasTrabalhadas;
-
+    String(horas).padStart(2,"0")
+    + ":" +
+    String(minutos).padStart(2,"0");
+  entradaAtual.horas_trabalhadas =
+    horasTrabalhadas;
   salvarLocalmente();
-
   if(supabaseClient){
-
     try{
-
-      const { error } = await supabaseClient
-        .from("ponto")
-        .update({
-          saida: entradaAtual.saida,
-          horas_trabalhadas: horasTrabalhadas
-        })
-        .eq("funcionario", funcionario)
-        .eq("entrada", entradaAtual.entrada);
-
-      if(error){
+      const {error} =
+        await supabaseClient
+          .from("ponto")
+          .update({
+            saida:
+              entradaAtual.saida,
+            horas_trabalhadas:
+              horasTrabalhadas
+          })
+          .eq(
+            "funcionario",
+            funcionario
+          )
+          .eq(
+            "entrada",
+            entradaAtual.entrada
+          );
+      if(error)
         throw error;
-      }
-
     }catch(error){
-
       console.error(
         "Erro ao atualizar saída:",
         error
       );
-
       mostrarStatus(
         "Saída registrada, mas houve erro ao salvar as horas no banco."
       );
-
-      document.getElementById("saidaBtn")
+      document
+        .getElementById("saidaBtn")
         .disabled = true;
-
       atualizarHorasNaTela();
       return;
     }
   }
-
-  const numeroWhatsApp = "5588997104036";
-
-const mensagemSaida =
+  atualizarRegistroNaTela();
+  mostrarStatus(
+    "Saída registrada às " +
+    formatarHora(horario) +
+    " • Total: " +
+    horasTrabalhadas
+  );
+  const numeroWhatsApp =
+    "5588997104036";
+  const mensagemSaida =
 `🏢 Merchant Distribuidora
 🔴 SAÍDA REGISTRADA
-
+👤 Funcionário: ${funcionario}
 📅 Data: ${new Date().toLocaleDateString("pt-BR")}
-⏰ Horário: ${new Date().toLocaleTimeString("pt-BR", {
-  hour: "2-digit",
-  minute: "2-digit"
+⏰ Horário: ${new Date().toLocaleTimeString("pt-BR",{
+  hour:"2-digit",
+  minute:"2-digit"
 })}
 ⏱️ Total trabalhado: ${horasTrabalhadas}`;
-
-window.location.assign(
-  "https://wa.me/" +
-  numeroWhatsApp +
-  "?text=" +
-  encodeURIComponent(mensagemSaida)
-);
-
-  document.getElementById("saidaBtn")
+  window.location.assign(
+    "https://wa.me/" +
+    numeroWhatsApp +
+    "?text=" +
+    encodeURIComponent(
+      mensagemSaida
+    )
+  );
+  document
+    .getElementById("saidaBtn")
     .disabled = true;
-
-  document.getElementById("entradaBtn")
+  document
+    .getElementById("entradaBtn")
     .disabled = true;
-
   atualizarHorasNaTela();
 }
-
 /* =====================================================
-   HORAS TRABALHADAS
+   HORAS
    ===================================================== */
-
+function calcularSegundosRegistro(
+  entrada,
+  saida
+){
+  if(!entrada || !saida)
+    return 0;
+  const inicio =
+    new Date(entrada);
+  const fim =
+    new Date(saida);
+  if(
+    isNaN(inicio.getTime()) ||
+    isNaN(fim.getTime())
+  ){
+    return 0;
+  }
+  return Math.max(
+    0,
+    (fim.getTime() -
+     inicio.getTime()) / 1000
+  );
+}
 function calcularSegundos(){
-
   let total = 0;
-
-  registrosHoje.forEach(r => {
-
-    if(!r.entrada) return;
-
+  registrosHoje.forEach(r=>{
+    if(!r.entrada)
+      return;
     const inicio =
       new Date(r.entrada);
-
     const fim =
       r.saida
       ? new Date(r.saida)
       : agora();
-
     if(
       !isNaN(inicio.getTime()) &&
       !isNaN(fim.getTime())
     ){
-
       total +=
         Math.max(
           0,
           (fim-inicio)/1000
         );
-
     }
-
   });
-
   return total;
 }
-
 function atualizarHorasNaTela(){
-
   let total = 0;
-
-  registrosHoje.forEach(r => {
-
-    if(!r.entrada) return;
-
-    const inicio = new Date(r.entrada);
-
-    const fim = r.saida
+  registrosHoje.forEach(r=>{
+    if(!r.entrada)
+      return;
+    const inicio =
+      new Date(r.entrada);
+    const fim =
+      r.saida
       ? new Date(r.saida)
       : agora();
-
-    if(!isNaN(inicio.getTime()) && !isNaN(fim.getTime())){
-
-      total += Math.max(
-        0,
-        (fim.getTime() - inicio.getTime()) / 1000
-      );
-
-    }
-
-  });
-
-  if(
-    entradaAtual &&
-    entradaAtual.entrada &&
-    !entradaAtual.saida
-  ){
-
-    const inicio = new Date(entradaAtual.entrada);
-
-    if(!isNaN(inicio.getTime())){
-
-      const segundosAbertos =
+    if(
+      !isNaN(inicio.getTime()) &&
+      !isNaN(fim.getTime())
+    ){
+      total +=
         Math.max(
           0,
-          (agora().getTime() - inicio.getTime()) / 1000
+          (fim.getTime() -
+           inicio.getTime()) / 1000
         );
-
-      const totalSemAberta =
-        registrosHoje.reduce((soma,r) => {
-
-          if(!r.entrada || !r.saida){
-            return soma;
-          }
-
-          const inicioR = new Date(r.entrada);
-          const fimR = new Date(r.saida);
-
-          if(
-            isNaN(inicioR.getTime()) ||
-            isNaN(fimR.getTime())
-          ){
-            return soma;
-          }
-
-          return soma + Math.max(
-            0,
-            (fimR.getTime() - inicioR.getTime()) / 1000
-          );
-
-        },0);
-
-      total =
-        totalSemAberta +
-        segundosAbertos;
     }
-  }
-
-  document.getElementById("horasHoje").textContent =
+  });
+  document
+    .getElementById("horasHoje")
+    .textContent =
     segundosParaHora(total);
 }
-
-  
+/* =====================================================
+   ATUALIZAR REGISTRO NA TELA
+   ===================================================== */
+function atualizarRegistroNaTela(){
+  const entrada =
+    document.getElementById(
+      "entradaDisplay"
+    );
+  const saida =
+    document.getElementById(
+      "saidaDisplay"
+    );
+  if(entradaAtual){
+    entrada.textContent =
+      entradaAtual.entrada
+      ? formatarHora(
+          new Date(
+            entradaAtual.entrada
+          )
+        )
+      : "Ainda não registrada";
+    saida.textContent =
+      entradaAtual.saida
+      ? formatarHora(
+          new Date(
+            entradaAtual.saida
+          )
+        )
+      : "Ainda não registrada";
+  }else{
+    entrada.textContent =
+      "Ainda não registrada";
+    saida.textContent =
+      "Ainda não registrada";
+  }
+}
+/* =====================================================
+   LOCALIZAÇÃO NA TELA
+   ===================================================== */
+function atualizarLocalizacao(
+  texto,
+  sucesso
+){
+  const el =
+    document.getElementById(
+      "localizacaoStatus"
+    );
+  el.textContent =
+    texto;
+  if(sucesso){
+    el.classList.remove("sem");
+  }else{
+    el.classList.add("sem");
+  }
+}
 /* =====================================================
    REGISTROS
    ===================================================== */
-
 async function carregarRegistros(){
-
   registrosHoje = [];
-
   const hoje =
     formatarData(agora());
-
   if(supabaseClient){
-
     try{
-
       const {data,error} =
         await supabaseClient
-        .from("ponto")
-        .select("*")
-        .eq("funcionario",funcionario)
-        .eq("data",hoje)
-        .order("entrada",{ascending:true});
-
+          .from("ponto")
+          .select("*")
+          .eq(
+            "funcionario",
+            funcionario
+          )
+          .eq(
+            "data",
+            hoje
+          )
+          .order(
+            "entrada",
+            {ascending:true}
+          );
       if(!error && data){
-
         registrosHoje = data;
-
       }
-
     }catch(error){
-
       console.error(error);
-
     }
-
   }
-
   if(!registrosHoje.length){
-
     const salvo =
       localStorage.getItem(
         "merchant_registros"
       );
-
     if(salvo){
-
       try{
-
         const todos =
           JSON.parse(salvo);
-
         registrosHoje =
           todos.filter(
             r =>
               r.funcionario === funcionario &&
               r.data === hoje
           );
-
       }catch(e){}
-
     }
-
   }
-
   entradaAtual =
     registrosHoje.find(
-      r => r.entrada && !r.saida
+      r =>
+        r.entrada &&
+        !r.saida
     ) || null;
-
-  document.getElementById("saidaBtn")
+  document
+    .getElementById("saidaBtn")
     .disabled =
     !entradaAtual;
-
-  atualizarHorasNaTela();
-
+  document
+    .getElementById("entradaBtn")
+    .disabled =
+    !!entradaAtual;
+  atualizarRegistroNaTela();
   if(entradaAtual){
-
-    document.getElementById("entradaBtn")
-      .disabled = true;
-
     mostrarStatus(
       "Você está trabalhando desde " +
       formatarHora(
-        new Date(entradaAtual.entrada)
+        new Date(
+          entradaAtual.entrada
+        )
       )
     );
-
+    if(
+      entradaAtual.latitude !== null &&
+      entradaAtual.longitude !== null
+    ){
+      atualizarLocalizacao(
+        "Localização registrada",
+        true
+      );
+    }else{
+      atualizarLocalizacao(
+        "Localização não disponível",
+        false
+      );
+    }
+  }else{
+    atualizarLocalizacao(
+      "Aguardando registro de entrada",
+      false
+    );
   }
-
+  atualizarHorasNaTela();
 }
-
 /* =====================================================
    SALVAR LOCALMENTE
    ===================================================== */
-
 function salvarLocalmente(){
-
   const salvo =
     localStorage.getItem(
       "merchant_registros"
     );
-
   let todos = [];
-
   if(salvo){
-
     try{
-      todos = JSON.parse(salvo);
+      todos =
+        JSON.parse(salvo);
     }catch(e){}
-
   }
-
   const outros =
     todos.filter(
       r =>
@@ -776,75 +1025,70 @@ function salvarLocalmente(){
           r.funcionario === funcionario &&
           r.data === formatarData(agora()) &&
           r.entrada ===
-            (entradaAtual ? entradaAtual.entrada : "")
+            (
+              entradaAtual
+              ? entradaAtual.entrada
+              : ""
+            )
         )
     );
-
-  registrosHoje.forEach(registro=>{
-
-    const indice =
-      outros.findIndex(
-        r =>
-          r.funcionario === registro.funcionario &&
-          r.entrada === registro.entrada
-      );
-
-    if(indice >= 0)
-      outros[indice] = registro;
-    else
-      outros.push(registro);
-
-  });
-
+  registrosHoje.forEach(
+    registro=>{
+      const indice =
+        outros.findIndex(
+          r =>
+            r.funcionario ===
+              registro.funcionario &&
+            r.entrada ===
+              registro.entrada
+        );
+      if(indice >= 0)
+        outros[indice] =
+          registro;
+      else
+        outros.push(registro);
+    }
+  );
   localStorage.setItem(
     "merchant_registros",
     JSON.stringify(outros)
   );
-
 }
-
 /* =====================================================
-   ADMINISTRADOR
+   ADMINISTRADOR EXISTENTE
    ===================================================== */
-
 async function carregarTodos(){
-
   const resultado =
     document.getElementById(
       "adminResultado"
     );
-
   resultado.innerHTML =
     "<p>Carregando...</p>";
-
   if(!supabaseClient){
-
     resultado.innerHTML =
       "<p>Supabase ainda não está configurado.</p>";
-
     return;
   }
-
   try{
-
     const {data,error} =
       await supabaseClient
-      .from("ponto")
-      .select("*")
-      .order("entrada",{ascending:false})
-      .limit(100);
-
-    if(error) throw error;
-
-    if(!data || !data.length){
-
+        .from("ponto")
+        .select("*")
+        .order(
+          "entrada",
+          {ascending:false}
+        )
+        .limit(100);
+    if(error)
+      throw error;
+    if(
+      !data ||
+      !data.length
+    ){
       resultado.innerHTML =
         "<p>Nenhum registro encontrado.</p>";
-
       return;
-
     }
-
     let html =
       "<table>" +
       "<tr>" +
@@ -853,142 +1097,152 @@ async function carregarTodos(){
       "<th>Entrada</th>" +
       "<th>Saída</th>" +
       "</tr>";
-
     data.forEach(r=>{
-
       html +=
         "<tr>" +
-        "<td>"+escapeHtml(r.funcionario || "")+"</td>" +
-        "<td>"+escapeHtml(r.data || "")+"</td>" +
-        "<td>"+(
+        "<td>" +
+        escapeHtml(
+          r.funcionario || ""
+        ) +
+        "</td>" +
+        "<td>" +
+        escapeHtml(
+          r.data || ""
+        ) +
+        "</td>" +
+        "<td>" +
+        (
           r.entrada
-          ? formatarHora(new Date(r.entrada))
+          ? formatarHora(
+              new Date(r.entrada)
+            )
           : "-"
-        )+"</td>" +
-        "<td>"+(
+        ) +
+        "</td>" +
+        "<td>" +
+        (
           r.saida
-          ? formatarHora(new Date(r.saida))
+          ? formatarHora(
+              new Date(r.saida)
+            )
           : "Trabalhando"
-        )+"</td>" +
+        ) +
+        "</td>" +
         "</tr>";
-
     });
-
     html += "</table>";
-
-    resultado.innerHTML = html;
-
+    resultado.innerHTML =
+      html;
   }catch(error){
-
     console.error(error);
-
     resultado.innerHTML =
       "<p>Não foi possível carregar os registros.</p>";
-
   }
-
 }
-
 /* =====================================================
-   SEGURANÇA DE TEXTO
+   SEGURANÇA
    ===================================================== */
-
 function escapeHtml(text){
-
   return String(text)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
-
+    .replaceAll(
+      "&",
+      "&amp;"
+    )
+    .replaceAll(
+      "<",
+      "&lt;"
+    )
+    .replaceAll(
+      ">",
+      "&gt;"
+    )
+    .replaceAll(
+      '"',
+      "&quot;"
+    )
+    .replaceAll(
+      "'",
+      "&#039;"
+    );
 }
-
 /* =====================================================
    MENSAGENS
    ===================================================== */
-
-function mostrarMensagem(texto,erro=false){
-
+function mostrarMensagem(
+  texto,
+  erro=false
+){
   const el =
-    document.getElementById("loginMsg");
-
-  el.textContent = texto;
-
+    document.getElementById(
+      "loginMsg"
+    );
+  el.textContent =
+    texto;
   el.style.color =
-    erro ? "#b91c1c" : "#15803d";
-
+    erro
+    ? "#b91c1c"
+    : "#15803d";
 }
-
 function mostrarStatus(texto){
-
   const el =
-    document.getElementById("status");
-
-  el.textContent = texto;
+    document.getElementById(
+      "status"
+    );
+  el.textContent =
+    texto;
 }
-
 /* =====================================================
    SAIR
    ===================================================== */
-
 function sair(){
-
   funcionario = "";
   entradaAtual = null;
   registrosHoje = [];
-
   localStorage.removeItem(
     "merchant_funcionario"
   );
-
-  document.getElementById("pontoCard")
+  document
+    .getElementById("pontoCard")
     .classList.add("hidden");
-
-  document.getElementById("adminCard")
+  document
+    .getElementById("adminCard")
     .classList.add("hidden");
-
-  document.getElementById("loginCard")
+  document
+    .getElementById("loginCard")
     .classList.remove("hidden");
-
-  document.getElementById("nome").value = "";
-
+  document
+    .getElementById("nome")
+    .value = "";
 }
-
 /* =====================================================
    INICIALIZAÇÃO
    ===================================================== */
-
-window.addEventListener("load",()=>{
-
-  atualizarRelogio();
-
-  const salvo =
-    localStorage.getItem(
-      "merchant_funcionario"
-    );
-
-  if(salvo){
-
-    funcionario = salvo;
-
-    document.getElementById("loginCard")
-      .classList.add("hidden");
-
-    document.getElementById("pontoCard")
-      .classList.remove("hidden");
-
-    document.getElementById("saudacao")
-      .textContent =
-      "Olá, " + funcionario + "!";
-
-    carregarRegistros();
-
+window.addEventListener(
+  "load",
+  ()=>{
+    atualizarRelogio();
+    const salvo =
+      localStorage.getItem(
+        "merchant_funcionario"
+      );
+    if(salvo){
+      funcionario = salvo;
+      document
+        .getElementById("loginCard")
+        .classList.add("hidden");
+      document
+        .getElementById("pontoCard")
+        .classList.remove("hidden");
+      document
+        .getElementById("saudacao")
+        .textContent =
+        "Olá, " +
+        funcionario +
+        "!";
+      carregarRegistros();
+    }
   }
-
-});
-
+);
 </script>
-
 </body>
 </html>
