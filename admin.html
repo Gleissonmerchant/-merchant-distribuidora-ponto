@@ -11,801 +11,808 @@
 *{box-sizing:border-box}
 body{
   margin:0;
+  min-height:100vh;
   font-family:Arial,Helvetica,sans-serif;
   background:
-    radial-gradient(circle at top,#24344d 0,#111827 42%,#0b1220 100%);
-  color:#111827;
-  min-height:100vh;
+    radial-gradient(circle at top,#263449 0,#111827 42%,#080d16 100%);
+  color:#fff;
 }
 .container{
-  width:100%;
-  max-width:760px;
+  width:min(1100px,94%);
   margin:auto;
-  padding:18px 14px 40px;
+  padding:24px 0 40px;
 }
-/* CABEÇALHO */
+.card{
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:22px;
+  padding:20px;
+  margin-bottom:18px;
+  box-shadow:0 12px 35px rgba(0,0,0,.25);
+  backdrop-filter:blur(10px);
+}
 .header{
-  text-align:center;
-  color:white;
+  display:flex;
+  align-items:center;
+  gap:15px;
   margin-bottom:20px;
 }
-.logo-box{
-  width:82px;
-  height:82px;
-  margin:0 auto 12px;
-  background:white;
-  border-radius:22px;
+.logo{
+  width:64px;
+  height:64px;
+  border-radius:18px;
+  background:#fff;
+  color:#111827;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:28px;
+  font-size:24px;
   font-weight:900;
-  color:#111827;
-  box-shadow:0 10px 30px rgba(0,0,0,.28);
+  flex:none;
 }
-.header h1{
+h1{
+  font-size:24px;
   margin:0;
-  font-size:25px;
-  font-weight:800;
-  letter-spacing:-.4px;
 }
-.header p{
-  margin:6px 0 0;
-  color:#cbd5e1;
+.subtitle{
+  color:#aeb8c8;
+  margin-top:5px;
   font-size:14px;
 }
-/* CARDS */
-.card{
-  background:rgba(255,255,255,.98);
-  border-radius:22px;
-  padding:18px;
-  margin-bottom:16px;
-  box-shadow:0 12px 35px rgba(0,0,0,.20);
-}
-.card-title{
-  display:flex;
-  align-items:center;
-  gap:9px;
-  margin:0 0 16px;
+h2{
+  margin:0 0 15px;
   font-size:19px;
-  font-weight:800;
 }
-/* LOGIN */
+.login{
+  max-width:430px;
+  margin:70px auto;
+}
 input{
   width:100%;
   padding:15px;
-  border:1px solid #d1d5db;
   border-radius:13px;
-  font-size:16px;
-  margin-bottom:11px;
+  border:1px solid rgba(255,255,255,.15);
+  background:rgba(0,0,0,.25);
+  color:#fff;
   outline:none;
-  background:#f9fafb;
+  margin-bottom:12px;
+  font-size:16px;
 }
-input:focus{
-  border-color:#2563eb;
-  box-shadow:0 0 0 3px rgba(37,99,235,.12);
+input::placeholder{
+  color:#9ca8b8;
 }
 button{
-  width:100%;
   border:0;
   border-radius:13px;
-  padding:15px;
-  font-size:16px;
-  font-weight:800;
+  padding:13px 17px;
+  font-size:15px;
+  font-weight:700;
   cursor:pointer;
 }
-.btn-blue{
-  background:#2563eb;
-  color:white;
+.btn-primary{
+  width:100%;
+  background:#fff;
+  color:#111827;
 }
-.btn-blue:active{
-  transform:scale(.99);
+.btn-secondary{
+  background:rgba(255,255,255,.10);
+  color:#fff;
+  border:1px solid rgba(255,255,255,.12);
 }
-.btn-red{
+.btn-danger{
   background:#dc2626;
-  color:white;
+  color:#fff;
+}
+.btn-small{
+  padding:9px 12px;
+  font-size:13px;
+}
+.top-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.top-actions button{
+  flex:1;
+  min-width:130px;
+}
+.filters{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:10px;
+}
+.filter-label{
+  font-size:13px;
+  color:#aeb8c8;
+  margin-bottom:5px;
+}
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
+.stat{
+  background:rgba(255,255,255,.06);
+  border-radius:17px;
+  padding:17px;
+  text-align:center;
+}
+.stat strong{
+  display:block;
+  font-size:27px;
+  margin-bottom:5px;
+}
+.stat span{
+  color:#aeb8c8;
+  font-size:13px;
+}
+.record{
+  background:rgba(255,255,255,.055);
+  border:1px solid rgba(255,255,255,.09);
+  border-radius:18px;
+  padding:16px;
+  margin-bottom:12px;
+}
+.record-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-bottom:13px;
+}
+.employee{
+  font-size:18px;
+  font-weight:800;
+}
+.date{
+  color:#aeb8c8;
+  font-size:13px;
+}
+.info-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+.info{
+  background:rgba(0,0,0,.18);
+  border-radius:13px;
+  padding:12px;
+}
+.info small{
+  display:block;
+  color:#9ca8b8;
+  margin-bottom:5px;
+  font-size:11px;
+  text-transform:uppercase;
+}
+.info strong{
+  font-size:17px;
+}
+.location{
+  margin-top:12px;
+}
+.location a{
+  color:#fff;
+  text-decoration:none;
+  display:inline-block;
+  background:rgba(255,255,255,.10);
+  padding:9px 12px;
+  border-radius:11px;
+  font-size:13px;
+}
+.record-actions{
+  margin-top:13px;
+  display:flex;
+  justify-content:flex-end;
+}
+.employee-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:13px 0;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.employee-row:last-child{
+  border-bottom:0;
+}
+.employee-name{
+  font-weight:700;
+}
+.employee-note{
+  color:#9ca8b8;
+  font-size:12px;
+  margin-top:3px;
+}
+.empty{
+  text-align:center;
+  color:#aeb8c8;
+  padding:25px 10px;
 }
 .hidden{
   display:none!important;
 }
-/* AÇÕES */
-.top-actions{
-  display:grid;
-  grid-template-columns:1fr 110px;
-  gap:10px;
-  margin-bottom:16px;
-}
-/* RESUMO */
-.resumo-titulo{
-  margin-bottom:12px;
-}
-.resumo{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-}
-.resumo-item{
-  position:relative;
-  overflow:hidden;
-  background:#f8fafc;
-  border:1px solid #e5e7eb;
-  padding:16px;
-  border-radius:17px;
-}
-.resumo-item::after{
-  content:"";
-  position:absolute;
-  right:-22px;
-  top:-22px;
-  width:70px;
-  height:70px;
-  border-radius:50%;
-  background:#dbeafe;
-}
-.resumo-numero{
-  display:block;
-  position:relative;
-  z-index:1;
-  font-size:30px;
-  font-weight:900;
-  color:#111827;
-  margin-bottom:5px;
-}
-.resumo-label{
-  position:relative;
-  z-index:1;
-  color:#64748b;
-  font-size:13px;
-  font-weight:700;
-}
-.mes-atual{
-  margin-top:13px;
-  padding:11px 13px;
-  border-radius:12px;
-  background:#eff6ff;
-  color:#1e40af;
-  font-size:13px;
-  font-weight:700;
-  text-align:center;
-}
-/* STATUS */
-.status{
-  padding:12px 14px;
-  border-radius:12px;
-  background:#f1f5f9;
-  color:#475569;
-  margin:16px 0;
-  text-align:center;
-  font-size:13px;
-  font-weight:700;
-}
-/* REGISTROS */
-.registro{
-  border:1px solid #e2e8f0;
-  border-radius:19px;
-  padding:16px;
-  margin-bottom:13px;
-  background:white;
-  box-shadow:0 5px 18px rgba(15,23,42,.07);
-}
-.funcionario{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding-bottom:13px;
-  border-bottom:1px solid #eef2f7;
-}
-.avatar{
-  width:43px;
-  height:43px;
-  flex-shrink:0;
-  border-radius:50%;
-  background:#e0e7ff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:20px;
-}
-.nome{
-  font-size:17px;
-  font-weight:900;
-  color:#111827;
-}
-.data{
-  margin-top:3px;
-  color:#64748b;
-  font-size:12px;
-}
-.horarios{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:9px;
-  margin-top:13px;
-}
-.horario-box{
-  padding:12px;
-  border-radius:14px;
-}
-.entrada{
-  background:#ecfdf5;
-  border:1px solid #bbf7d0;
-}
-.saida{
-  background:#fef2f2;
-  border:1px solid #fecaca;
-}
-.horario-label{
-  font-size:11px;
-  font-weight:800;
-  margin-bottom:4px;
-}
-.entrada .horario-label{
-  color:#15803d;
-}
-.saida .horario-label{
-  color:#b91c1c;
-}
-.horario-valor{
-  font-size:16px;
-  font-weight:900;
-}
-.horas-box{
-  margin-top:10px;
-  padding:13px;
-  border-radius:14px;
-  background:#eff6ff;
-  border:1px solid #bfdbfe;
-  text-align:center;
-}
-.horas-label{
-  color:#1d4ed8;
-  font-size:11px;
-  font-weight:800;
-  display:block;
-  margin-bottom:3px;
-}
-.horas-valor{
-  color:#1e3a8a;
-  font-size:23px;
-  font-weight:900;
-}
-/* LOCALIZAÇÃO */
-.localizacao{
-  display:block;
-  margin-top:11px;
-  padding:12px;
-  border-radius:13px;
-  background:#f8fafc;
-  border:1px solid #e2e8f0;
-  color:#2563eb;
-  text-decoration:none;
-  font-size:13px;
-  font-weight:800;
-  text-align:center;
-}
-.localizacao:active{
-  background:#eff6ff;
-}
-.sem-local{
-  margin-top:10px;
-  padding:10px;
-  border-radius:12px;
-  background:#f8fafc;
-  color:#94a3b8;
-  text-align:center;
-  font-size:12px;
-}
-/* VAZIO / ERRO */
-.vazio{
-  text-align:center;
-  padding:30px 10px;
-  color:#64748b;
+.message{
+  margin-top:12px;
+  color:#fca5a5;
   font-size:14px;
 }
-.erro{
-  background:#fee2e2;
-  color:#991b1b;
-  padding:13px;
-  border-radius:12px;
-  margin-top:12px;
-  font-size:13px;
-  font-weight:700;
-}
-/* CELULAR */
-@media(max-width:430px){
+@media(max-width:700px){
   .container{
-    padding:14px 10px 30px;
+    width:94%;
+    padding-top:15px;
   }
-  .header h1{
-    font-size:22px;
-  }
-  .card{
-    padding:15px;
-    border-radius:19px;
-  }
-  .resumo{
-    gap:9px;
-  }
-  .resumo-item{
-    padding:14px 12px;
-  }
-  .resumo-numero{
-    font-size:27px;
-  }
-  .top-actions{
-    grid-template-columns:1fr 95px;
-  }
-  .horarios{
-    gap:7px;
-  }
-  .horario-valor{
-    font-size:15px;
-  }
-}
-@media(max-width:350px){
-  .resumo{
+  .stats{
     grid-template-columns:1fr;
   }
-  .horarios{
+  .info-grid{
     grid-template-columns:1fr;
+  }
+  .record-header{
+    align-items:flex-start;
+  }
+  .employee-row{
+    align-items:flex-start;
+  }
+  .employee-row button{
+    flex:none;
   }
 }
 </style>
 </head>
 <body>
-<div class="container">
-  <!-- CABEÇALHO -->
-  <div class="header">
-<div class="logo-box">
-  MD
-</div>
-<h1>Merchant Distribuidora</h1>
-<p>Painel Administrativo</p>
+<div id="loginArea" class="container">
+  <div class="card login">
+<div class="header">
+  <div class="logo">MD</div>
+  <div>
+    <h1>Merchant Distribuidora</h1>
+    <div class="subtitle">Painel Administrativo</div>
   </div>
-  <!-- LOGIN -->
-  <div class="card" id="loginCard">
-<h2 class="card-title">
-  🔐 Acesso administrativo
-</h2>
-<input
-  type="email"
-  id="email"
-  placeholder="E-mail do administrador"
-  autocomplete="username">
-<input
-  type="password"
-  id="senha"
-  placeholder="Senha"
-  autocomplete="current-password">
-<button
-  class="btn-blue"
-  onclick="entrarAdmin()">
+</div>
+<h2>Acesso do administrador</h2>
+<input id="email" type="email" placeholder="E-mail">
+<input id="senha" type="password" placeholder="Senha">
+<button class="btn-primary" onclick="entrarAdmin()">
   Entrar
 </button>
-<div id="loginMensagem"></div>
+<div id="loginMessage" class="message"></div>
   </div>
-  <!-- PAINEL -->
-  <div id="painel" class="hidden">
+</div>
+<div id="adminArea" class="container hidden">
+  <div class="header">
+    <div class="logo">MD</div>
+<div style="flex:1">
+  <h1>Merchant Distribuidora</h1>
+  <div class="subtitle">Painel Administrativo de Ponto</div>
+</div>
+  </div>
+  <div class="card">
+<h2>📅 Período</h2>
+<div class="filters">
+  <div>
+    <div class="filter-label">
+      Selecione o mês e o ano
+    </div>
+    <input
+      id="mesSelecionado"
+      type="month"
+      onchange="carregarRegistros()"
+    >
+  </div>
+</div>
 <div class="top-actions">
   <button
-    class="btn-blue"
+    class="btn-secondary"
     onclick="carregarRegistros()">
-    🔄 Atualizar registros
+    🔄 Atualizar
   </button>
   <button
-    class="btn-red"
+    class="btn-danger"
     onclick="sairAdmin()">
-    Sair
+    🚪 Sair
   </button>
 </div>
-<!-- RESUMO DO MÊS -->
-<div class="card">
-  <h2 class="card-title">
-    📊 Resumo do mês
-  </h2>
-  <div class="resumo">
-    <div class="resumo-item">
-      <span
-        class="resumo-numero"
-        id="totalRegistros">
-        0
-      </span>
-      <span class="resumo-label">
-        Registros
-      </span>
-    </div>
-    <div class="resumo-item">
-      <span
-        class="resumo-numero"
-        id="totalFuncionarios">
-        0
-      </span>
-      <span class="resumo-label">
-        Funcionários
-      </span>
-    </div>
   </div>
-  <div
-    class="mes-atual"
-    id="mesAtual">
-    Resumo do mês atual
+  <div class="card">
+<h2>📊 Resumo do mês</h2>
+<div class="stats">
+  <div class="stat">
+    <strong id="totalRegistros">0</strong>
+    <span>Registros</span>
   </div>
-  <div
-    class="status"
-    id="status">
+  <div class="stat">
+    <strong id="totalFuncionarios">0</strong>
+    <span>Funcionários</span>
+  </div>
+  <div class="stat">
+    <strong id="totalHoras">00:00</strong>
+    <span>Horas registradas</span>
+  </div>
+</div>
+  </div>
+  <div class="card">
+<h2>👥 Funcionários</h2>
+<div id="listaFuncionarios">
+  <div class="empty">
+    Carregando funcionários...
+  </div>
+</div>
+  </div>
+  <div class="card">
+<h2>🕐 Registros de ponto</h2>
+<div id="listaRegistros">
+  <div class="empty">
     Carregando registros...
   </div>
-  <div id="listaRegistros"></div>
 </div>
   </div>
 </div>
 <script>
 const SUPABASE_URL =
-"https://paegduddojnlxyqssert.supabase.co";
+  "https://paegduddojnlxyqssert.supabase.co";
 const SUPABASE_KEY =
-"sb_publishable_e70A8BQcnZ0o6XB-aXSbzg_p3pDeenk";
+  "sb_publishable_e70A8BQcnZ0o6XB-aXSbzg_p3pDeenk";
 const supabaseClient =
-supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
-);
-/* =========================
-   LOGIN
-========================= */
-async function entrarAdmin(){
-  const email =
-    document
-      .getElementById("email")
-      .value
-      .trim();
-  const senha =
-    document
-      .getElementById("senha")
-      .value;
-  const mensagem =
-    document
-      .getElementById("loginMensagem");
-  mensagem.innerHTML = "";
-  if(!email || !senha){
-    mensagem.innerHTML =
-      '<div class="erro">Digite o e-mail e a senha.</div>';
-    return;
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+let registrosAtuais = [];
+function escapeHtml(valor){
+  if(valor === null || valor === undefined){
+    return "";
   }
-  try{
-    const {data,error} =
-      await supabaseClient.auth.signInWithPassword({
-        email:email,
-        password:senha
-      });
-    if(error) throw error;
-    const {data:perfil,error:erroPerfil} =
-      await supabaseClient
-        .from("perfis_usuario")
-        .select("papel")
-        .eq("id",data.user.id)
-        .maybeSingle();
-    if(erroPerfil) throw erroPerfil;
-    if(!perfil || perfil.papel !== "admin"){
-      await supabaseClient.auth.signOut();
-      mensagem.innerHTML =
-        '<div class="erro">Este usuário não possui acesso administrativo.</div>';
-      return;
-    }
-    document
-      .getElementById("loginCard")
-      .classList.add("hidden");
-    document
-      .getElementById("painel")
-      .classList.remove("hidden");
-    carregarRegistros();
-  }
-  catch(error){
-    console.error(error);
-    mensagem.innerHTML =
-      '<div class="erro">Não foi possível entrar: ' +
-      escapeHtml(error.message) +
-      '</div>';
-  }
+  return String(valor)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
 }
-/* =========================
-   CARREGAR REGISTROS
-========================= */
-async function carregarRegistros(){
-  const status =
-    document.getElementById("status");
-  const lista =
-    document.getElementById("listaRegistros");
-  status.textContent =
-    "Carregando registros...";
-  lista.innerHTML = "";
-  try{
-    const {data,error} =
-      await supabaseClient
-        .from("painel_admin_ponto")
-        .select("*")
-        .order("entrada",{ascending:false})
-        .limit(200);
-    if(error) throw error;
-    if(!data || data.length === 0){
-      document
-        .getElementById("totalRegistros")
-        .textContent = "0";
-      document
-        .getElementById("totalFuncionarios")
-        .textContent = "0";
-      status.textContent =
-        "Nenhum registro encontrado.";
-      lista.innerHTML =
-        '<div class="vazio">Ainda não existem registros de ponto.</div>';
-      return;
-    }
-    /* RESUMO */
-    const agora = new Date();
-    const mesAtual = agora.getMonth();
-    const anoAtual = agora.getFullYear();
-    const registrosMes =
-      data.filter(item => {
-        if(!item.entrada) return false;
-        const d = new Date(item.entrada);
-        return (
-          d.getMonth() === mesAtual &&
-          d.getFullYear() === anoAtual
-        );
-      });
-    const funcionarios =
-      new Set(
-        registrosMes.map(item =>
-          item.funcionario
-        )
-      );
-    document
-      .getElementById("totalRegistros")
-      .textContent =
-      registrosMes.length;
-    document
-      .getElementById("totalFuncionarios")
-      .textContent =
-      funcionarios.size;
-    document
-      .getElementById("mesAtual")
-      .textContent =
-      "📅 " +
-      agora.toLocaleDateString(
-        "pt-BR",
-        {
-          month:"long",
-          year:"numeric"
-        }
-      )
-      .replace(/^./,c => c.toUpperCase());
-    status.textContent =
-      data.length +
-      " registro(s) carregado(s).";
-    /* LISTA */
-    data.forEach(registro => {
-      const div =
-        document.createElement("div");
-      div.className =
-        "registro";
-      const entrada =
-        formatarDataHora(
-          registro.entrada
-        );
-      const saida =
-        registro.saida
-          ? formatarDataHora(registro.saida)
-          : "Ainda não registrada";
-      const horas =
-        registro.horas_trabalhadas
-          ? registro.horas_trabalhadas
-          : calcularHoras(
-              registro.entrada,
-              registro.saida
-            );
-      let local = "";
-      if(
-        registro.latitude !== null &&
-        registro.longitude !== null &&
-        registro.latitude !== undefined &&
-        registro.longitude !== undefined
-      ){
-        const latitude =
-          encodeURIComponent(
-            registro.latitude
-          );
-        const longitude =
-          encodeURIComponent(
-            registro.longitude
-          );
-        local =
-          `
-          <a
-            class="localizacao"
-            href="https://www.google.com/maps?q=${latitude},${longitude}"
-            target="_blank"
-            rel="noopener">
-            📍 Abrir localização no mapa
-          </a>
-          `;
-      }
-      else{
-        local =
-          `
-          <div class="sem-local">
-            📍 Localização não registrada
-          </div>
-          `;
-      }
-      div.innerHTML = `
-        <div class="funcionario">
-          <div class="avatar">
-            👤
-          </div>
-          <div>
-            <div class="nome">
-              ${escapeHtml(
-                registro.funcionario ||
-                "Sem nome"
-              )}
-            </div>
-            <div class="data">
-              📅 ${escapeHtml(
-                registro.data || "-"
-              )}
-            </div>
-          </div>
-        </div>
-        <div class="horarios">
-          <div class="horario-box entrada">
-            <div class="horario-label">
-              🟢 ENTRADA
-            </div>
-            <div class="horario-valor">
-              ${entrada}
-            </div>
-          </div>
-          <div class="horario-box saida">
-            <div class="horario-label">
-              🔴 SAÍDA
-            </div>
-            <div class="horario-valor">
-              ${saida}
-            </div>
-          </div>
-        </div>
-        <div class="horas-box">
-          <span class="horas-label">
-            ⏱️ HORAS TRABALHADAS
-          </span>
-          <span class="horas-valor">
-            ${escapeHtml(
-              horas || "00:00"
-            )}
-          </span>
-        </div>
-        ${local}
-      `;
-      lista.appendChild(div);
-    });
+function formatarHora(valor){
+  if(!valor){
+    return "--:--";
   }
-  catch(error){
-    console.error(error);
-    status.textContent =
-      "Erro ao carregar.";
-    lista.innerHTML =
-      '<div class="erro">Erro ao carregar os registros: ' +
-      escapeHtml(error.message) +
-      '</div>';
+  const data = new Date(valor);
+  if(isNaN(data.getTime())){
+    return "--:--";
   }
-}
-/* =========================
-   CALCULAR HORAS
-========================= */
-function calcularHoras(entrada,saida){
-  if(!entrada || !saida)
-    return "Em andamento";
-  const inicio =
-    new Date(entrada);
-  const fim =
-    new Date(saida);
-  const segundos =
-    Math.max(
-      0,
-      Math.floor(
-        (fim-inicio)/1000
-      )
-    );
-  const horas =
-    Math.floor(
-      segundos/3600
-    );
-  const minutos =
-    Math.floor(
-      (segundos%3600)/60
-    );
-  return String(horas)
-    .padStart(2,"0")
-    + ":" +
-    String(minutos)
-    .padStart(2,"0");
-}
-/* =========================
-   DATA / HORA
-========================= */
-function formatarDataHora(valor){
-  if(!valor) return "-";
-  const data =
-    new Date(valor);
-  if(isNaN(data.getTime()))
-    return escapeHtml(
-      String(valor)
-    );
-  return data.toLocaleString(
+  return data.toLocaleTimeString(
     "pt-BR",
     {
-      dateStyle:"short",
-      timeStyle:"short"
+      hour:"2-digit",
+      minute:"2-digit"
     }
   );
 }
-/* =========================
-   SAIR
-========================= */
-async function sairAdmin(){
-  await supabaseClient
-    .auth
-    .signOut();
-  document
-    .getElementById("painel")
-    .classList.add("hidden");
-  document
-    .getElementById("loginCard")
-    .classList.remove("hidden");
-  document
-    .getElementById("senha")
-    .value = "";
-}
-/* =========================
-   SEGURANÇA DE TEXTO
-========================= */
-function escapeHtml(text){
-  return String(text)
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
-}
-/* =========================
-   VERIFICAR SESSÃO
-========================= */
-async function verificarSessao(){
-  const {data} =
-    await supabaseClient
-      .auth
-      .getSession();
-  if(data.session){
-    const {data:perfil} =
-      await supabaseClient
-        .from("perfis_usuario")
-        .select("papel")
-        .eq("id",data.session.user.id)
-        .maybeSingle();
-    if(
-      perfil &&
-      perfil.papel === "admin"
-    ){
-      document
-        .getElementById("loginCard")
-        .classList.add("hidden");
-      document
-        .getElementById("painel")
-        .classList.remove("hidden");
-      carregarRegistros();
-    }
+function formatarData(valor){
+  if(!valor){
+    return "--/--/----";
   }
+  const data = new Date(valor);
+  if(isNaN(data.getTime())){
+    return valor;
+  }
+  return data.toLocaleDateString(
+    "pt-BR"
+  );
 }
-verificarSessao();
+function converterHorasParaMinutos(valor){
+  if(!valor){
+    return 0;
+  }
+  const texto = String(valor).trim();
+  const partes = texto.split(":");
+  if(partes.length !== 2){
+    return 0;
+  }
+  const horas =
+    parseInt(partes[0],10) || 0;
+  const minutos =
+    parseInt(partes[1],10) || 0;
+  return (horas * 60) + minutos;
+}
+function minutosParaHoras(minutos){
+  const horas =
+    Math.floor(minutos / 60);
+  const mins =
+    minutos % 60;
+  return String(horas).padStart(2,"0")
+    + ":"
+    + String(mins).padStart(2,"0");
+}
+function obterPeriodoSelecionado(){
+  const campo =
+    document.getElementById("mesSelecionado");
+  const valor = campo.value;
+  if(!valor){
+    return null;
+  }
+  const partes = valor.split("-");
+  const ano =
+    parseInt(partes[0],10);
+  const mes =
+    parseInt(partes[1],10);
+  if(!ano || !mes){
+    return null;
+  }
+  const inicio =
+    new Date(ano,mes-1,1);
+  const fim =
+    new Date(ano,mes,1);
+  return {
+    inicio,
+    fim
+  };
+}
+function definirMesAtual(){
+  const agora = new Date();
+  const ano =
+    agora.getFullYear();
+  const mes =
+    String(agora.getMonth()+1)
+      .padStart(2,"0");
+  document.getElementById(
+    "mesSelecionado"
+  ).value = `${ano}-${mes}`;
+}
+async function entrarAdmin(){
+  const email =
+    document.getElementById("email").value.trim();
+  const senha =
+    document.getElementById("senha").value;
+  const mensagem =
+    document.getElementById("loginMessage");
+  mensagem.textContent = "";
+  if(!email || !senha){
+    mensagem.textContent =
+      "Informe o e-mail e a senha.";
+    return;
+  }
+  const {
+    data,
+    error
+  } =
+    await supabaseClient.auth.signInWithPassword({
+      email,
+      password:senha
+    });
+  if(error){
+    mensagem.textContent =
+      "Não foi possível entrar: "
+      + error.message;
+    return;
+  }
+  const usuario =
+    data.user;
+  const {
+    data:perfil,
+    error:erroPerfil
+  } =
+    await supabaseClient
+      .from("perfis_usuario")
+      .select("papel")
+      .eq("id",usuario.id)
+      .single();
+  if(
+    erroPerfil ||
+    !perfil ||
+    perfil.papel !== "admin"
+  ){
+    await supabaseClient.auth.signOut();
+    mensagem.textContent =
+      "Este usuário não possui permissão de administrador.";
+    return;
+  }
+  document.getElementById(
+    "loginArea"
+  ).classList.add("hidden");
+  document.getElementById(
+    "adminArea"
+  ).classList.remove("hidden");
+  definirMesAtual();
+  carregarRegistros();
+}
+async function carregarRegistros(){
+  const area =
+    document.getElementById("listaRegistros");
+  const periodo =
+    obterPeriodoSelecionado();
+  if(!periodo){
+    return;
+  }
+  area.innerHTML =
+    '<div class="empty">Carregando registros...</div>';
+  const {
+    data,
+    error
+  } =
+    await supabaseClient
+      .from("painel_admin_ponto")
+      .select("*")
+      .gte(
+        "entrada",
+        periodo.inicio.toISOString()
+      )
+      .lt(
+        "entrada",
+        periodo.fim.toISOString()
+      )
+      .order(
+        "entrada",
+        {ascending:false}
+      )
+      .limit(1000);
+  if(error){
+    area.innerHTML =
+      '<div class="empty">Erro ao carregar registros: '
+      + escapeHtml(error.message)
+      + '</div>';
+    return;
+  }
+  registrosAtuais = data || [];
+  atualizarResumo();
+  mostrarFuncionarios();
+  mostrarRegistros();
+}
+function atualizarResumo(){
+  const registros =
+    registrosAtuais;
+  const funcionarios =
+    [
+      ...new Set(
+        registros
+          .map(r => r.funcionario)
+          .filter(Boolean)
+      )
+    ];
+  let minutos = 0;
+  registros.forEach(r => {
+    minutos +=
+      converterHorasParaMinutos(
+        r.horas_trabalhadas
+      );
+  });
+  document.getElementById(
+    "totalRegistros"
+  ).textContent =
+    registros.length;
+  document.getElementById(
+    "totalFuncionarios"
+  ).textContent =
+    funcionarios.length;
+  document.getElementById(
+    "totalHoras"
+  ).textContent =
+    minutosParaHoras(minutos);
+}
+function mostrarFuncionarios(){
+  const area =
+    document.getElementById(
+      "listaFuncionarios"
+    );
+  const funcionarios =
+    [
+      ...new Set(
+        registrosAtuais
+          .map(r => r.funcionario)
+          .filter(Boolean)
+      )
+    ]
+    .sort();
+  if(!funcionarios.length){
+    area.innerHTML =
+      '<div class="empty">Nenhum funcionário encontrado neste mês.</div>';
+    return;
+  }
+  area.innerHTML =
+    funcionarios.map(nome => `
+      <div class="employee-row">
+        <div>
+          <div class="employee-name">
+            ${escapeHtml(nome)}
+          </div>
+          <div class="employee-note">
+            Excluir funcionário remove TODOS os registros de ponto dele.
+          </div>
+        </div>
+        <button
+          class="btn-danger btn-small"
+          onclick='apagarFuncionario(${JSON.stringify(nome)})'>
+          🗑️ Apagar
+        </button>
+      </div>
+    `).join("");
+}
+function mostrarRegistros(){
+  const area =
+    document.getElementById(
+      "listaRegistros"
+    );
+  if(!registrosAtuais.length){
+    area.innerHTML =
+      '<div class="empty">Nenhum registro encontrado neste mês.</div>';
+    return;
+  }
+  area.innerHTML =
+    registrosAtuais.map(r => {
+      const latitude =
+        r.latitude;
+      const longitude =
+        r.longitude;
+      let mapa = "";
+      if(
+        latitude !== null &&
+        latitude !== undefined &&
+        longitude !== null &&
+        longitude !== undefined
+      ){
+        const url =
+          "https://www.google.com/maps?q="
+          + encodeURIComponent(
+              latitude + "," + longitude
+            );
+        mapa = `
+          <div class="location">
+            <a
+              href="${url}"
+              target="_blank"
+              rel="noopener">
+              📍 Abrir localização no mapa
+            </a>
+          </div>
+        `;
+      }
+      return `
+        <div class="record">
+          <div class="record-header">
+            <div>
+              <div class="employee">
+                ${escapeHtml(r.funcionario || "Funcionário")}
+              </div>
+              <div class="date">
+                ${formatarData(r.entrada)}
+              </div>
+            </div>
+          </div>
+          <div class="info-grid">
+            <div class="info">
+              <small>Entrada</small>
+              <strong>
+                ${formatarHora(r.entrada)}
+              </strong>
+            </div>
+            <div class="info">
+              <small>Saída</small>
+              <strong>
+                ${formatarHora(r.saida)}
+              </strong>
+            </div>
+            <div class="info">
+              <small>Horas trabalhadas</small>
+              <strong>
+                ${escapeHtml(r.horas_trabalhadas || "00:00")}
+              </strong>
+            </div>
+          </div>
+          ${mapa}
+          <div class="record-actions">
+            <button
+              class="btn-danger btn-small"
+              onclick="apagarRegistro(${Number(r.id)})">
+              🗑️ Apagar registro
+            </button>
+          </div>
+        </div>
+      `;
+    }).join("");
+}
+async function apagarRegistro(id){
+  if(!id){
+    return;
+  }
+  const confirmar =
+    confirm(
+      "Apagar este registro de ponto?\n\n"
+      + "Esta ação não pode ser desfeita."
+    );
+  if(!confirmar){
+    return;
+  }
+  const {
+    error
+  } =
+    await supabaseClient
+      .from("ponto")
+      .delete()
+      .eq("id",id);
+  if(error){
+    alert(
+      "Não foi possível apagar o registro:\n\n"
+      + error.message
+    );
+    return;
+  }
+  alert(
+    "Registro apagado com sucesso."
+  );
+  await carregarRegistros();
+}
+async function apagarFuncionario(nome){
+  if(!nome){
+    return;
+  }
+  const confirmar =
+    confirm(
+      'Apagar o funcionário "' + nome + '"?\n\n'
+      + "ATENÇÃO: isso excluirá TODOS os "
+      + "registros de ponto desse funcionário "
+      + "e não poderá ser desfeito."
+    );
+  if(!confirmar){
+    return;
+  }
+  const {
+    error
+  } =
+    await supabaseClient
+      .from("ponto")
+      .delete()
+      .eq("funcionario",nome);
+  if(error){
+    alert(
+      "Não foi possível apagar o funcionário:\n\n"
+      + error.message
+    );
+    return;
+  }
+  alert(
+    "Funcionário e seus registros foram apagados."
+  );
+  await carregarRegistros();
+}
+async function sairAdmin(){
+  await supabaseClient.auth.signOut();
+  document.getElementById(
+    "adminArea"
+  ).classList.add("hidden");
+  document.getElementById(
+    "loginArea"
+  ).classList.remove("hidden");
+  document.getElementById(
+    "senha"
+  ).value = "";
+}
+supabaseClient.auth.getSession()
+.then(async ({data}) => {
+  if(!data.session){
+    return;
+  }
+  const usuario =
+    data.session.user;
+  const {
+    data:perfil
+  } =
+    await supabaseClient
+      .from("perfis_usuario")
+      .select("papel")
+      .eq("id",usuario.id)
+      .single();
+  if(
+    perfil &&
+    perfil.papel === "admin"
+  ){
+    document.getElementById(
+      "loginArea"
+    ).classList.add("hidden");
+    document.getElementById(
+      "adminArea"
+    ).classList.remove("hidden");
+    definirMesAtual();
+    carregarRegistros();
+  }
+});
 </script>
 </body>
 </html>
