@@ -3,171 +3,252 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#111827">
+<meta name="theme-color" content="#17395f">
 
 <title>Merchant Distribuidora • Ponto</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
+html{
+  min-height:100%;
+}
 
 body{
   margin:0;
   min-height:100vh;
-  font-family:Arial,Helvetica,sans-serif;
-  background:linear-gradient(145deg,#111827,#1f2937,#374151);
-  color:#111827;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,Helvetica,sans-serif;
+  background:
+    radial-gradient(circle at top left,rgba(255,181,28,.14),transparent 30%),
+    linear-gradient(145deg,#102f50 0%,#17395f 48%,#0d243e 100%);
+  color:#172033;
 }
 
 .container{
-  width:min(100%,520px);
+  width:min(100%,560px);
   margin:auto;
-  padding:20px 16px 40px;
+  padding:18px 16px 36px;
 }
+
+/* CABEÇALHO */
 
 .header{
   text-align:center;
   color:white;
-  padding:15px 0 22px;
+  padding:8px 0 22px;
 }
 
 .logo{
-  width:82px;
-  height:82px;
-  margin:0 auto 12px;
+  width:112px;
+  height:112px;
+  margin:0 auto 15px;
   background:white;
-  border-radius:20px;
+  border-radius:24px;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:25px;
-  font-weight:900;
-  color:#111827;
-  box-shadow:0 10px 30px rgba(0,0,0,.25);
+  padding:9px;
+  box-shadow:
+    0 14px 35px rgba(0,0,0,.28),
+    0 0 0 1px rgba(255,255,255,.15);
+  overflow:hidden;
+}
+
+.logo img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
 }
 
 .header h1{
   margin:0;
-  font-size:25px;
+  font-size:27px;
+  font-weight:800;
+  letter-spacing:-.5px;
 }
 
 .header p{
   margin:7px 0 0;
-  opacity:.8;
   font-size:14px;
+  color:rgba(255,255,255,.78);
 }
 
+.online{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  margin-top:13px;
+  padding:7px 12px;
+  border-radius:999px;
+  background:rgba(255,255,255,.10);
+  border:1px solid rgba(255,255,255,.15);
+  font-size:12px;
+  color:rgba(255,255,255,.9);
+}
+
+.online-dot{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:#22c55e;
+  box-shadow:0 0 10px rgba(34,197,94,.8);
+}
+
+/* CARDS */
+
 .card{
-  background:white;
-  border-radius:22px;
+  background:rgba(255,255,255,.98);
+  border-radius:24px;
   padding:20px;
   margin-bottom:15px;
-  box-shadow:0 12px 35px rgba(0,0,0,.18);
+  box-shadow:
+    0 15px 40px rgba(0,0,0,.20),
+    0 2px 8px rgba(0,0,0,.08);
+  border:1px solid rgba(255,255,255,.55);
 }
+
+.card-title{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:17px;
+}
+
+.card-icon{
+  width:38px;
+  height:38px;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#eef4fa;
+  font-size:18px;
+}
+
+.card-title-text strong{
+  display:block;
+  font-size:16px;
+  color:#172033;
+}
+
+.card-title-text span{
+  display:block;
+  margin-top:2px;
+  font-size:12px;
+  color:#7a8494;
+}
+
+/* FORMULÁRIO */
 
 label{
   display:block;
   font-size:13px;
-  font-weight:bold;
-  margin-bottom:7px;
-  color:#374151;
+  font-weight:700;
+  margin-bottom:8px;
+  color:#394457;
+}
+
+.input-wrap{
+  position:relative;
+}
+
+.input-wrap span{
+  position:absolute;
+  left:15px;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:18px;
+  pointer-events:none;
 }
 
 input{
   width:100%;
-  padding:15px;
-  border:1px solid #d1d5db;
-  border-radius:13px;
+  min-height:52px;
+  padding:14px 15px 14px 45px;
+  border:1px solid #d9dee7;
+  border-radius:15px;
   font-size:16px;
+  color:#172033;
+  background:#fafbfc;
   outline:none;
+  transition:.2s;
+}
+
+input::placeholder{
+  color:#9aa3b2;
 }
 
 input:focus{
-  border-color:#111827;
+  background:white;
+  border-color:#17395f;
+  box-shadow:0 0 0 4px rgba(23,57,95,.08);
 }
 
-.info{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-}
-
-.info-box{
-  background:#f3f4f6;
-  border-radius:15px;
-  padding:14px;
-}
-
-.info-box small{
-  display:block;
-  color:#6b7280;
-  font-size:12px;
-  margin-bottom:5px;
-}
-
-.info-box strong{
-  font-size:15px;
-}
-
-.hours{
-  text-align:center;
-  background:#111827;
-  color:white;
-  border-radius:18px;
-  padding:20px;
-}
-
-.hours small{
-  display:block;
-  opacity:.75;
-  margin-bottom:7px;
-}
-
-.hours strong{
-  font-size:34px;
-  letter-spacing:1px;
-  font-variant-numeric:tabular-nums;
-}
+/* BOTÕES */
 
 button{
   width:100%;
+  min-height:52px;
   border:0;
-  border-radius:14px;
-  padding:16px;
-  font-size:16px;
-  font-weight:bold;
+  border-radius:15px;
+  padding:14px 16px;
+  font-size:15px;
+  font-weight:750;
   cursor:pointer;
-  margin-top:10px;
+  margin-top:11px;
+  transition:transform .12s,opacity .2s,box-shadow .2s;
 }
 
-.btn-entry{
-  background:#16a34a;
-  color:white;
-}
-
-.btn-exit{
-  background:#dc2626;
-  color:white;
-}
-
-.btn-secondary{
-  background:#e5e7eb;
-  color:#111827;
+button:active{
+  transform:scale(.985);
 }
 
 button:disabled{
   opacity:.55;
   cursor:not-allowed;
+  transform:none;
 }
+
+.btn-entry{
+  background:linear-gradient(135deg,#16a34a,#15803d);
+  color:white;
+  box-shadow:0 8px 18px rgba(22,163,74,.20);
+}
+
+.btn-exit{
+  background:linear-gradient(135deg,#ef4444,#dc2626);
+  color:white;
+  box-shadow:0 8px 18px rgba(220,38,38,.18);
+}
+
+.btn-secondary{
+  background:#edf1f5;
+  color:#263246;
+}
+
+.btn-entry:hover,
+.btn-exit:hover,
+.btn-secondary:hover{
+  opacity:.94;
+}
+
+/* STATUS */
 
 .status{
   text-align:center;
-  padding:13px;
-  border-radius:13px;
-  background:#f3f4f6;
-  font-size:14px;
-  margin-top:12px;
+  padding:13px 14px;
+  border-radius:14px;
+  background:#f1f4f7;
+  color:#657083;
+  font-size:13px;
+  font-weight:600;
+  margin-top:13px;
 }
 
 .success{
@@ -180,16 +261,144 @@ button:disabled{
   color:#991b1b;
 }
 
-.footer{
+/* HORAS */
+
+.hours{
+  position:relative;
+  overflow:hidden;
   text-align:center;
+  background:
+    radial-gradient(circle at 85% 15%,rgba(255,183,28,.20),transparent 28%),
+    linear-gradient(135deg,#17395f,#102c4b);
   color:white;
-  opacity:.65;
-  font-size:12px;
-  margin-top:20px;
+  border-radius:20px;
+  padding:22px 18px 24px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08);
 }
 
-.hidden{
-  display:none!important;
+.hours::after{
+  content:"";
+  position:absolute;
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  right:-65px;
+  bottom:-70px;
+  background:rgba(255,183,28,.08);
+}
+
+.hours small{
+  position:relative;
+  z-index:1;
+  display:block;
+  color:rgba(255,255,255,.72);
+  margin-bottom:8px;
+  font-size:12px;
+  font-weight:600;
+  text-transform:uppercase;
+  letter-spacing:.5px;
+}
+
+.hours strong{
+  position:relative;
+  z-index:1;
+  display:block;
+  font-size:38px;
+  line-height:1.1;
+  letter-spacing:1px;
+  font-variant-numeric:tabular-nums;
+}
+
+/* INFORMAÇÕES */
+
+.info{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:11px;
+  margin-top:17px;
+}
+
+.info-box{
+  background:#f5f7f9;
+  border:1px solid #e8ebef;
+  border-radius:16px;
+  padding:14px;
+  min-height:76px;
+}
+
+.info-box small{
+  display:block;
+  color:#7b8493;
+  font-size:11px;
+  font-weight:650;
+  margin-bottom:7px;
+}
+
+.info-box strong{
+  display:block;
+  color:#263246;
+  font-size:15px;
+  font-weight:750;
+  word-break:break-word;
+  font-variant-numeric:tabular-nums;
+}
+
+.location-ok{
+  color:#15803d!important;
+}
+
+.location-no{
+  color:#7b8493!important;
+}
+
+/* RODAPÉ */
+
+.footer{
+  text-align:center;
+  color:rgba(255,255,255,.68);
+  font-size:11px;
+  margin-top:20px;
+  line-height:1.6;
+}
+
+.footer strong{
+  color:rgba(255,255,255,.88);
+}
+
+/* RESPONSIVO */
+
+@media(max-width:380px){
+
+  .container{
+    padding-left:12px;
+    padding-right:12px;
+  }
+
+  .logo{
+    width:96px;
+    height:96px;
+  }
+
+  .header h1{
+    font-size:23px;
+  }
+
+  .card{
+    padding:16px;
+    border-radius:21px;
+  }
+
+  .hours strong{
+    font-size:32px;
+  }
+
+  .info{
+    gap:8px;
+  }
+
+  .info-box{
+    padding:12px;
+  }
 }
 </style>
 </head>
@@ -198,10 +407,12 @@ button:disabled{
 
 <div class="container">
 
+  <!-- CABEÇALHO -->
+
   <div class="header">
 
     <div class="logo">
-      MD
+      <img src="logo.png" alt="Merchant Distribuidora">
     </div>
 
     <h1>
@@ -212,21 +423,49 @@ button:disabled{
       Sistema de Controle de Ponto
     </p>
 
+    <div class="online">
+      <span class="online-dot"></span>
+      Sistema online
+    </div>
+
   </div>
 
 
+  <!-- REGISTRO -->
+
   <div class="card">
+
+    <div class="card-title">
+
+      <div class="card-icon">
+        👤
+      </div>
+
+      <div class="card-title-text">
+        <strong>Registro do funcionário</strong>
+        <span>Informe seu nome para registrar o ponto</span>
+      </div>
+
+    </div>
+
 
     <label for="funcionario">
       Nome do funcionário
     </label>
 
-    <input
-      id="funcionario"
-      type="text"
-      placeholder="Digite seu nome"
-      autocomplete="name"
-    >
+    <div class="input-wrap">
+
+      <span>👤</span>
+
+      <input
+        id="funcionario"
+        type="text"
+        placeholder="Digite seu nome"
+        autocomplete="name"
+      >
+
+    </div>
+
 
     <button
       class="btn-entry"
@@ -237,6 +476,7 @@ button:disabled{
 
     </button>
 
+
     <button
       class="btn-exit"
       id="btnSaida"
@@ -245,6 +485,7 @@ button:disabled{
       🔴 Registrar Saída
 
     </button>
+
 
     <div
       id="status"
@@ -257,12 +498,28 @@ button:disabled{
   </div>
 
 
+  <!-- ACOMPANHAMENTO -->
+
   <div class="card">
+
+    <div class="card-title">
+
+      <div class="card-icon">
+        ⏱️
+      </div>
+
+      <div class="card-title-text">
+        <strong>Acompanhamento do dia</strong>
+        <span>Resumo do seu expediente</span>
+      </div>
+
+    </div>
+
 
     <div class="hours">
 
       <small>
-        ⏱️ Horas trabalhadas hoje
+        Horas trabalhadas hoje
       </small>
 
       <strong id="horasHoje">
@@ -271,7 +528,6 @@ button:disabled{
 
     </div>
 
-    <br>
 
     <div class="info">
 
@@ -295,7 +551,7 @@ button:disabled{
         </small>
 
         <strong id="horaEntrada">
-          --:--
+          --:--:--
         </strong>
 
       </div>
@@ -308,7 +564,7 @@ button:disabled{
         </small>
 
         <strong id="horaSaida">
-          --:--
+          --:--:--
         </strong>
 
       </div>
@@ -320,8 +576,12 @@ button:disabled{
           📍 Localização
         </small>
 
-        <strong id="localizacao">
+        <strong
+          id="localizacao"
+          class="location-no">
+
           Não registrada
+
         </strong>
 
       </div>
@@ -333,7 +593,7 @@ button:disabled{
       class="btn-secondary"
       onclick="atualizarTela()">
 
-      🔄 Atualizar
+      🔄 Atualizar informações
 
     </button>
 
@@ -341,7 +601,11 @@ button:disabled{
 
 
   <div class="footer">
-    Merchant Distribuidora • Controle de Ponto
+
+    <strong>Merchant Distribuidora</strong><br>
+
+    Controle de Ponto • Registro seguro de jornada
+
   </div>
 
 </div>
@@ -360,10 +624,6 @@ const supabaseClient =
     SUPABASE_URL,
     SUPABASE_KEY
   );
-
-
-const NUMERO_WHATSAPP =
-  "5588997104036";
 
 
 let registroAtual = null;
@@ -414,21 +674,22 @@ function dataBanco(){
 function formatarHora(valor){
 
   if(!valor){
-    return "--:--";
+    return "--:--:--";
   }
 
   const data =
     new Date(valor);
 
   if(isNaN(data.getTime())){
-    return "--:--";
+    return "--:--:--";
   }
 
   return data.toLocaleTimeString(
     "pt-BR",
     {
       hour:"2-digit",
-      minute:"2-digit"
+      minute:"2-digit",
+      second:"2-digit"
     }
   );
 }
@@ -632,17 +893,23 @@ function atualizarInformacoes(){
     document.getElementById(
       "horaEntrada"
     ).textContent =
-      "--:--";
+      "--:--:--";
 
     document.getElementById(
       "horaSaida"
     ).textContent =
-      "--:--";
+      "--:--:--";
 
-    document.getElementById(
-      "localizacao"
-    ).textContent =
+    const localizacao =
+      document.getElementById(
+        "localizacao"
+      );
+
+    localizacao.textContent =
       "Não registrada";
+
+    localizacao.className =
+      "location-no";
 
     document.getElementById(
       "horasHoje"
@@ -678,6 +945,12 @@ function atualizarInformacoes(){
     );
 
 
+  const localizacao =
+    document.getElementById(
+      "localizacao"
+    );
+
+
   if(
     registro.latitude !== null &&
     registro.latitude !== undefined &&
@@ -685,17 +958,19 @@ function atualizarInformacoes(){
     registro.longitude !== undefined
   ){
 
-    document.getElementById(
-      "localizacao"
-    ).textContent =
+    localizacao.textContent =
       "Registrada";
+
+    localizacao.className =
+      "location-ok";
 
   }else{
 
-    document.getElementById(
-      "localizacao"
-    ).textContent =
+    localizacao.textContent =
       "Não registrada";
+
+    localizacao.className =
+      "location-no";
 
   }
 
@@ -921,13 +1196,6 @@ async function registrarEntrada(){
     );
 
 
-    enviarWhatsAppEntrada(
-      funcionario,
-      agora,
-      local
-    );
-
-
   }catch(error){
 
     console.error(error);
@@ -1104,15 +1372,6 @@ async function registrarSaida(){
     );
 
 
-    enviarWhatsAppSaida(
-      funcionario,
-      entrada,
-      saida,
-      horas,
-      local
-    );
-
-
   }catch(error){
 
     console.error(error);
@@ -1130,94 +1389,6 @@ async function registrarSaida(){
 
   }
 
-}
-
-
-/* ============================
-   WHATSAPP ENTRADA
-============================ */
-
-function enviarWhatsAppEntrada(
-  funcionario,
-  horario,
-  local
-){
-
-  const mensagem =
-`🏢 Merchant Distribuidora
-🟢 ENTRADA REGISTRADA
-
-👤 Funcionário: ${funcionario}
-📅 Data: ${horario.toLocaleDateString("pt-BR")}
-🕐 Entrada: ${formatarHora(horario)}
-
-📍 Localização:
-https://www.google.com/maps?q=${local.latitude},${local.longitude}`;
-
-
-  const url =
-    "https://wa.me/"
-    +
-    NUMERO_WHATSAPP
-    +
-    "?text="
-    +
-    encodeURIComponent(
-      mensagem
-    );
-
-
-  window.open(
-    url,
-    "_blank"
-  );
-}
-
-
-/* ============================
-   WHATSAPP SAÍDA
-============================ */
-
-function enviarWhatsAppSaida(
-  funcionario,
-  entrada,
-  saida,
-  horas,
-  local
-){
-
-  const mensagem =
-`🏢 Merchant Distribuidora
-🔴 SAÍDA REGISTRADA
-
-👤 Funcionário: ${funcionario}
-📅 Data: ${saida.toLocaleDateString("pt-BR")}
-
-🟢 Entrada: ${formatarHora(entrada)}
-🔴 Saída: ${formatarHora(saida)}
-
-⏱️ Horas trabalhadas: ${horas}
-
-📍 Localização:
-https://www.google.com/maps?q=${local.latitude},${local.longitude}`;
-
-
-  const url =
-    "https://wa.me/"
-    +
-    NUMERO_WHATSAPP
-    +
-    "?text="
-    +
-    encodeURIComponent(
-      mensagem
-    );
-
-
-  window.open(
-    url,
-    "_blank"
-  );
 }
 
 
@@ -1243,13 +1414,13 @@ function limparTela(){
   document.getElementById(
     "horaEntrada"
   ).textContent =
-    "--:--";
+    "--:--:--";
 
 
   document.getElementById(
     "horaSaida"
   ).textContent =
-    "--:--";
+    "--:--:--";
 
 
   document.getElementById(
@@ -1258,10 +1429,16 @@ function limparTela(){
     "00:00:00";
 
 
-  document.getElementById(
-    "localizacao"
-  ).textContent =
+  const localizacao =
+    document.getElementById(
+      "localizacao"
+    );
+
+  localizacao.textContent =
     "Não registrada";
+
+  localizacao.className =
+    "location-no";
 }
 
 
