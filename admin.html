@@ -131,30 +131,22 @@ body::before{
   width:68px;
   height:68px;
   border-radius:20px;
-
   background:#fff;
-
   display:flex;
   align-items:center;
   justify-content:center;
-
   box-shadow:
     0 12px 30px
     rgba(0,0,0,.25);
-
   flex:none;
-
   overflow:hidden;
 }
 
 .logo img{
   width:100%;
   height:100%;
-
   object-fit:contain;
-
   border-radius:inherit;
-
   display:block;
 }
 
@@ -179,22 +171,15 @@ h1{
   display:inline-flex;
   align-items:center;
   gap:6px;
-
   margin-top:9px;
-
   padding:6px 10px;
-
   border-radius:999px;
-
   background:
     rgba(59,130,246,.12);
-
   border:
     1px solid
     rgba(59,130,246,.25);
-
   color:#93c5fd;
-
   font-size:11px;
   font-weight:800;
 }
@@ -226,26 +211,17 @@ h1{
 
 input{
   width:100%;
-
   padding:15px 16px;
-
   border-radius:15px;
-
   border:
     1px solid
     rgba(255,255,255,.10);
-
   background:
     rgba(2,6,23,.65);
-
   color:#fff;
-
   outline:none;
-
   margin-bottom:12px;
-
   font-size:16px;
-
   transition:
     border-color .2s,
     box-shadow .2s;
@@ -254,7 +230,6 @@ input{
 input:focus{
   border-color:
     rgba(96,165,250,.65);
-
   box-shadow:
     0 0 0 3px
     rgba(59,130,246,.12);
@@ -275,14 +250,10 @@ input[type="month"]{
 button{
   border:0;
   border-radius:14px;
-
   padding:13px 17px;
-
   font-size:14px;
   font-weight:800;
-
   cursor:pointer;
-
   transition:
     transform .15s,
     opacity .15s,
@@ -301,16 +272,13 @@ button:disabled{
 
 .btn-primary{
   width:100%;
-
   background:
     linear-gradient(
       135deg,
       #fff,
       #e2e8f0
     );
-
   color:#0f172a;
-
   box-shadow:
     0 10px 25px
     rgba(0,0,0,.20);
@@ -319,9 +287,7 @@ button:disabled{
 .btn-secondary{
   background:
     rgba(255,255,255,.07);
-
   color:#fff;
-
   border:
     1px solid
     rgba(255,255,255,.10);
@@ -334,36 +300,25 @@ button:disabled{
       #ef4444,
       #dc2626
     );
-
   color:#fff;
 }
 
 .btn-location{
   width:100%;
-
   display:block;
-
   text-align:center;
-
   text-decoration:none;
-
   background:
     linear-gradient(
       135deg,
       #16a34a,
       #15803d
     );
-
   color:#fff;
-
   padding:12px 14px;
-
   border-radius:13px;
-
   font-size:13px;
-
   font-weight:800;
-
   box-shadow:
     0 8px 20px
     rgba(22,163,74,.15);
@@ -410,58 +365,44 @@ button:disabled{
 .stats{
   display:grid;
   grid-template-columns:
-    repeat(3,1fr);
+    repeat(4,1fr);
   gap:13px;
 }
 
 .stat{
   position:relative;
-
   overflow:hidden;
-
   background:
     linear-gradient(
       145deg,
       rgba(255,255,255,.075),
       rgba(255,255,255,.035)
     );
-
   border:
     1px solid
     rgba(255,255,255,.08);
-
   border-radius:19px;
-
   padding:19px;
-
   min-height:105px;
 }
 
 .stat::after{
   content:"";
   position:absolute;
-
   width:80px;
   height:80px;
-
   border-radius:50%;
-
   right:-35px;
   top:-35px;
-
   background:
     rgba(255,255,255,.035);
 }
 
 .stat strong{
   display:block;
-
   font-size:29px;
-
   margin-bottom:7px;
-
-  font-variant-numeric:
-    tabular-nums;
+  font-variant-numeric:tabular-nums;
 }
 
 .stat span{
@@ -486,7 +427,6 @@ button:disabled{
       rgba(22,163,74,.13),
       rgba(15,23,42,.82)
     );
-
   border:
     1px solid
     rgba(34,197,94,.24);
@@ -508,17 +448,12 @@ button:disabled{
 .today-badge{
   background:
     rgba(34,197,94,.15);
-
   color:#86efac;
-
   border:
     1px solid
     rgba(34,197,94,.25);
-
   padding:7px 11px;
-
   border-radius:999px;
-
   font-size:10px;
   font-weight:900;
 }
@@ -526,7 +461,7 @@ button:disabled{
 .today-summary{
   display:grid;
   grid-template-columns:
-    repeat(3,1fr);
+    repeat(4,1fr);
   gap:12px;
   margin-bottom:18px;
 }
@@ -534,32 +469,53 @@ button:disabled{
 .today-stat{
   background:
     rgba(2,6,23,.35);
-
   border:
     1px solid
     rgba(255,255,255,.06);
-
   border-radius:17px;
-
   padding:16px;
-
   text-align:center;
 }
 
 .today-stat strong{
   display:block;
-
   font-size:26px;
-
   margin-bottom:5px;
-
-  font-variant-numeric:
-    tabular-nums;
+  font-variant-numeric:tabular-nums;
 }
 
 .today-stat span{
   color:#94a3b8;
   font-size:11px;
+}
+
+/* =========================
+   GANHOS
+========================= */
+
+.money{
+  color:#86efac!important;
+  font-variant-numeric:tabular-nums;
+}
+
+.money-card{
+  background:
+    linear-gradient(
+      145deg,
+      rgba(34,197,94,.12),
+      rgba(15,23,42,.82)
+    );
+  border:
+    1px solid
+    rgba(34,197,94,.22);
+}
+
+.money-label{
+  color:#94a3b8;
+  font-size:10px;
+  text-transform:uppercase;
+  font-weight:800;
+  margin-bottom:6px;
 }
 
 /* =========================
@@ -569,15 +525,11 @@ button:disabled{
 .today-record{
   background:
     rgba(2,6,23,.30);
-
   border:
     1px solid
     rgba(255,255,255,.08);
-
   border-radius:19px;
-
   padding:17px;
-
   margin-top:12px;
 }
 
@@ -605,9 +557,7 @@ button:disabled{
 .status-working{
   background:
     rgba(34,197,94,.14);
-
   color:#86efac;
-
   border:
     1px solid
     rgba(34,197,94,.25);
@@ -616,9 +566,7 @@ button:disabled{
 .status-finished{
   background:
     rgba(148,163,184,.12);
-
   color:#cbd5e1;
-
   border:
     1px solid
     rgba(148,163,184,.18);
@@ -627,38 +575,29 @@ button:disabled{
 .today-info{
   display:grid;
   grid-template-columns:
-    repeat(3,1fr);
+    repeat(4,1fr);
   gap:10px;
 }
 
 .today-info-box{
   background:
     rgba(255,255,255,.045);
-
   border-radius:14px;
-
   padding:13px;
 }
 
 .today-info-box small{
   display:block;
-
   color:#64748b;
-
   margin-bottom:6px;
-
   font-size:10px;
-
   text-transform:uppercase;
-
   font-weight:800;
 }
 
 .today-info-box strong{
   font-size:17px;
-
-  font-variant-numeric:
-    tabular-nums;
+  font-variant-numeric:tabular-nums;
 }
 
 .today-location{
@@ -676,15 +615,11 @@ button:disabled{
       rgba(255,255,255,.055),
       rgba(255,255,255,.025)
     );
-
   border:
     1px solid
     rgba(255,255,255,.075);
-
   border-radius:19px;
-
   padding:17px;
-
   margin-bottom:12px;
 }
 
@@ -718,38 +653,29 @@ button:disabled{
 .info-grid{
   display:grid;
   grid-template-columns:
-    repeat(3,1fr);
+    repeat(4,1fr);
   gap:10px;
 }
 
 .info{
   background:
     rgba(2,6,23,.30);
-
   border-radius:14px;
-
   padding:13px;
 }
 
 .info small{
   display:block;
-
   color:#64748b;
-
   margin-bottom:6px;
-
   font-size:10px;
-
   text-transform:uppercase;
-
   font-weight:800;
 }
 
 .info strong{
   font-size:17px;
-
-  font-variant-numeric:
-    tabular-nums;
+  font-variant-numeric:tabular-nums;
 }
 
 .location{
@@ -759,31 +685,22 @@ button:disabled{
 .location a{
   color:#fff;
   text-decoration:none;
-
   display:block;
-
   background:
     rgba(59,130,246,.10);
-
   border:
     1px solid
     rgba(59,130,246,.20);
-
   padding:10px 13px;
-
   border-radius:12px;
-
   text-align:center;
-
   font-size:12px;
   font-weight:800;
 }
 
 .record-actions{
   margin-top:13px;
-
   display:flex;
-
   justify-content:flex-end;
 }
 
@@ -793,15 +710,10 @@ button:disabled{
 
 .employee-row{
   display:flex;
-
   align-items:center;
-
   justify-content:space-between;
-
   gap:12px;
-
   padding:15px 0;
-
   border-bottom:
     1px solid
     rgba(255,255,255,.07);
@@ -817,33 +729,24 @@ button:disabled{
 
 .employee-note{
   color:#64748b;
-
   font-size:11px;
-
   margin-top:4px;
 }
 
 .employee-avatar{
   width:40px;
   height:40px;
-
   border-radius:13px;
-
   background:
     rgba(59,130,246,.12);
-
   border:
     1px solid
     rgba(59,130,246,.18);
-
   display:flex;
   align-items:center;
   justify-content:center;
-
   font-weight:900;
-
   color:#93c5fd;
-
   flex:none;
 }
 
@@ -928,19 +831,19 @@ button:disabled{
   }
 
   .stats{
-    grid-template-columns:1fr;
+    grid-template-columns:1fr 1fr;
   }
 
   .today-summary{
-    grid-template-columns:1fr;
+    grid-template-columns:1fr 1fr;
   }
 
   .today-info{
-    grid-template-columns:1fr;
+    grid-template-columns:1fr 1fr;
   }
 
   .info-grid{
-    grid-template-columns:1fr;
+    grid-template-columns:1fr 1fr;
   }
 
   .record-header{
@@ -973,6 +876,26 @@ button:disabled{
 
 }
 
+@media(max-width:430px){
+
+  .stats{
+    grid-template-columns:1fr;
+  }
+
+  .today-summary{
+    grid-template-columns:1fr;
+  }
+
+  .today-info{
+    grid-template-columns:1fr;
+  }
+
+  .info-grid{
+    grid-template-columns:1fr;
+  }
+
+}
+
 /* =========================
    DESKTOP
 ========================= */
@@ -981,12 +904,12 @@ button:disabled{
 
   .stats{
     grid-template-columns:
-      repeat(3,1fr);
+      repeat(4,1fr);
   }
 
   .today-summary{
     grid-template-columns:
-      repeat(3,1fr);
+      repeat(4,1fr);
   }
 
 }
@@ -1032,7 +955,6 @@ button:disabled{
 
     </div>
 
-
     <h2>
       Acesso do administrador
     </h2>
@@ -1042,20 +964,17 @@ button:disabled{
       os registros de ponto dos funcionários.
     </div>
 
-
     <input
       id="email"
       type="email"
       autocomplete="username"
       placeholder="E-mail do administrador">
 
-
     <input
       id="senha"
       type="password"
       autocomplete="current-password"
       placeholder="Senha">
-
 
     <button
       class="btn-primary"
@@ -1064,7 +983,6 @@ button:disabled{
       Entrar no painel
 
     </button>
-
 
     <div
       id="loginMessage"
@@ -1130,7 +1048,6 @@ button:disabled{
 
     </div>
 
-
     <div class="filter-box">
 
       <div class="filter-label">
@@ -1140,10 +1057,9 @@ button:disabled{
       <input
         id="mesSelecionado"
         type="month"
-        onchange="carregarRegistros()">
+        onchange="carregarRegistros">
 
     </div>
-
 
     <div class="top-actions">
 
@@ -1155,7 +1071,6 @@ button:disabled{
         🔄 Atualizar dados
 
       </button>
-
 
       <button
         class="btn-danger"
@@ -1186,9 +1101,7 @@ button:disabled{
 
     </div>
 
-
     <div class="today-summary">
-
 
       <div class="today-stat">
 
@@ -1202,7 +1115,6 @@ button:disabled{
 
       </div>
 
-
       <div class="today-stat">
 
         <strong id="hojeRegistros">
@@ -1214,7 +1126,6 @@ button:disabled{
         </span>
 
       </div>
-
 
       <div class="today-stat">
 
@@ -1228,9 +1139,23 @@ button:disabled{
 
       </div>
 
+      <div class="today-stat">
+
+        <strong
+          id="hojeGanhos"
+          class="money">
+
+          R$ 0,00
+
+        </strong>
+
+        <span>
+          Valor ganho hoje
+        </span>
+
+      </div>
 
     </div>
-
 
     <div id="listaHoje">
 
@@ -1259,9 +1184,7 @@ button:disabled{
 
     </div>
 
-
     <div class="stats">
-
 
       <div class="stat">
 
@@ -1279,7 +1202,6 @@ button:disabled{
 
       </div>
 
-
       <div class="stat">
 
         <div class="stat-icon">
@@ -1295,7 +1217,6 @@ button:disabled{
         </span>
 
       </div>
-
 
       <div class="stat">
 
@@ -1313,6 +1234,25 @@ button:disabled{
 
       </div>
 
+      <div class="stat money-card">
+
+        <div class="stat-icon">
+          💰
+        </div>
+
+        <strong
+          id="totalGanhos"
+          class="money">
+
+          R$ 0,00
+
+        </strong>
+
+        <span>
+          Valor total do mês
+        </span>
+
+      </div>
 
     </div>
 
@@ -1334,7 +1274,6 @@ button:disabled{
       </small>
 
     </div>
-
 
     <div id="listaFuncionarios">
 
@@ -1362,7 +1301,6 @@ button:disabled{
       </small>
 
     </div>
-
 
     <div id="listaRegistros">
 
@@ -1401,6 +1339,17 @@ const supabaseClient =
   );
 
 
+/* =========================
+   VALOR DA HORA
+========================= */
+
+const VALOR_HORA = 10;
+
+
+/* =========================
+   ESTADO
+========================= */
+
 let registrosAtuais = [];
 
 let intervaloAdmin = null;
@@ -1422,16 +1371,52 @@ function escapeHtml(valor){
   }
 
   return String(valor)
-
     .replaceAll("&","&amp;")
-
     .replaceAll("<","&lt;")
-
     .replaceAll(">","&gt;")
-
     .replaceAll('"',"&quot;")
-
     .replaceAll("'","&#039;");
+}
+
+
+/* =========================
+   MOEDA
+========================= */
+
+function formatarMoeda(valor){
+
+  return Number(valor || 0)
+    .toLocaleString(
+      "pt-BR",
+      {
+        style:"currency",
+        currency:"BRL"
+      }
+    );
+}
+
+
+/* =========================
+   CALCULAR GANHO
+========================= */
+
+function calcularGanho(ms){
+
+  if(!ms || ms <= 0){
+    return 0;
+  }
+
+  /*
+    R$ 10,00 por hora.
+
+    O cálculo usa os milissegundos,
+    portanto minutos e segundos
+    também são pagos proporcionalmente.
+  */
+
+  return (
+    ms / 3600000
+  ) * VALOR_HORA;
 }
 
 
@@ -2004,12 +1989,10 @@ function atualizarResumo(){
       ...new Set(
 
         registros
-
           .map(
             r =>
               r.funcionario
           )
-
           .filter(Boolean)
 
       )
@@ -2017,11 +2000,20 @@ function atualizarResumo(){
 
   let totalMs = 0;
 
+  let totalGanho = 0;
+
   registros.forEach(
     r => {
 
-      totalMs +=
+      const duracao =
         duracaoRegistroMs(r);
+
+      totalMs += duracao;
+
+      totalGanho +=
+        calcularGanho(
+          duracao
+        );
 
     }
   );
@@ -2041,6 +2033,13 @@ function atualizarResumo(){
   ).textContent =
     formatarDuracao(
       totalMs
+    );
+
+  document.getElementById(
+    "totalGanhos"
+  ).textContent =
+    formatarMoeda(
+      totalGanho
     );
 }
 
@@ -2072,12 +2071,10 @@ function mostrarHoje(){
       ...new Set(
 
         registrosHoje
-
           .map(
             r =>
               r.funcionario
           )
-
           .filter(Boolean)
 
       )
@@ -2085,11 +2082,21 @@ function mostrarHoje(){
 
   let totalMsHoje = 0;
 
+  let totalGanhoHoje = 0;
+
   registrosHoje.forEach(
     r => {
 
-      totalMsHoje +=
+      const duracao =
         duracaoRegistroMs(r);
+
+      totalMsHoje +=
+        duracao;
+
+      totalGanhoHoje +=
+        calcularGanho(
+          duracao
+        );
 
     }
   );
@@ -2109,6 +2116,13 @@ function mostrarHoje(){
   ).textContent =
     formatarDuracao(
       totalMsHoje
+    );
+
+  document.getElementById(
+    "hojeGanhos"
+  ).textContent =
+    formatarMoeda(
+      totalGanhoHoje
     );
 
   if(!registrosHoje.length){
@@ -2176,9 +2190,17 @@ function mostrarHoje(){
           const saiu =
             !!r.saida;
 
+          const duracaoMs =
+            duracaoRegistroMs(r);
+
           const duracao =
             formatarDuracao(
-              duracaoRegistroMs(r)
+              duracaoMs
+            );
+
+          const ganho =
+            calcularGanho(
+              duracaoMs
             );
 
           const statusClass =
@@ -2262,6 +2284,21 @@ function mostrarHoje(){
                 </div>
 
 
+                <div class="today-info-box">
+
+                  <small>
+                    💰 Ganho
+                  </small>
+
+                  <strong class="money">
+                    ${formatarMoeda(
+                      ganho
+                    )}
+                  </strong>
+
+                </div>
+
+
               </div>
 
 
@@ -2293,12 +2330,10 @@ function mostrarFuncionarios(){
       ...new Set(
 
         registrosAtuais
-
           .map(
             r =>
               r.funcionario
           )
-
           .filter(Boolean)
 
       )
@@ -2453,9 +2488,17 @@ function mostrarRegistros(){
             `;
           }
 
+          const duracaoMs =
+            duracaoRegistroMs(r);
+
           const duracao =
             formatarDuracao(
-              duracaoRegistroMs(r)
+              duracaoMs
+            );
+
+          const ganho =
+            calcularGanho(
+              duracaoMs
             );
 
           const saiu =
@@ -2550,6 +2593,21 @@ function mostrarRegistros(){
 
                   <strong>
                     ${duracao}
+                  </strong>
+
+                </div>
+
+
+                <div class="info">
+
+                  <small>
+                    💰 Valor ganho
+                  </small>
+
+                  <strong class="money">
+                    ${formatarMoeda(
+                      ganho
+                    )}
                   </strong>
 
                 </div>
