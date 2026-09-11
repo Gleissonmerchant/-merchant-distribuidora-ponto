@@ -134,20 +134,28 @@ body::before{
 
   background:#fff;
 
-  color:#0f172a;
-
   display:flex;
   align-items:center;
   justify-content:center;
-
-  font-size:23px;
-  font-weight:900;
 
   box-shadow:
     0 12px 30px
     rgba(0,0,0,.25);
 
   flex:none;
+
+  overflow:hidden;
+}
+
+.logo img{
+  width:100%;
+  height:100%;
+
+  object-fit:contain;
+
+  border-radius:inherit;
+
+  display:block;
 }
 
 .header-content{
@@ -283,6 +291,12 @@ button{
 
 button:active{
   transform:scale(.98);
+}
+
+button:disabled{
+  opacity:.55;
+  cursor:not-allowed;
+  transform:none;
 }
 
 .btn-primary{
@@ -903,7 +917,6 @@ button:active{
     width:58px;
     height:58px;
     border-radius:17px;
-    font-size:20px;
   }
 
   h1{
@@ -996,7 +1009,9 @@ button:active{
     <div class="header">
 
       <div class="logo">
-        MD
+        <img
+          src="logo.png"
+          alt="Merchant Distribuidora">
       </div>
 
       <div class="header-content">
@@ -1075,7 +1090,9 @@ button:active{
   <div class="header">
 
     <div class="logo">
-      MD
+      <img
+        src="logo.png"
+        alt="Merchant Distribuidora">
     </div>
 
     <div class="header-content">
@@ -1131,6 +1148,7 @@ button:active{
     <div class="top-actions">
 
       <button
+        id="btnAtualizar"
         class="btn-secondary"
         onclick="carregarRegistros()">
 
@@ -1386,6 +1404,8 @@ const supabaseClient =
 let registrosAtuais = [];
 
 let intervaloAdmin = null;
+
+let intervaloBanco = null;
 
 
 /* =========================
@@ -1771,6 +1791,8 @@ async function entrarAdmin(){
   await carregarRegistros();
 
   iniciarAtualizacaoAdmin();
+
+  iniciarAtualizacaoBanco();
 }
 
 
@@ -1785,6 +1807,11 @@ async function carregarRegistros(){
       "listaRegistros"
     );
 
+  const botao =
+    document.getElementById(
+      "btnAtualizar"
+    );
+
   const periodo =
     obterPeriodoSelecionado();
 
@@ -1792,61 +1819,99 @@ async function carregarRegistros(){
     return;
   }
 
-  area.innerHTML =
-    '<div class="empty">Carregando registros...</div>';
+  if(botao){
 
-  const {
-    data,
-    error
-  } =
-    await supabaseClient
-      .from("painel_admin_ponto")
-      .select("*")
-      .gte(
-        "entrada",
-        periodo.inicio.toISOString()
-      )
-      .lt(
-        "entrada",
-        periodo.fim.toISOString()
-      )
-      .order(
-        "entrada",
-        {
-          ascending:false
-        }
-      )
-      .limit(1000);
+    botao.disabled = true;
 
-  if(error){
-
-    area.innerHTML =
-      '<div class="empty">Erro ao carregar registros: '
-      +
-      escapeHtml(
-        error.message
-      )
-      +
-      '</div>';
-
-    return;
+    botao.textContent =
+      "⏳ Atualizando...";
   }
 
-  registrosAtuais =
-    data || [];
+  area.innerHTML =
+    '<div class="empty">🔄 Atualizando dados...</div>';
 
-  atualizarResumo();
+  try{
 
-  mostrarHoje();
+    const {
+      data,
+      error
+    } =
+      await supabaseClient
+        .from("painel_admin_ponto")
+        .select("*")
+        .gte(
+          "entrada",
+          periodo.inicio.toISOString()
+        )
+        .lt(
+          "entrada",
+          periodo.fim.toISOString()
+        )
+        .order(
+          "entrada",
+          {
+            ascending:false
+          }
+        )
+        .limit(1000);
 
-  mostrarFuncionarios();
+    if(error){
 
-  mostrarRegistros();
+      console.error(
+        "Erro Supabase:",
+        error
+      );
+
+      area.innerHTML =
+        '<div class="empty">❌ Erro ao atualizar os dados:<br><br>'
+        +
+        escapeHtml(
+          error.message
+        )
+        +
+        '</div>';
+
+      return;
+    }
+
+    registrosAtuais =
+      data || [];
+
+    atualizarResumo();
+
+    mostrarHoje();
+
+    mostrarFuncionarios();
+
+    mostrarRegistros();
+
+  }catch(error){
+
+    console.error(
+      "Erro inesperado:",
+      error
+    );
+
+    area.innerHTML =
+      '<div class="empty">❌ Não foi possível atualizar os dados.</div>';
+
+  }finally{
+
+    if(botao){
+
+      botao.disabled = false;
+
+      botao.textContent =
+        "🔄 Atualizar dados";
+    }
+
+  }
 }
 
 
 /* =========================
-   ATUALIZAÇÃO AUTOMÁTICA
+   ATUALIZAÇÃO VISUAL
+   A CADA SEGUNDO
 ========================= */
 
 function iniciarAtualizacaoAdmin(){
@@ -1881,6 +1946,46 @@ function iniciarAtualizacaoAdmin(){
 
       },
       1000
+    );
+}
+
+
+/* =========================
+   ATUALIZAÇÃO DO BANCO
+   A CADA 15 SEGUNDOS
+========================= */
+
+function iniciarAtualizacaoBanco(){
+
+  if(intervaloBanco){
+
+    clearInterval(
+      intervaloBanco
+    );
+  }
+
+  intervaloBanco =
+    setInterval(
+      async () => {
+
+        const adminArea =
+          document.getElementById(
+            "adminArea"
+          );
+
+        if(
+          adminArea &&
+          !adminArea.classList.contains(
+            "hidden"
+          )
+        ){
+
+          await carregarRegistros();
+
+        }
+
+      },
+      15000
     );
 }
 
@@ -2603,6 +2708,15 @@ async function sairAdmin(){
     intervaloAdmin = null;
   }
 
+  if(intervaloBanco){
+
+    clearInterval(
+      intervaloBanco
+    );
+
+    intervaloBanco = null;
+  }
+
   await supabaseClient
     .auth
     .signOut();
@@ -2671,6 +2785,8 @@ supabaseClient.auth
         await carregarRegistros();
 
         iniciarAtualizacaoAdmin();
+
+        iniciarAtualizacaoBanco();
 
       }
 
