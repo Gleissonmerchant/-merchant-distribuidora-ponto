@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="pt-BR">
+
 <head>
 
 <meta charset="utf-8">
@@ -10,154 +11,224 @@
 
 <meta
   name="theme-color"
-  content="#111827">
+  content="#0f172a">
 
-<title>
-  Merchant Distribuidora • Administração
-</title>
+<title>Merchant Distribuidora • Administração</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 
 *{
-  box-sizing:border-box
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
+html{
+  scroll-behavior:smooth;
 }
 
 body{
-
   margin:0;
-
   min-height:100vh;
-
   font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
     Arial,
-    Helvetica,
     sans-serif;
-
   background:
-    radial-gradient(
-      circle at top,
-      #263449 0,
-      #111827 42%,
-      #080d16 100%
+    linear-gradient(
+      145deg,
+      #020617 0%,
+      #0f172a 45%,
+      #111827 100%
     );
-
   color:#fff;
 }
 
-.container{
-
-  width:min(1100px,94%);
-
-  margin:auto;
-
-  padding:24px 0 40px;
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(
+      circle at 15% 10%,
+      rgba(59,130,246,.12),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at 85% 20%,
+      rgba(34,197,94,.09),
+      transparent 30%
+    );
 }
 
+.container{
+  width:min(1150px,94%);
+  margin:auto;
+  padding:22px 0 45px;
+  position:relative;
+  z-index:1;
+}
+
+/* =========================
+   CARTÕES
+========================= */
+
 .card{
+  background:
+    rgba(15,23,42,.78);
+
+  border:
+    1px solid
+    rgba(255,255,255,.08);
+
+  border-radius:24px;
+
+  padding:22px;
+
+  margin-bottom:18px;
+
+  box-shadow:
+    0 18px 45px
+    rgba(0,0,0,.24);
+
+  backdrop-filter:blur(18px);
+}
+
+.card-title{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:18px;
+}
+
+.card-title h2{
+  margin:0;
+  font-size:19px;
+}
+
+.card-title small{
+  color:#94a3b8;
+  font-size:12px;
+}
+
+/* =========================
+   CABEÇALHO
+========================= */
+
+.header{
+  display:flex;
+  align-items:center;
+  gap:15px;
+  margin-bottom:22px;
+}
+
+.logo{
+  width:68px;
+  height:68px;
+  border-radius:20px;
+
+  background:#fff;
+
+  color:#0f172a;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:23px;
+  font-weight:900;
+
+  box-shadow:
+    0 12px 30px
+    rgba(0,0,0,.25);
+
+  flex:none;
+}
+
+.header-content{
+  flex:1;
+}
+
+h1{
+  font-size:25px;
+  line-height:1.1;
+  margin:0;
+  font-weight:800;
+}
+
+.subtitle{
+  color:#94a3b8;
+  margin-top:6px;
+  font-size:14px;
+}
+
+.admin-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+
+  margin-top:9px;
+
+  padding:6px 10px;
+
+  border-radius:999px;
 
   background:
-    rgba(255,255,255,.07);
+    rgba(59,130,246,.12);
+
+  border:
+    1px solid
+    rgba(59,130,246,.25);
+
+  color:#93c5fd;
+
+  font-size:11px;
+  font-weight:800;
+}
+
+/* =========================
+   LOGIN
+========================= */
+
+.login{
+  max-width:440px;
+  margin:70px auto;
+}
+
+.login .header{
+  margin-bottom:28px;
+}
+
+.login h2{
+  margin:0 0 18px;
+  font-size:19px;
+}
+
+.login-description{
+  color:#94a3b8;
+  font-size:13px;
+  line-height:1.5;
+  margin:-8px 0 18px;
+}
+
+input{
+  width:100%;
+
+  padding:15px 16px;
+
+  border-radius:15px;
 
   border:
     1px solid
     rgba(255,255,255,.10);
 
-  border-radius:22px;
-
-  padding:20px;
-
-  margin-bottom:18px;
-
-  box-shadow:
-    0 12px 35px
-    rgba(0,0,0,.25);
-
-  backdrop-filter:blur(10px);
-}
-
-.header{
-
-  display:flex;
-
-  align-items:center;
-
-  gap:15px;
-
-  margin-bottom:20px;
-}
-
-.logo{
-
-  width:64px;
-
-  height:64px;
-
-  border-radius:18px;
-
-  background:#fff;
-
-  color:#111827;
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:center;
-
-  font-size:24px;
-
-  font-weight:900;
-
-  flex:none;
-}
-
-h1{
-
-  font-size:24px;
-
-  margin:0;
-}
-
-.subtitle{
-
-  color:#aeb8c8;
-
-  margin-top:5px;
-
-  font-size:14px;
-}
-
-h2{
-
-  margin:
-    0 0 15px;
-
-  font-size:19px;
-}
-
-.login{
-
-  max-width:430px;
-
-  margin:70px auto;
-}
-
-input{
-
-  width:100%;
-
-  padding:15px;
-
-  border-radius:13px;
-
-  border:
-    1px solid
-    rgba(255,255,255,.15);
-
   background:
-    rgba(0,0,0,.25);
+    rgba(2,6,23,.65);
 
   color:#fff;
 
@@ -166,225 +237,305 @@ input{
   margin-bottom:12px;
 
   font-size:16px;
+
+  transition:
+    border-color .2s,
+    box-shadow .2s;
+}
+
+input:focus{
+  border-color:
+    rgba(96,165,250,.65);
+
+  box-shadow:
+    0 0 0 3px
+    rgba(59,130,246,.12);
 }
 
 input::placeholder{
-
-  color:#9ca8b8;
+  color:#64748b;
 }
 
+input[type="month"]{
+  color-scheme:dark;
+}
+
+/* =========================
+   BOTÕES
+========================= */
+
 button{
-
   border:0;
-
-  border-radius:13px;
+  border-radius:14px;
 
   padding:13px 17px;
 
-  font-size:15px;
-
-  font-weight:700;
+  font-size:14px;
+  font-weight:800;
 
   cursor:pointer;
+
+  transition:
+    transform .15s,
+    opacity .15s,
+    background .15s;
+}
+
+button:active{
+  transform:scale(.98);
 }
 
 .btn-primary{
-
   width:100%;
 
-  background:#fff;
+  background:
+    linear-gradient(
+      135deg,
+      #fff,
+      #e2e8f0
+    );
 
-  color:#111827;
+  color:#0f172a;
+
+  box-shadow:
+    0 10px 25px
+    rgba(0,0,0,.20);
 }
 
 .btn-secondary{
-
   background:
-    rgba(255,255,255,.10);
+    rgba(255,255,255,.07);
 
   color:#fff;
 
   border:
     1px solid
-    rgba(255,255,255,.12);
+    rgba(255,255,255,.10);
 }
 
 .btn-danger{
-
-  background:#dc2626;
+  background:
+    linear-gradient(
+      135deg,
+      #ef4444,
+      #dc2626
+    );
 
   color:#fff;
 }
 
-.btn-small{
-
-  padding:9px 12px;
-
-  font-size:13px;
-}
-
-.top-actions{
-
-  display:flex;
-
-  gap:10px;
-
-  flex-wrap:wrap;
-
-  margin-top:10px;
-}
-
-.top-actions button{
-
-  flex:1;
-
-  min-width:130px;
-}
-
-.filters{
-
-  display:grid;
-
-  grid-template-columns:1fr;
-
-  gap:10px;
-}
-
-.filter-label{
-
-  font-size:13px;
-
-  color:#aeb8c8;
-
-  margin-bottom:5px;
-}
-
-.stats{
-
-  display:grid;
-
-  grid-template-columns:
-    repeat(3,1fr);
-
-  gap:12px;
-}
-
-.stat{
-
-  background:
-    rgba(255,255,255,.06);
-
-  border-radius:17px;
-
-  padding:17px;
-
-  text-align:center;
-}
-
-.stat strong{
+.btn-location{
+  width:100%;
 
   display:block;
 
-  font-size:27px;
+  text-align:center;
 
-  margin-bottom:5px;
+  text-decoration:none;
+
+  background:
+    linear-gradient(
+      135deg,
+      #16a34a,
+      #15803d
+    );
+
+  color:#fff;
+
+  padding:12px 14px;
+
+  border-radius:13px;
+
+  font-size:13px;
+
+  font-weight:800;
+
+  box-shadow:
+    0 8px 20px
+    rgba(22,163,74,.15);
+}
+
+.btn-small{
+  padding:9px 12px;
+  font-size:12px;
+}
+
+.top-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:12px;
+}
+
+.top-actions button{
+  flex:1;
+  min-width:145px;
+}
+
+/* =========================
+   FILTRO
+========================= */
+
+.filter-box{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:8px;
+}
+
+.filter-label{
+  color:#94a3b8;
+  font-size:12px;
+  font-weight:700;
+  margin-bottom:3px;
+}
+
+/* =========================
+   INDICADORES
+========================= */
+
+.stats{
+  display:grid;
+  grid-template-columns:
+    repeat(3,1fr);
+  gap:13px;
+}
+
+.stat{
+  position:relative;
+
+  overflow:hidden;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.075),
+      rgba(255,255,255,.035)
+    );
+
+  border:
+    1px solid
+    rgba(255,255,255,.08);
+
+  border-radius:19px;
+
+  padding:19px;
+
+  min-height:105px;
+}
+
+.stat::after{
+  content:"";
+  position:absolute;
+
+  width:80px;
+  height:80px;
+
+  border-radius:50%;
+
+  right:-35px;
+  top:-35px;
+
+  background:
+    rgba(255,255,255,.035);
+}
+
+.stat strong{
+  display:block;
+
+  font-size:29px;
+
+  margin-bottom:7px;
 
   font-variant-numeric:
     tabular-nums;
 }
 
 .stat span{
-
-  color:#aeb8c8;
-
-  font-size:13px;
+  color:#94a3b8;
+  font-size:12px;
+  font-weight:600;
 }
 
-.today-card{
+.stat-icon{
+  font-size:20px;
+  margin-bottom:8px;
+}
 
+/* =========================
+   HOJE
+========================= */
+
+.today-card{
   background:
     linear-gradient(
-      135deg,
-      rgba(34,197,94,.16),
-      rgba(255,255,255,.07)
+      145deg,
+      rgba(22,163,74,.13),
+      rgba(15,23,42,.82)
     );
 
   border:
     1px solid
-    rgba(34,197,94,.35);
-
-  box-shadow:
-    0 15px 40px
-    rgba(0,0,0,.28),
-
-    0 0 25px
-    rgba(34,197,94,.08);
+    rgba(34,197,94,.24);
 }
 
 .today-title{
-
   display:flex;
-
   align-items:center;
-
   justify-content:space-between;
-
   gap:10px;
-
   margin-bottom:18px;
 }
 
 .today-title h2{
-
   margin:0;
-
   font-size:21px;
 }
 
 .today-badge{
+  background:
+    rgba(34,197,94,.15);
 
-  background:#16a34a;
+  color:#86efac;
 
-  color:#fff;
+  border:
+    1px solid
+    rgba(34,197,94,.25);
 
-  padding:7px 12px;
+  padding:7px 11px;
 
   border-radius:999px;
 
-  font-size:12px;
-
-  font-weight:800;
+  font-size:10px;
+  font-weight:900;
 }
 
 .today-summary{
-
   display:grid;
-
   grid-template-columns:
     repeat(3,1fr);
-
   gap:12px;
-
   margin-bottom:18px;
 }
 
 .today-stat{
-
   background:
-    rgba(0,0,0,.20);
+    rgba(2,6,23,.35);
 
-  border-radius:16px;
+  border:
+    1px solid
+    rgba(255,255,255,.06);
 
-  padding:15px;
+  border-radius:17px;
+
+  padding:16px;
 
   text-align:center;
 }
 
 .today-stat strong{
-
   display:block;
 
-  font-size:25px;
+  font-size:26px;
 
   margin-bottom:5px;
 
@@ -393,99 +544,103 @@ button{
 }
 
 .today-stat span{
-
-  color:#b8c2d0;
-
-  font-size:12px;
+  color:#94a3b8;
+  font-size:11px;
 }
 
-.today-record{
+/* =========================
+   REGISTRO DE HOJE
+========================= */
 
+.today-record{
   background:
-    rgba(0,0,0,.18);
+    rgba(2,6,23,.30);
 
   border:
     1px solid
-    rgba(255,255,255,.09);
+    rgba(255,255,255,.08);
 
-  border-radius:18px;
+  border-radius:19px;
 
-  padding:16px;
+  padding:17px;
 
   margin-top:12px;
 }
 
 .today-record-header{
-
   display:flex;
-
   justify-content:space-between;
-
   align-items:center;
-
   gap:10px;
-
-  margin-bottom:13px;
+  margin-bottom:15px;
 }
 
 .today-employee{
-
   font-size:18px;
-
   font-weight:800;
 }
 
 .today-status{
-
   padding:6px 10px;
-
   border-radius:999px;
+  font-size:10px;
+  font-weight:900;
+  white-space:nowrap;
+}
 
+.status-working{
   background:
-    rgba(34,197,94,.16);
+    rgba(34,197,94,.14);
 
   color:#86efac;
 
-  font-size:11px;
+  border:
+    1px solid
+    rgba(34,197,94,.25);
+}
 
-  font-weight:800;
+.status-finished{
+  background:
+    rgba(148,163,184,.12);
+
+  color:#cbd5e1;
+
+  border:
+    1px solid
+    rgba(148,163,184,.18);
 }
 
 .today-info{
-
   display:grid;
-
   grid-template-columns:
     repeat(3,1fr);
-
   gap:10px;
 }
 
 .today-info-box{
-
   background:
-    rgba(255,255,255,.055);
+    rgba(255,255,255,.045);
 
-  border-radius:13px;
+  border-radius:14px;
 
-  padding:12px;
+  padding:13px;
 }
 
 .today-info-box small{
-
   display:block;
 
-  color:#9ca8b8;
+  color:#64748b;
 
-  margin-bottom:5px;
+  margin-bottom:6px;
 
-  font-size:11px;
+  font-size:10px;
 
   text-transform:uppercase;
+
+  font-weight:800;
 }
 
 .today-info-box strong{
-
   font-size:17px;
 
   font-variant-numeric:
@@ -493,118 +648,90 @@ button{
 }
 
 .today-location{
-
-  margin-top:12px;
+  margin-top:13px;
 }
 
-.today-location a{
-
-  color:#fff;
-
-  text-decoration:none;
-
-  display:block;
-
-  text-align:center;
-
-  background:#16a34a;
-
-  padding:11px 13px;
-
-  border-radius:12px;
-
-  font-size:13px;
-
-  font-weight:800;
-}
-
-.today-empty{
-
-  text-align:center;
-
-  color:#aeb8c8;
-
-  padding:18px 8px 5px;
-}
+/* =========================
+   REGISTROS
+========================= */
 
 .record{
-
   background:
-    rgba(255,255,255,.055);
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.055),
+      rgba(255,255,255,.025)
+    );
 
   border:
     1px solid
-    rgba(255,255,255,.09);
+    rgba(255,255,255,.075);
 
-  border-radius:18px;
+  border-radius:19px;
 
-  padding:16px;
+  padding:17px;
 
   margin-bottom:12px;
 }
 
 .record-header{
-
   display:flex;
-
   justify-content:space-between;
-
-  align-items:center;
-
-  gap:10px;
-
-  margin-bottom:13px;
+  align-items:flex-start;
+  gap:12px;
+  margin-bottom:15px;
 }
 
 .employee{
-
   font-size:18px;
-
   font-weight:800;
 }
 
 .date{
+  color:#64748b;
+  font-size:12px;
+  margin-top:4px;
+}
 
-  color:#aeb8c8;
-
-  font-size:13px;
+.record-status{
+  padding:6px 9px;
+  border-radius:999px;
+  font-size:9px;
+  font-weight:900;
+  white-space:nowrap;
 }
 
 .info-grid{
-
   display:grid;
-
   grid-template-columns:
     repeat(3,1fr);
-
   gap:10px;
 }
 
 .info{
-
   background:
-    rgba(0,0,0,.18);
+    rgba(2,6,23,.30);
 
-  border-radius:13px;
+  border-radius:14px;
 
-  padding:12px;
+  padding:13px;
 }
 
 .info small{
-
   display:block;
 
-  color:#9ca8b8;
+  color:#64748b;
 
-  margin-bottom:5px;
+  margin-bottom:6px;
 
-  font-size:11px;
+  font-size:10px;
 
   text-transform:uppercase;
+
+  font-weight:800;
 }
 
 .info strong{
-
   font-size:17px;
 
   font-variant-numeric:
@@ -612,30 +739,33 @@ button{
 }
 
 .location{
-
-  margin-top:12px;
+  margin-top:13px;
 }
 
 .location a{
-
   color:#fff;
-
   text-decoration:none;
 
-  display:inline-block;
+  display:block;
 
   background:
-    rgba(255,255,255,.10);
+    rgba(59,130,246,.10);
 
-  padding:9px 12px;
+  border:
+    1px solid
+    rgba(59,130,246,.20);
 
-  border-radius:11px;
+  padding:10px 13px;
 
-  font-size:13px;
+  border-radius:12px;
+
+  text-align:center;
+
+  font-size:12px;
+  font-weight:800;
 }
 
 .record-actions{
-
   margin-top:13px;
 
   display:flex;
@@ -643,8 +773,11 @@ button{
   justify-content:flex-end;
 }
 
-.employee-row{
+/* =========================
+   FUNCIONÁRIOS
+========================= */
 
+.employee-row{
   display:flex;
 
   align-items:center;
@@ -653,112 +786,208 @@ button{
 
   gap:12px;
 
-  padding:13px 0;
+  padding:15px 0;
 
   border-bottom:
     1px solid
-    rgba(255,255,255,.08);
+    rgba(255,255,255,.07);
 }
 
 .employee-row:last-child{
-
   border-bottom:0;
 }
 
 .employee-name{
-
-  font-weight:700;
+  font-weight:800;
 }
 
 .employee-note{
+  color:#64748b;
 
-  color:#9ca8b8;
+  font-size:11px;
 
-  font-size:12px;
-
-  margin-top:3px;
+  margin-top:4px;
 }
+
+.employee-avatar{
+  width:40px;
+  height:40px;
+
+  border-radius:13px;
+
+  background:
+    rgba(59,130,246,.12);
+
+  border:
+    1px solid
+    rgba(59,130,246,.18);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-weight:900;
+
+  color:#93c5fd;
+
+  flex:none;
+}
+
+.employee-left{
+  display:flex;
+  align-items:center;
+  gap:11px;
+}
+
+/* =========================
+   MENSAGENS
+========================= */
 
 .empty{
-
   text-align:center;
-
-  color:#aeb8c8;
-
-  padding:25px 10px;
+  color:#64748b;
+  padding:30px 10px;
+  font-size:13px;
 }
 
-.hidden{
-
-  display:none!important;
+.today-empty{
+  text-align:center;
+  color:#64748b;
+  padding:22px 8px 8px;
+  font-size:13px;
 }
 
 .message{
-
   margin-top:12px;
-
   color:#fca5a5;
-
-  font-size:14px;
+  font-size:13px;
+  line-height:1.4;
 }
+
+.hidden{
+  display:none!important;
+}
+
+/* =========================
+   RODAPÉ
+========================= */
+
+.footer{
+  text-align:center;
+  color:#475569;
+  font-size:11px;
+  padding:4px 0 15px;
+}
+
+/* =========================
+   CELULAR
+========================= */
 
 @media(max-width:700px){
 
   .container{
-
     width:94%;
-
     padding-top:15px;
   }
 
-  .stats{
+  .card{
+    padding:17px;
+    border-radius:20px;
+  }
 
+  .header{
+    gap:12px;
+  }
+
+  .logo{
+    width:58px;
+    height:58px;
+    border-radius:17px;
+    font-size:20px;
+  }
+
+  h1{
+    font-size:21px;
+  }
+
+  .subtitle{
+    font-size:12px;
+  }
+
+  .stats{
     grid-template-columns:1fr;
   }
 
   .today-summary{
-
     grid-template-columns:1fr;
   }
 
   .today-info{
-
     grid-template-columns:1fr;
   }
 
   .info-grid{
-
     grid-template-columns:1fr;
   }
 
   .record-header{
+    align-items:flex-start;
+  }
 
+  .today-record-header{
     align-items:flex-start;
   }
 
   .employee-row{
-
     align-items:flex-start;
   }
 
   .employee-row button{
-
     flex:none;
   }
 
-  .today-title{
+  .top-actions{
+    flex-direction:column;
+  }
 
+  .top-actions button{
+    width:100%;
+  }
+
+  .today-title{
     align-items:flex-start;
+  }
+
+}
+
+/* =========================
+   DESKTOP
+========================= */
+
+@media(min-width:900px){
+
+  .stats{
+    grid-template-columns:
+      repeat(3,1fr);
+  }
+
+  .today-summary{
+    grid-template-columns:
+      repeat(3,1fr);
   }
 
 }
 
 </style>
-</head>
 
+</head>
 
 <body>
 
+
+<!-- =========================
+     LOGIN
+========================= -->
 
 <div id="loginArea" class="container">
 
@@ -770,14 +999,18 @@ button{
         MD
       </div>
 
-      <div>
+      <div class="header-content">
 
         <h1>
           Merchant Distribuidora
         </h1>
 
         <div class="subtitle">
-          Painel Administrativo
+          Sistema de Controle de Ponto
+        </div>
+
+        <div class="admin-badge">
+          🔐 Área administrativa
         </div>
 
       </div>
@@ -789,26 +1022,31 @@ button{
       Acesso do administrador
     </h2>
 
+    <div class="login-description">
+      Entre com suas credenciais para visualizar
+      os registros de ponto dos funcionários.
+    </div>
+
 
     <input
       id="email"
       type="email"
-      placeholder="E-mail"
-    >
+      autocomplete="username"
+      placeholder="E-mail do administrador">
 
 
     <input
       id="senha"
       type="password"
-      placeholder="Senha"
-    >
+      autocomplete="current-password"
+      placeholder="Senha">
 
 
     <button
       class="btn-primary"
       onclick="entrarAdmin()">
 
-      Entrar
+      Entrar no painel
 
     </button>
 
@@ -823,10 +1061,16 @@ button{
 </div>
 
 
+<!-- =========================
+     PAINEL
+========================= -->
+
 <div
   id="adminArea"
   class="container hidden">
 
+
+  <!-- CABEÇALHO -->
 
   <div class="header">
 
@@ -834,7 +1078,7 @@ button{
       MD
     </div>
 
-    <div style="flex:1">
+    <div class="header-content">
 
       <h1>
         Merchant Distribuidora
@@ -844,32 +1088,42 @@ button{
         Painel Administrativo de Ponto
       </div>
 
+      <div class="admin-badge">
+        🛡️ Administrador
+      </div>
+
     </div>
 
   </div>
 
 
+  <!-- PERÍODO -->
+
   <div class="card">
 
-    <h2>
-      📅 Período
-    </h2>
+    <div class="card-title">
 
-    <div class="filters">
+      <h2>
+        📅 Período de consulta
+      </h2>
 
-      <div>
+      <small>
+        Histórico mensal
+      </small>
 
-        <div class="filter-label">
-          Selecione o mês e o ano
-        </div>
+    </div>
 
-        <input
-          id="mesSelecionado"
-          type="month"
-          onchange="carregarRegistros()"
-        >
 
+    <div class="filter-box">
+
+      <div class="filter-label">
+        Mês e ano
       </div>
+
+      <input
+        id="mesSelecionado"
+        type="month"
+        onchange="carregarRegistros()">
 
     </div>
 
@@ -880,7 +1134,7 @@ button{
         class="btn-secondary"
         onclick="carregarRegistros()">
 
-        🔄 Atualizar
+        🔄 Atualizar dados
 
       </button>
 
@@ -898,12 +1152,14 @@ button{
   </div>
 
 
+  <!-- HOJE -->
+
   <div class="card today-card">
 
     <div class="today-title">
 
       <h2>
-        📅 Hoje
+        📍 Controle de hoje
       </h2>
 
       <div class="today-badge">
@@ -914,6 +1170,7 @@ button{
 
 
     <div class="today-summary">
+
 
       <div class="today-stat">
 
@@ -953,6 +1210,7 @@ button{
 
       </div>
 
+
     </div>
 
 
@@ -967,11 +1225,21 @@ button{
   </div>
 
 
+  <!-- RESUMO -->
+
   <div class="card">
 
-    <h2>
-      📊 Resumo do mês
-    </h2>
+    <div class="card-title">
+
+      <h2>
+        📊 Resumo do mês
+      </h2>
+
+      <small>
+        Total acumulado
+      </small>
+
+    </div>
 
 
     <div class="stats">
@@ -979,18 +1247,26 @@ button{
 
       <div class="stat">
 
+        <div class="stat-icon">
+          🕐
+        </div>
+
         <strong id="totalRegistros">
           0
         </strong>
 
         <span>
-          Registros
+          Registros de ponto
         </span>
 
       </div>
 
 
       <div class="stat">
+
+        <div class="stat-icon">
+          👥
+        </div>
 
         <strong id="totalFuncionarios">
           0
@@ -1004,6 +1280,10 @@ button{
 
 
       <div class="stat">
+
+        <div class="stat-icon">
+          ⏱️
+        </div>
 
         <strong id="totalHoras">
           00:00:00
@@ -1021,11 +1301,21 @@ button{
   </div>
 
 
+  <!-- FUNCIONÁRIOS -->
+
   <div class="card">
 
-    <h2>
-      👥 Funcionários
-    </h2>
+    <div class="card-title">
+
+      <h2>
+        👥 Funcionários
+      </h2>
+
+      <small>
+        Este mês
+      </small>
+
+    </div>
 
 
     <div id="listaFuncionarios">
@@ -1039,11 +1329,21 @@ button{
   </div>
 
 
+  <!-- REGISTROS -->
+
   <div class="card">
 
-    <h2>
-      🕐 Registros de ponto
-    </h2>
+    <div class="card-title">
+
+      <h2>
+        🕐 Registros de ponto
+      </h2>
+
+      <small>
+        Mais recentes primeiro
+      </small>
+
+    </div>
 
 
     <div id="listaRegistros">
@@ -1057,19 +1357,24 @@ button{
   </div>
 
 
+  <div class="footer">
+    Merchant Distribuidora • Sistema de Controle de Ponto
+  </div>
+
 </div>
 
 
 <script>
 
+/* =========================
+   SUPABASE
+========================= */
 
 const SUPABASE_URL =
   "https://paegduddojnlxyqssert.supabase.co";
 
-
 const SUPABASE_KEY =
   "sb_publishable_e70A8BQcnZ0o6XB-aXSbzg_p3pDeenk";
-
 
 const supabaseClient =
   window.supabase.createClient(
@@ -1083,9 +1388,9 @@ let registrosAtuais = [];
 let intervaloAdmin = null;
 
 
-/* ============================
+/* =========================
    SEGURANÇA HTML
-============================ */
+========================= */
 
 function escapeHtml(valor){
 
@@ -1093,10 +1398,8 @@ function escapeHtml(valor){
     valor === null ||
     valor === undefined
   ){
-
     return "";
   }
-
 
   return String(valor)
 
@@ -1112,59 +1415,50 @@ function escapeHtml(valor){
 }
 
 
-/* ============================
+/* =========================
    HORA
-============================ */
+========================= */
 
 function formatarHora(valor){
 
   if(!valor){
-
-    return "--:--";
+    return "--:--:--";
   }
-
 
   const data =
     new Date(valor);
 
-
   if(isNaN(data.getTime())){
-
-    return "--:--";
+    return "--:--:--";
   }
-
 
   return data.toLocaleTimeString(
     "pt-BR",
     {
       hour:"2-digit",
-      minute:"2-digit"
+      minute:"2-digit",
+      second:"2-digit"
     }
   );
 }
 
 
-/* ============================
+/* =========================
    DATA
-============================ */
+========================= */
 
 function formatarData(valor){
 
   if(!valor){
-
     return "--/--/----";
   }
-
 
   const data =
     new Date(valor);
 
-
   if(isNaN(data.getTime())){
-
     return valor;
   }
-
 
   return data.toLocaleDateString(
     "pt-BR"
@@ -1172,63 +1466,57 @@ function formatarData(valor){
 }
 
 
+/* =========================
+   DATA DE HOJE
+========================= */
+
 function dataHojeBanco(){
 
   const agora =
     new Date();
 
-
   const ano =
     agora.getFullYear();
-
 
   const mes =
     String(
       agora.getMonth()+1
     ).padStart(2,"0");
 
-
   const dia =
     String(
       agora.getDate()
     ).padStart(2,"0");
 
-
   return `${ano}-${mes}-${dia}`;
 }
 
 
-/* ============================
+/* =========================
    DURAÇÃO
-============================ */
+========================= */
 
 function formatarDuracao(ms){
 
   if(ms < 0){
-
     ms = 0;
   }
 
-
   const totalSegundos =
     Math.floor(ms / 1000);
-
 
   const horas =
     Math.floor(
       totalSegundos / 3600
     );
 
-
   const minutos =
     Math.floor(
       (totalSegundos % 3600) / 60
     );
 
-
   const segundos =
     totalSegundos % 60;
-
 
   return (
     String(horas).padStart(2,"0")
@@ -1240,9 +1528,9 @@ function formatarDuracao(ms){
 }
 
 
-/* ============================
+/* =========================
    DURAÇÃO DO REGISTRO
-============================ */
+========================= */
 
 function duracaoRegistroMs(registro){
 
@@ -1250,25 +1538,19 @@ function duracaoRegistroMs(registro){
     !registro ||
     !registro.entrada
   ){
-
     return 0;
   }
-
 
   const entrada =
     new Date(
       registro.entrada
     );
 
-
   if(isNaN(entrada.getTime())){
-
     return 0;
   }
 
-
   let fim;
-
 
   if(registro.saida){
 
@@ -1281,14 +1563,13 @@ function duracaoRegistroMs(registro){
 
     fim =
       new Date();
-  }
 
+  }
 
   const diferenca =
     fim.getTime()
     -
     entrada.getTime();
-
 
   return Math.max(
     0,
@@ -1297,72 +1578,9 @@ function duracaoRegistroMs(registro){
 }
 
 
-/* ============================
-   MINUTOS / SEGUNDOS
-============================ */
-
-function converterDuracaoParaMs(valor){
-
-  if(!valor){
-
-    return 0;
-  }
-
-
-  const partes =
-    String(valor)
-      .trim()
-      .split(":");
-
-
-  if(partes.length < 2){
-
-    return 0;
-  }
-
-
-  const horas =
-    parseInt(
-      partes[0],
-      10
-    ) || 0;
-
-
-  const minutos =
-    parseInt(
-      partes[1],
-      10
-    ) || 0;
-
-
-  const segundos =
-    partes.length >= 3
-      ? (
-          parseInt(
-            partes[2],
-            10
-          ) || 0
-        )
-      : 0;
-
-
-  return (
-    (
-      horas * 3600
-    )
-    +
-    (
-      minutos * 60
-    )
-    +
-    segundos
-  ) * 1000;
-}
-
-
-/* ============================
+/* =========================
    PERÍODO
-============================ */
+========================= */
 
 function obterPeriodoSelecionado(){
 
@@ -1371,20 +1589,15 @@ function obterPeriodoSelecionado(){
       "mesSelecionado"
     );
 
-
   const valor =
     campo.value;
 
-
   if(!valor){
-
     return null;
   }
 
-
   const partes =
     valor.split("-");
-
 
   const ano =
     parseInt(
@@ -1392,19 +1605,15 @@ function obterPeriodoSelecionado(){
       10
     );
 
-
   const mes =
     parseInt(
       partes[1],
       10
     );
 
-
   if(!ano || !mes){
-
     return null;
   }
-
 
   const inicio =
     new Date(
@@ -1417,7 +1626,6 @@ function obterPeriodoSelecionado(){
       0
     );
 
-
   const fim =
     new Date(
       ano,
@@ -1429,7 +1637,6 @@ function obterPeriodoSelecionado(){
       0
     );
 
-
   return {
     inicio,
     fim
@@ -1437,25 +1644,22 @@ function obterPeriodoSelecionado(){
 }
 
 
-/* ============================
+/* =========================
    MÊS ATUAL
-============================ */
+========================= */
 
 function definirMesAtual(){
 
   const agora =
     new Date();
 
-
   const ano =
     agora.getFullYear();
-
 
   const mes =
     String(
       agora.getMonth()+1
     ).padStart(2,"0");
-
 
   document.getElementById(
     "mesSelecionado"
@@ -1464,33 +1668,29 @@ function definirMesAtual(){
 }
 
 
-/* ============================
+/* =========================
    LOGIN
-============================ */
+========================= */
 
 async function entrarAdmin(){
 
   const email =
-    document.getElementById(
-      "email"
-    ).value.trim();
-
+    document
+      .getElementById("email")
+      .value
+      .trim();
 
   const senha =
-    document.getElementById(
-      "senha"
-    ).value;
-
+    document
+      .getElementById("senha")
+      .value;
 
   const mensagem =
     document.getElementById(
       "loginMessage"
     );
 
-
-  mensagem.textContent =
-    "";
-
+  mensagem.textContent = "";
 
   if(!email || !senha){
 
@@ -1499,7 +1699,6 @@ async function entrarAdmin(){
 
     return;
   }
-
 
   const {
     data,
@@ -1515,7 +1714,6 @@ async function entrarAdmin(){
 
       });
 
-
   if(error){
 
     mensagem.textContent =
@@ -1526,10 +1724,8 @@ async function entrarAdmin(){
     return;
   }
 
-
   const usuario =
     data.user;
-
 
   const {
     data:perfil,
@@ -1544,7 +1740,6 @@ async function entrarAdmin(){
       )
       .single();
 
-
   if(
     erroPerfil ||
     !perfil ||
@@ -1555,37 +1750,33 @@ async function entrarAdmin(){
       .auth
       .signOut();
 
-
     mensagem.textContent =
       "Este usuário não possui permissão de administrador.";
 
     return;
   }
 
+  document
+    .getElementById("loginArea")
+    .classList
+    .add("hidden");
 
-  document.getElementById(
-    "loginArea"
-  ).classList.add("hidden");
-
-
-  document.getElementById(
-    "adminArea"
-  ).classList.remove("hidden");
-
+  document
+    .getElementById("adminArea")
+    .classList
+    .remove("hidden");
 
   definirMesAtual();
 
-
   await carregarRegistros();
-
 
   iniciarAtualizacaoAdmin();
 }
 
 
-/* ============================
+/* =========================
    CARREGAR REGISTROS
-============================ */
+========================= */
 
 async function carregarRegistros(){
 
@@ -1594,20 +1785,15 @@ async function carregarRegistros(){
       "listaRegistros"
     );
 
-
   const periodo =
     obterPeriodoSelecionado();
 
-
   if(!periodo){
-
     return;
   }
 
-
   area.innerHTML =
     '<div class="empty">Carregando registros...</div>';
-
 
   const {
     data,
@@ -1632,7 +1818,6 @@ async function carregarRegistros(){
       )
       .limit(1000);
 
-
   if(error){
 
     area.innerHTML =
@@ -1644,14 +1829,11 @@ async function carregarRegistros(){
       +
       '</div>';
 
-
     return;
   }
 
-
   registrosAtuais =
     data || [];
-
 
   atualizarResumo();
 
@@ -1660,13 +1842,12 @@ async function carregarRegistros(){
   mostrarFuncionarios();
 
   mostrarRegistros();
-
 }
 
 
-/* ============================
-   CONTADOR ADMIN
-============================ */
+/* =========================
+   ATUALIZAÇÃO AUTOMÁTICA
+========================= */
 
 function iniciarAtualizacaoAdmin(){
 
@@ -1676,7 +1857,6 @@ function iniciarAtualizacaoAdmin(){
       intervaloAdmin
     );
   }
-
 
   intervaloAdmin =
     setInterval(
@@ -1705,15 +1885,14 @@ function iniciarAtualizacaoAdmin(){
 }
 
 
-/* ============================
+/* =========================
    RESUMO
-============================ */
+========================= */
 
 function atualizarResumo(){
 
   const registros =
     registrosAtuais;
-
 
   const funcionarios =
     [
@@ -1731,9 +1910,7 @@ function atualizarResumo(){
       )
     ];
 
-
   let totalMs = 0;
-
 
   registros.forEach(
     r => {
@@ -1744,18 +1921,15 @@ function atualizarResumo(){
     }
   );
 
-
   document.getElementById(
     "totalRegistros"
   ).textContent =
     registros.length;
 
-
   document.getElementById(
     "totalFuncionarios"
   ).textContent =
     funcionarios.length;
-
 
   document.getElementById(
     "totalHoras"
@@ -1766,9 +1940,9 @@ function atualizarResumo(){
 }
 
 
-/* ============================
+/* =========================
    HOJE
-============================ */
+========================= */
 
 function mostrarHoje(){
 
@@ -1777,10 +1951,8 @@ function mostrarHoje(){
       "listaHoje"
     );
 
-
   const hoje =
     dataHojeBanco();
-
 
   const registrosHoje =
     registrosAtuais.filter(
@@ -1789,7 +1961,6 @@ function mostrarHoje(){
         ===
         hoje
     );
-
 
   const funcionariosHoje =
     [
@@ -1807,9 +1978,7 @@ function mostrarHoje(){
       )
     ];
 
-
   let totalMsHoje = 0;
-
 
   registrosHoje.forEach(
     r => {
@@ -1820,18 +1989,15 @@ function mostrarHoje(){
     }
   );
 
-
   document.getElementById(
     "hojeFuncionarios"
   ).textContent =
     funcionariosHoje.length;
 
-
   document.getElementById(
     "hojeRegistros"
   ).textContent =
     registrosHoje.length;
-
 
   document.getElementById(
     "hojeHoras"
@@ -1839,7 +2005,6 @@ function mostrarHoje(){
     formatarDuracao(
       totalMsHoje
     );
-
 
   if(!registrosHoje.length){
 
@@ -1853,7 +2018,6 @@ function mostrarHoje(){
     return;
   }
 
-
   area.innerHTML =
     registrosHoje
       .map(
@@ -1862,13 +2026,10 @@ function mostrarHoje(){
           const latitude =
             r.latitude;
 
-
           const longitude =
             r.longitude;
 
-
           let mapa = "";
-
 
           if(
             latitude !== null &&
@@ -1888,12 +2049,12 @@ function mostrarHoje(){
                 longitude
               );
 
-
             mapa = `
 
               <div class="today-location">
 
                 <a
+                  class="btn-location"
                   href="${url}"
                   target="_blank"
                   rel="noopener">
@@ -1907,16 +2068,23 @@ function mostrarHoje(){
             `;
           }
 
-
           const saiu =
             !!r.saida;
-
 
           const duracao =
             formatarDuracao(
               duracaoRegistroMs(r)
             );
 
+          const statusClass =
+            saiu
+              ? "status-finished"
+              : "status-working";
+
+          const statusText =
+            saiu
+              ? "DIA FINALIZADO"
+              : "TRABALHANDO";
 
           return `
 
@@ -1933,14 +2101,10 @@ function mostrarHoje(){
 
                 </div>
 
+                <div
+                  class="today-status ${statusClass}">
 
-                <div class="today-status">
-
-                  ${
-                    saiu
-                      ? "DIA FINALIZADO"
-                      : "TRABALHANDO"
-                  }
+                  ${statusText}
 
                 </div>
 
@@ -1983,7 +2147,7 @@ function mostrarHoje(){
                 <div class="today-info-box">
 
                   <small>
-                    ⏱️ Horas trabalhadas
+                    ⏱️ Trabalhado
                   </small>
 
                   <strong>
@@ -2008,9 +2172,9 @@ function mostrarHoje(){
 }
 
 
-/* ============================
+/* =========================
    FUNCIONÁRIOS
-============================ */
+========================= */
 
 function mostrarFuncionarios(){
 
@@ -2018,7 +2182,6 @@ function mostrarFuncionarios(){
     document.getElementById(
       "listaFuncionarios"
     );
-
 
   const funcionarios =
     [
@@ -2037,7 +2200,6 @@ function mostrarFuncionarios(){
     ]
     .sort();
 
-
   if(!funcionarios.length){
 
     area.innerHTML =
@@ -2050,52 +2212,73 @@ function mostrarFuncionarios(){
     return;
   }
 
-
   area.innerHTML =
     funcionarios
       .map(
-        nome => `
+        nome => {
 
-          <div class="employee-row">
+          const inicial =
+            String(nome)
+              .trim()
+              .charAt(0)
+              .toUpperCase();
 
-            <div>
+          return `
 
-              <div class="employee-name">
+            <div class="employee-row">
 
-                ${escapeHtml(
-                  nome
-                )}
+              <div class="employee-left">
+
+                <div class="employee-avatar">
+
+                  ${escapeHtml(
+                    inicial
+                  )}
+
+                </div>
+
+                <div>
+
+                  <div class="employee-name">
+
+                    ${escapeHtml(
+                      nome
+                    )}
+
+                  </div>
+
+                  <div class="employee-note">
+
+                    Registros deste mês
+
+                  </div>
+
+                </div>
 
               </div>
 
-              <div class="employee-note">
 
-                Excluir funcionário remove TODOS os registros de ponto dele.
+              <button
+                class="btn-danger btn-small"
+                onclick='apagarFuncionario(${JSON.stringify(nome)})'>
 
-              </div>
+                🗑️ Apagar
+
+              </button>
 
             </div>
 
+          `;
 
-            <button
-              class="btn-danger btn-small"
-              onclick='apagarFuncionario(${JSON.stringify(nome)})'>
-
-              🗑️ Apagar
-
-            </button>
-
-          </div>
-
-        `
+        }
       )
       .join("");
 }
 
 
-/* ============================
+/* =========================
    REGISTROS
-============================ */
+========================= */
 
 function mostrarRegistros(){
 
@@ -2103,7 +2286,6 @@ function mostrarRegistros(){
     document.getElementById(
       "listaRegistros"
     );
-
 
   if(!registrosAtuais.length){
 
@@ -2117,7 +2299,6 @@ function mostrarRegistros(){
     return;
   }
 
-
   area.innerHTML =
     registrosAtuais
       .map(
@@ -2126,13 +2307,10 @@ function mostrarRegistros(){
           const latitude =
             r.latitude;
 
-
           const longitude =
             r.longitude;
 
-
           let mapa = "";
-
 
           if(
             latitude !== null &&
@@ -2152,7 +2330,6 @@ function mostrarRegistros(){
                 longitude
               );
 
-
             mapa = `
 
               <div class="location">
@@ -2171,12 +2348,23 @@ function mostrarRegistros(){
             `;
           }
 
-
           const duracao =
             formatarDuracao(
               duracaoRegistroMs(r)
             );
 
+          const saiu =
+            !!r.saida;
+
+          const statusClass =
+            saiu
+              ? "status-finished"
+              : "status-working";
+
+          const statusText =
+            saiu
+              ? "FINALIZADO"
+              : "TRABALHANDO";
 
           return `
 
@@ -2195,7 +2383,6 @@ function mostrarRegistros(){
 
                   </div>
 
-
                   <div class="date">
 
                     ${formatarData(
@@ -2203,6 +2390,14 @@ function mostrarRegistros(){
                     )}
 
                   </div>
+
+                </div>
+
+
+                <div
+                  class="record-status ${statusClass}">
+
+                  ${statusText}
 
                 </div>
 
@@ -2215,15 +2410,13 @@ function mostrarRegistros(){
                 <div class="info">
 
                   <small>
-                    Entrada
+                    🟢 Entrada
                   </small>
 
                   <strong>
-
                     ${formatarHora(
                       r.entrada
                     )}
-
                   </strong>
 
                 </div>
@@ -2232,15 +2425,13 @@ function mostrarRegistros(){
                 <div class="info">
 
                   <small>
-                    Saída
+                    🔴 Saída
                   </small>
 
                   <strong>
-
                     ${formatarHora(
                       r.saida
                     )}
-
                   </strong>
 
                 </div>
@@ -2249,13 +2440,11 @@ function mostrarRegistros(){
                 <div class="info">
 
                   <small>
-                    Horas trabalhadas
+                    ⏱️ Horas trabalhadas
                   </small>
 
                   <strong>
-
                     ${duracao}
-
                   </strong>
 
                 </div>
@@ -2289,17 +2478,15 @@ function mostrarRegistros(){
 }
 
 
-/* ============================
+/* =========================
    APAGAR REGISTRO
-============================ */
+========================= */
 
 async function apagarRegistro(id){
 
   if(!id){
-
     return;
   }
-
 
   const confirmar =
     confirm(
@@ -2308,12 +2495,9 @@ async function apagarRegistro(id){
       "Esta ação não pode ser desfeita."
     );
 
-
   if(!confirmar){
-
     return;
   }
-
 
   const {
     error
@@ -2326,7 +2510,6 @@ async function apagarRegistro(id){
         id
       );
 
-
   if(error){
 
     alert(
@@ -2338,27 +2521,23 @@ async function apagarRegistro(id){
     return;
   }
 
-
   alert(
     "Registro apagado com sucesso."
   );
-
 
   await carregarRegistros();
 }
 
 
-/* ============================
+/* =========================
    APAGAR FUNCIONÁRIO
-============================ */
+========================= */
 
 async function apagarFuncionario(nome){
 
   if(!nome){
-
     return;
   }
-
 
   const confirmar =
     confirm(
@@ -2375,12 +2554,9 @@ async function apagarFuncionario(nome){
       "e não poderá ser desfeito."
     );
 
-
   if(!confirmar){
-
     return;
   }
-
 
   const {
     error
@@ -2393,7 +2569,6 @@ async function apagarFuncionario(nome){
         nome
       );
 
-
   if(error){
 
     alert(
@@ -2405,19 +2580,17 @@ async function apagarFuncionario(nome){
     return;
   }
 
-
   alert(
     "Funcionário e seus registros foram apagados."
   );
-
 
   await carregarRegistros();
 }
 
 
-/* ============================
+/* =========================
    SAIR
-============================ */
+========================= */
 
 async function sairAdmin(){
 
@@ -2430,21 +2603,19 @@ async function sairAdmin(){
     intervaloAdmin = null;
   }
 
-
   await supabaseClient
     .auth
     .signOut();
 
+  document
+    .getElementById("adminArea")
+    .classList
+    .add("hidden");
 
-  document.getElementById(
-    "adminArea"
-  ).classList.add("hidden");
-
-
-  document.getElementById(
-    "loginArea"
-  ).classList.remove("hidden");
-
+  document
+    .getElementById("loginArea")
+    .classList
+    .remove("hidden");
 
   document.getElementById(
     "senha"
@@ -2452,9 +2623,9 @@ async function sairAdmin(){
 }
 
 
-/* ============================
+/* =========================
    SESSÃO AUTOMÁTICA
-============================ */
+========================= */
 
 supabaseClient.auth
   .getSession()
@@ -2462,14 +2633,11 @@ supabaseClient.auth
     async ({data}) => {
 
       if(!data.session){
-
         return;
       }
 
-
       const usuario =
         data.session.user;
-
 
       const {
         data:perfil
@@ -2483,27 +2651,24 @@ supabaseClient.auth
           )
           .single();
 
-
       if(
         perfil &&
         perfil.papel === "admin"
       ){
 
-        document.getElementById(
-          "loginArea"
-        ).classList.add("hidden");
+        document
+          .getElementById("loginArea")
+          .classList
+          .add("hidden");
 
-
-        document.getElementById(
-          "adminArea"
-        ).classList.remove("hidden");
-
+        document
+          .getElementById("adminArea")
+          .classList
+          .remove("hidden");
 
         definirMesAtual();
 
-
         await carregarRegistros();
-
 
         iniciarAtualizacaoAdmin();
 
@@ -2515,4 +2680,5 @@ supabaseClient.auth
 </script>
 
 </body>
+
 </html>
