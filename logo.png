@@ -1,2 +1,0 @@
-index.html
-logo.png
