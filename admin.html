@@ -1031,7 +1031,34 @@ button:disabled{
 
   </div>
 
+<!-- NOTIFICAÇÕES PUSH -->
 
+  <div class="card">
+
+    <div class="card-title">
+      <h2>🔔 Notificações no celular</h2>
+      <small>Merchant Ponto</small>
+    </div>
+
+    <p style="color:#94a3b8;font-size:13px;line-height:1.5">
+      Receba um aviso no iPhone sempre que um funcionário
+      registrar entrada ou saída.
+    </p>
+
+    <button
+      id="btnAtivarPush"
+      class="btn-primary"
+      onclick="ativarNotificacoes()">
+      🔔 Ativar notificações neste iPhone
+    </button>
+
+    <div
+      id="pushMessage"
+      class="message"
+      style="margin-top:12px">
+    </div>
+
+  </div>
   <!-- PERÍODO -->
 
   <div class="card">
@@ -1784,6 +1811,172 @@ async function entrarAdmin(){
 /* =========================
    CARREGAR REGISTROS
 ========================= */
+  /* =========================
+   NOTIFICAÇÕES PUSH
+========================= */
+
+const VAPID_PUBLIC_KEY =
+  "BLh2wYmW_bhRYAsSa6GHbk4JUNhUrHb0jUHq19oeFb508jBMcs6U0gj3vYnPswnzfrCCENzG3-DusKJGwkSizzw";
+
+function chaveVapidParaBytes(chave) {
+
+  const base64 = chave
+    .replace(/-/g, "+")
+    .replace(/_/g, "/");
+
+  const preenchida =
+    base64 + "=".repeat((4 - base64.length % 4) % 4);
+
+  const binario = atob(preenchida);
+
+  const bytes = new Uint8Array(binario.length);
+
+  for (let i = 0; i < binario.length; i++) {
+    bytes[i] = binario.charCodeAt(i);
+  }
+
+  return bytes;
+}
+
+async function ativarNotificacoes() {
+
+  const botao =
+    document.getElementById("btnAtivarPush");
+
+  const mensagem =
+    document.getElementById("pushMessage");
+
+  try {
+
+    if (
+      !("serviceWorker" in navigator) ||
+      !("PushManager" in window) ||
+      !("Notification" in window)
+    ) {
+      mensagem.textContent =
+        "Este aparelho ou navegador não oferece suporte. Abra o aplicativo instalado na tela inicial do iPhone.";
+      return;
+    }
+
+    if (!window.isSecureContext) {
+      mensagem.textContent =
+        "As notificações precisam de conexão segura HTTPS.";
+      return;
+    }
+
+    if (Notification.permission === "denied") {
+      mensagem.textContent =
+        "As notificações estão bloqueadas nas configurações do iPhone.";
+      return;
+    }
+
+    botao.disabled = true;
+    mensagem.textContent =
+      "Solicitando autorização...";
+
+    const permissao =
+      await Notification.requestPermission();
+
+    if (permissao !== "granted") {
+      mensagem.textContent =
+        "Permissão não concedida.";
+      return;
+    }
+
+    mensagem.textContent =
+      "Preparando notificações...";
+
+    const registro =
+      await navigator.serviceWorker.register(
+        "./service-worker.js"
+      );
+
+    await navigator.serviceWorker.ready;
+
+    let assinatura =
+      await registro.pushManager.getSubscription();
+
+    if (!assinatura) {
+      assinatura =
+        await registro.pushManager.subscribe({
+          userVisibleOnly: true,
+          applicationServerKey:
+            chaveVapidParaBytes(VAPID_PUBLIC_KEY)
+        });
+    }
+
+    const {
+      data: usuarioData,
+      error: erroUsuario
+    } = await supabaseClient.auth.getUser();
+
+    if (erroUsuario || !usuarioData.user) {
+      throw new Error(
+        "Faça login novamente como administrador."
+      );
+    }
+
+    const usuarioId = usuarioData.user.id;
+
+    const dadosAssinatura = {
+      admin_user_id: usuarioId,
+      endpoint: assinatura.endpoint,
+      subscription: assinatura.toJSON()
+    };
+
+    const {
+      data: existente,
+      error: erroBusca
+    } = await supabaseClient
+      .from("merchant_push_subscriptions")
+      .select("id")
+      .eq("endpoint", assinatura.endpoint)
+      .maybeSingle();
+
+    if (erroBusca) {
+      throw erroBusca;
+    }
+
+    let resultado;
+
+    if (existente) {
+
+      resultado = await supabaseClient
+        .from("merchant_push_subscriptions")
+        .update(dadosAssinatura)
+        .eq("id", existente.id);
+
+    } else {
+
+      resultado = await supabaseClient
+        .from("merchant_push_subscriptions")
+        .insert(dadosAssinatura);
+
+    }
+
+    if (resultado.error) {
+      throw resultado.error;
+    }
+
+    mensagem.textContent =
+      "✅ Notificações ativadas e aparelho cadastrado com sucesso!";
+
+    botao.textContent =
+      "✅ Notificações ativadas";
+
+  } catch (erro) {
+
+    console.error("Erro nas notificações:", erro);
+
+    mensagem.textContent =
+      "Não foi possível ativar: " + erro.message;
+
+  } finally {
+
+    botao.disabled = false;
+
+  }
+}
 
 async function carregarRegistros(){
 
